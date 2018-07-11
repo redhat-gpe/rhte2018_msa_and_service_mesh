@@ -1,0 +1,17 @@
+= MSA and Service Mesh Multi-Product Lab
+
+== Related session(s) at RHT Tech Exchange
+
+. Istio & Jaeger for Service Mesh on OCP
+.. Description
++
+Based on Christian Posta's book
+.. Duration:  1 hour
+.. Speakers:  TBD
+
+. Reactive Systems with RHOAR, Data Grid, AMQ and OCP
+.. Description:
++
+Showcasing our new OpenShift+Application Services bundle (Red Hat OpenShift Container Platform with Application Services) in the context of reactive systems development, with an overview and demo of how components work together to form truly distributed/reactive systems (not just reactive programming)
+. Duration: 1 hour
+. Speakers: TBD
