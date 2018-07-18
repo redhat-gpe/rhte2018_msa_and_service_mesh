@@ -15,3 +15,8 @@ Based on Christian Posta's book
 Showcasing our new OpenShift+Application Services bundle (Red Hat OpenShift Container Platform with Application Services) in the context of reactive systems development, with an overview and demo of how components work together to form truly distributed/reactive systems (not just reactive programming)
 . Duration: 1 hour
 . Speakers: TBD
+
+
+== Infrastructure
+
+.  Ansible should provision an OCP project per student and pre-deploy CoolStore services    (Hong)
