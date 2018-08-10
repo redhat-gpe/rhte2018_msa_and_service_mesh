@@ -1,22 +1,16 @@
 = MSA and Service Mesh Multi-Product Lab
 
-== Related session(s) at RHT Tech Exchange
+== Project Plan
 
-. Istio & Jaeger for Service Mesh on OCP
-.. Description
-+
-Based on Christian Posta's book
-.. Duration:  1 hour
-.. Speakers:  TBD
-
-. Reactive Systems with RHOAR, Data Grid, AMQ and OCP
-.. Description:
-+
-Showcasing our new OpenShift+Application Services bundle (Red Hat OpenShift Container Platform with Application Services) in the context of reactive systems development, with an overview and demo of how components work together to form truly distributed/reactive systems (not just reactive programming)
-. Duration: 1 hour
-. Speakers: TBD
-
-
-== Infrastructure
-
-.  Ansible should provision an OCP project per student and pre-deploy CoolStore services    (Hong)
+[width="100%",cols="1,5,1,3"options="header"]
+|==========================
+|Task						|   Status |     Notes
+| Lab 0: Setup					|   0%     |
+| Lab 1: Route Rules				|   0%     |
+| Lab 2: Fault Injection			|   0%     |
+| Lab 3: Circuit Breaking			|   0%     |
+| Lab 4: Egress Traffic				|   0%     |
+| Lab 5: Denials and White/Black Listing	|   0%     |
+| Lab 6: Smart Routing (Canary Deployment)	|   0%     |
+| Slides					|   0%     |
+|==========================
