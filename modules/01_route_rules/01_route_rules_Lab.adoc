@@ -22,6 +22,24 @@ In this lab, you will learn how to:
 * Inject sidecar proxies into applications which form a service mesh
 * Configure a service mesh to dynamically route and shape traffic to and from services
 
+== Environment Variables
+
+Before getting started, you'll want to open a terminal window and set the following environment variables that will be used throughout the duration of this lab.
+
+-----
+######  Instructor will provide the values to these environment variables #######
+
+$ export REGION=<provided by your instructor>
+$ export GUID=<provided by your instructor>
+$ export OCP_PASSWD=<provided by your instructor>
+
+#  Using above variables, copy & paste the following in same terminal #
+
+$ export OCP_USERNAME=user$GUID
+$ export OCP_GATEWAY_PROJECT=$OCP_USERNAME-coolstore-gateway
+$ export OCP_CATALOG_PROJECT=$OCP_USERNAME-coolstore-catalog
+-----
+
 == Deploy Catalog service version 1 (`v1`)
 
 Istio introduces the concept of a service version, which is a finer-grained way to subdivide
