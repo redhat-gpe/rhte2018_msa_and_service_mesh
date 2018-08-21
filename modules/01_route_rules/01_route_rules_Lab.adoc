@@ -38,8 +38,8 @@ provide additional control over traffic between services.
 oc create -n ${ISTIO_LAB_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Deployment.yml
 oc create -n ${ISTIO_LAB_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Service.yml
 ----
-
-* Since the catalog service is at the end of our service chain (`customer -> preference -> catalog`),
++
+Since the catalog service is at the end of our service chain (`customer -> preference -> catalog`),
 it is not exposed to the outside world.
 
 . Wait for it to completely roll out and receive a `deployment xxxxxx successfully rolled out` result:
