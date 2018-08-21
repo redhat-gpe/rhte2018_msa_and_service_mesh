@@ -52,7 +52,7 @@ oc rollout status -w deployment/catalog-v1
 > NOTE: The tag "v1" at the end of the deployment is important. We will be creating a v2 version of
 catalog later in this lab. Having both a v1 and v2 version of the catalog
 code will allow us to exercise some interesting aspects of Istio's capabilities.
-
++
 . Test the customer service again (which will call the preference service which in turn calls
 the catalog service). Now that it's all deployed, it should work:
 +
