@@ -186,9 +186,9 @@ for i in $(seq 10); do
 done
 ----
 
-Approximately half of the requests above go to `v1` and the other half to `v2`.
+* Approximately half of the requests above go to `v1` and the other half to `v2`.
 
-The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
+* The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
 available pods behind a single Service. 
 
 . Add another replica of `v2`:
