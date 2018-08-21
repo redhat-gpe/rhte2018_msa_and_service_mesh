@@ -98,7 +98,7 @@ for i in $(seq 10); do
 done
 ----
 
-Approximately half of the requests above go to `v1`, and half to `v2`.
+Approximately half of the requests above go to `v1` and the other half to `v2`.
 
 The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
 available pods behind a single Service. 
@@ -145,25 +145,22 @@ you also have new object types installed as part of Istio like `RouteRule`. Addi
 these objects to the running
 OpenShift cluster is how you configure routing rules for Istio.
 
-In this case, let's route all traffic to `v2`:
-
+. Route all traffic to `v2`:
 +
 [source,text]
 ----
 oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v2.yml -n ${ISTIO_LAB_PROJECT}
 ----
 
-Inspect the rule:
-
+. Inspect the rule:
 +
 [source,text]
 ----
 oc get routerule/catalog-default -o yaml
 ----
 
-And now access the `customer` service 10 times - all requests should end up talking to
+. Access the `customer` service 10 times - all requests should end up talking to
 `catalog:v2`:
-
 +
 [source,text]
 ----
@@ -174,18 +171,16 @@ done
 
 == Send all traffic to `catalog:v1`
 
-Now let's move everyone to `v1`:
-
+. Now let's move everyone to `v1`:
 +
 [source,text]
 ----
 oc replace -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${ISTIO_LAB_PROJECT}
 ----
++
+NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
 
-> NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
-
-And test again:
-
+. Run the test again:
 +
 [source,text]
 ----
@@ -193,20 +188,20 @@ for i in $(seq 10); do
   curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
 done
 ----
-
-All requests now to go `v1`.
++
+Notice how all requests now to go `v1`.
 
 Now let's go back to the start, and remove the rules to get back to default round-robin distribution
-of requests:
+of requests.
 
+. Remove route rules
 +
 [source,text]
 ----
 oc delete -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${ISTIO_LAB_PROJECT}
 ----
 
-And test again:
-
+. And test again:
 +
 [source,text]
 ----
@@ -214,7 +209,7 @@ for i in $(seq 10); do
   curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
 done
 ----
-
++
 Traffic should be equally split once again.
 
 == Use a Canary Deployment to slowly rollout `v2`
