@@ -117,8 +117,8 @@ provide additional control over traffic between services.
 +
 [source,text]
 ----
-oc create -n $OCP_CATALOG_PROJECT -f $$ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Deployment.yml
-oc create -n $OCP_CATALOG_PROJECT -f $$ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Service.yml
+oc create -n $OCP_CATALOG_PROJECT -f $ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Deployment.yml
+oc create -n $OCP_CATALOG_PROJECT -f $ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Service.yml
 ----
 +
 Since the catalog service is at the end of our service chain (`gateway -> catalog`),
@@ -160,7 +160,7 @@ service.
 +
 [source,text]
 ----
-oc create -n $OCP_CATALOG_PROJECT -f $$ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Deployment-v2.yml
+oc create -n $OCP_CATALOG_PROJECT -f $ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Deployment-v2.yml
 ----
 
 . You can see both versions of the catalog pods running using `oc get pods`:
@@ -237,7 +237,7 @@ OpenShift cluster is how you configure routing rules for Istio.
 +
 [source,text]
 ----
-oc create -f $$ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v2.yml -n $OCP_CATALOG_PROJECT
+oc create -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v2.yml -n $OCP_CATALOG_PROJECT
 ----
 
 . Inspect the rule:
