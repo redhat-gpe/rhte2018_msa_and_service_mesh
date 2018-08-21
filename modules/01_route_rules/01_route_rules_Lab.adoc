@@ -4,7 +4,7 @@
 :toc2:
 :linkattrs:
 
-= Route Rules Lab
+= Dynamic Routing with Istio
 
 == Overview
 
@@ -12,7 +12,7 @@ There are two microservices in this lab and they are chained together in the fol
 
 `gateway -> catalog`
 
-In this lab you'll dynamically alter routing between the services using Istio intelligent routing.
+In this lab you'll dynamically alter routing between the services using Istio.
 
 == Goals
 
