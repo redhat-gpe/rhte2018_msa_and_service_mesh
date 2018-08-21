@@ -40,6 +40,71 @@ $ export OCP_GATEWAY_PROJECT=$OCP_USERNAME-coolstore-gateway
 $ export OCP_CATALOG_PROJECT=$OCP_USERNAME-coolstore-catalog
 -----
 
+=== OpenShift access
+
+You lab environment is built on Red Hat's OpenShift Container Platform.
+
+Access to your OCP resources can be gained via both the `oc` utility as well as the OCP web console.
+
+. Log into OpenShift
++
+-----
+$ oc login https://master.$REGION.openshift.opentlc.com -u $OCP_USERNAME -p $OCP_PASSWD
+-----
+
+. Ensure that your `oc` client is the same minor release version as the server:
++
+-----
+$ oc version
+
+oc v3.9.30
+kubernetes v1.9.1+a0ce1bc657
+features: Basic-Auth GSSAPI Kerberos SPNEGO
+
+Server https://master.a4ec.openshift.opentlc.com:443
+openshift v3.9.31
+kubernetes v1.9.1+a0ce1bc657
+-----
+
+.. In the above example, notice that version of the `oc` client is of the same minor release (v3.9.30) of the OpenShift server (v3.9.31)
+.. There a known subtle problems with using a version of the `oc` client that is different from your target OpenShift server.
+
+. View existing projects:
++
+-----
+$ oc get projects
+
+NAME                      DISPLAY NAME              STATUS
+istio-system                                        Active
+userXX-coolstore-catalog   userXX-coolstore-catalog   Active
+userXX-coolstore-gateway   userXX-coolstore-gateway   Active
+-----
+
+.. Your OCP user has been provided with _view_ and _edit_ access to the central _istio-system_ namespace with all _control plane_ Istio functionality.
++
+Later in this lab, you'll use a utility called _istioctl_ .
+This utility will need both view and edit privileges to the _istio-system_ namespace.
+
+.. Your OCP use has also been provided with _view_ access to a multi-tenant 
+
+.. The namespace _userXX-coolstore-catalog_ is where you will be working throughout the duration of this lab.
+
+. Switch to the Catalog OpenShift project
++
+-----
+$ oc project $OCP_CATALOG_PROJECT
+-----
+
+. Log into OpenShift Web Console
+.. Many OpenShift related tasks found in this lab can be completed in the Web Console (as an alternative to using the `oc` utility`.
+.. To access, point to your browser to the output of the following:
++
+-----
+$ echo -en "\n\nhttps://master.$REGION.openshift.opentlc.com\n\n"
+-----
+
+.. Authenticate using the values of $OCP_USERNAME and $OCP_PASSWD
+
 == Deploy Catalog service version 1 (`v1`)
 
 Istio introduces the concept of a service version, which is a finer-grained way to subdivide
@@ -53,8 +118,8 @@ provide additional control over traffic between services.
 +
 [source,text]
 ----
-oc create -n ${ISTIO_LAB_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Deployment.yml
-oc create -n ${ISTIO_LAB_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Service.yml
+oc create -n ${OCP_CATALOG_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Deployment.yml
+oc create -n ${OCP_CATALOG_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Service.yml
 ----
 +
 Since the catalog service is at the end of our service chain (`gateway -> catalog`),
@@ -71,8 +136,14 @@ NOTE: The tag "v1" at the end of the deployment is important. We will be creatin
 catalog later in this lab. Having both a v1 and v2 version of the catalog
 code will allow us to exercise some interesting aspects of Istio's capabilities.
 
-. Test the customer service again (which will call the preference service which in turn calls
-the catalog service). Now that it's all deployed, it should work:
+. Get the URL for the gateway service
++
+[source,text]
+----
+export GATEWAY_SERVICE_URL=http://$(oc get route gateway-service -o template --template='{{.spec.host}}' -n $OCP_GATEWAY_PROJECT)
+----
+
+. Test the gateway service again (which will call the catalog service). Now that it's all deployed, it should work:
 +
 [source,text]
 ----
@@ -90,7 +161,7 @@ service.
 +
 [source,text]
 ----
-oc create -n ${ISTIO_LAB_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Deployment-v2.yml
+oc create -n ${OCP_CATALOG_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Deployment-v2.yml
 ----
 
 . You can see both versions of the catalog pods running using `oc get pods`:
@@ -167,7 +238,7 @@ OpenShift cluster is how you configure routing rules for Istio.
 +
 [source,text]
 ----
-oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v2.yml -n ${ISTIO_LAB_PROJECT}
+oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v2.yml -n ${OCP_CATALOG_PROJECT}
 ----
 
 . Inspect the rule:
@@ -193,7 +264,7 @@ done
 +
 [source,text]
 ----
-oc replace -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${ISTIO_LAB_PROJECT}
+oc replace -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${OCP_CATALOG_PROJECT}
 ----
 +
 NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
@@ -216,7 +287,7 @@ of requests.
 +
 [source,text]
 ----
-oc delete -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${ISTIO_LAB_PROJECT}
+oc delete -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${OCP_CATALOG_PROJECT}
 ----
 
 . And test again:
@@ -237,7 +308,7 @@ To start the process, let's send 10% of the users to the `v2` version, to do a c
 +
 [source,text]
 ----
-oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1_and_v2.yml -n ${ISTIO_LAB_PROJECT}
+oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1_and_v2.yml -n ${OCP_CATALOG_PROJECT}
 ----
 
 Inspect the rule:
@@ -269,7 +340,7 @@ Now let's move it to a 75/25 split:
 +
 [source,text]
 ----
-oc replace -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1_and_v2_75_25.yml -n ${ISTIO_LAB_PROJECT}
+oc replace -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1_and_v2_75_25.yml -n ${OCP_CATALOG_PROJECT}
 ----
 
 And issue 10 more requests:
@@ -290,7 +361,7 @@ Let's remove the route rules before moving on:
 +
 [source,text]
 ----
-oc delete routerule --all -n ${ISTIO_LAB_PROJECT}
+oc delete routerule --all -n ${OCP_CATALOG_PROJECT}
 ----
 
 == Congratulations!
