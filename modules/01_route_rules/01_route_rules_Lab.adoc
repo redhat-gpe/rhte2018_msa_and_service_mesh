@@ -85,8 +85,8 @@ NAME                                 READY     STATUS    RESTARTS   AGE
 catalog-v1-60483540-9snd9     2/2       Running   0          12m
 catalog-v2-2815683430-vpx4p   2/2       Running   0          15s
 ----
-
-* By default, Istio will round-robin incoming requests to the Catalog _Service_
++
+By default, Istio will round-robin incoming requests to the Catalog _Service_
 so that both `v1` and `v2` pods get equal amounts of traffic:
 
 . Send requests to the catalog service
