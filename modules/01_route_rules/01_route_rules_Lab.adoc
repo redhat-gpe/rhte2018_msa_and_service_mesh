@@ -247,7 +247,7 @@ oc create -f $$ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v2.yml -n $OCP_C
 oc get routerule/catalog-default -o yaml
 ----
 
-. Access the `customer` service 10 times - all requests should end up talking to
+. Access the `gateway` service 10 times - all requests should end up talking to
 `catalog:v2`:
 +
 [source,text]
