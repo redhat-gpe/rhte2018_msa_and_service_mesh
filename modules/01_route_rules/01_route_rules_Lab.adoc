@@ -279,10 +279,8 @@ done
 +
 Notice how all requests now to go `v1`.
 
-* Now let's go back to the start, and remove the rules to get back to default round-robin distribution
+. Remove the route rules to get back to default round-robin distribution
 of requests.
-
-. Remove the route rules
 +
 [source,text]
 ----
