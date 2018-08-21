@@ -30,12 +30,11 @@ Before getting started, you'll want to open a terminal window and set the follow
 ######  Instructor will provide the values to these environment variables #######
 
 $ export REGION=<provided by your instructor>
-$ export GUID=<provided by your instructor>
+$ export OCP_USERNAME=<provided by your instructor>
 $ export OCP_PASSWD=<provided by your instructor>
 
 #  Using above variables, copy & paste the following in same terminal #
 
-$ export OCP_USERNAME=user$GUID
 $ export OCP_GATEWAY_PROJECT=$OCP_USERNAME-coolstore-gateway
 $ export OCP_CATALOG_PROJECT=$OCP_USERNAME-coolstore-catalog
 -----
@@ -118,8 +117,8 @@ provide additional control over traffic between services.
 +
 [source,text]
 ----
-oc create -n ${OCP_CATALOG_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Deployment.yml
-oc create -n ${OCP_CATALOG_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Service.yml
+oc create -n $OCP_CATALOG_PROJECT -f $$ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Deployment.yml
+oc create -n $OCP_CATALOG_PROJECT -f $$ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Service.yml
 ----
 +
 Since the catalog service is at the end of our service chain (`gateway -> catalog`),
@@ -147,7 +146,7 @@ export GATEWAY_SERVICE_URL=http://$(oc get route gateway-service -o template --t
 +
 [source,text]
 ----
-curl ${GATEWAY_SERVICE_URL}
+curl $GATEWAY_SERVICE_URL
 ----
 
 . You should see: `TODO: catalog json data`
@@ -161,7 +160,7 @@ service.
 +
 [source,text]
 ----
-oc create -n ${OCP_CATALOG_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Deployment-v2.yml
+oc create -n $OCP_CATALOG_PROJECT -f $$ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Deployment-v2.yml
 ----
 
 . You can see both versions of the catalog pods running using `oc get pods`:
@@ -183,7 +182,7 @@ so that both `v1` and `v2` pods get equal amounts of traffic:
 [source,text]
 ----
 for i in $(seq 10); do
-  curl ${GATEWAY_SERVICE_URL}
+  curl $GATEWAY_SERVICE_URL
 done
 ----
 
@@ -204,7 +203,7 @@ oc scale --replicas=2 deployment/catalog-v2
 [source,text]
 ----
 for i in $(seq 10); do
-  curl ${GATEWAY_SERVICE_URL}
+  curl $GATEWAY_SERVICE_URL
 done
 ----
 
@@ -238,7 +237,7 @@ OpenShift cluster is how you configure routing rules for Istio.
 +
 [source,text]
 ----
-oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v2.yml -n ${OCP_CATALOG_PROJECT}
+oc create -f $$ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v2.yml -n $OCP_CATALOG_PROJECT
 ----
 
 . Inspect the rule:
@@ -254,7 +253,7 @@ oc get routerule/catalog-default -o yaml
 [source,text]
 ----
 for i in $(seq 10); do
-  curl ${GATEWAY_SERVICE_URL}
+  curl $GATEWAY_SERVICE_URL
 done
 ----
 
@@ -264,7 +263,7 @@ done
 +
 [source,text]
 ----
-oc replace -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${OCP_CATALOG_PROJECT}
+oc replace -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v1.yml -n $OCP_CATALOG_PROJECT
 ----
 +
 NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
@@ -274,7 +273,7 @@ NOTE: We use `oc replace` instead of `oc create` since we are overlaying the pre
 [source,text]
 ----
 for i in $(seq 10); do
-  curl ${GATEWAY_SERVICE_URL}
+  curl $GATEWAY_SERVICE_URL
 done
 ----
 +
@@ -287,7 +286,7 @@ of requests.
 +
 [source,text]
 ----
-oc delete -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${OCP_CATALOG_PROJECT}
+oc delete -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v1.yml -n $OCP_CATALOG_PROJECT
 ----
 
 . And test again:
@@ -295,7 +294,7 @@ oc delete -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${OCP
 [source,text]
 ----
 for i in $(seq 10); do
-  curl ${GATEWAY_SERVICE_URL}
+  curl $GATEWAY_SERVICE_URL
 done
 ----
 +
@@ -308,7 +307,7 @@ To start the process, let's send 10% of the users to the `v2` version, to do a c
 +
 [source,text]
 ----
-oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1_and_v2.yml -n ${OCP_CATALOG_PROJECT}
+oc create -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v1_and_v2.yml -n $OCP_CATALOG_PROJECT
 ----
 
 Inspect the rule:
@@ -327,7 +326,7 @@ Now let's send in 10 requests:
 [source,text]
 ----
 for i in $(seq 10); do
-  curl ${GATEWAY_SERVICE_URL}
+  curl $GATEWAY_SERVICE_URL
 done
 ----
 
@@ -340,7 +339,7 @@ Now let's move it to a 75/25 split:
 +
 [source,text]
 ----
-oc replace -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1_and_v2_75_25.yml -n ${OCP_CATALOG_PROJECT}
+oc replace -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v1_and_v2_75_25.yml -n $OCP_CATALOG_PROJECT
 ----
 
 And issue 10 more requests:
@@ -349,7 +348,7 @@ And issue 10 more requests:
 [source,text]
 ----
 for i in $(seq 10); do
-  curl ${GATEWAY_SERVICE_URL}
+  curl $GATEWAY_SERVICE_URL
 done
 ----
 
@@ -361,7 +360,7 @@ Let's remove the route rules before moving on:
 +
 [source,text]
 ----
-oc delete routerule --all -n ${OCP_CATALOG_PROJECT}
+oc delete routerule --all -n $OCP_CATALOG_PROJECT
 ----
 
 == Congratulations!
