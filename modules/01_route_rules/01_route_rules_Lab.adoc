@@ -39,7 +39,7 @@ oc create -n ${ISTIO_LAB_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kube
 oc create -n ${ISTIO_LAB_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Service.yml
 ----
 +
-Since the catalog service is at the end of our service chain (`customer -> preference -> catalog`),
+Since the catalog service is at the end of our service chain (`gateway -> catalog`),
 it is not exposed to the outside world.
 
 . Wait for it to completely roll out and receive a `deployment xxxxxx successfully rolled out` result:
@@ -58,7 +58,7 @@ the catalog service). Now that it's all deployed, it should work:
 +
 [source,text]
 ----
-curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+curl ${GATEWAY_SERVICE_URL}
 ----
 
 . You should see: `TODO: catalog json data`
@@ -94,7 +94,7 @@ so that both `v1` and `v2` pods get equal amounts of traffic:
 [source,text]
 ----
 for i in $(seq 10); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl ${GATEWAY_SERVICE_URL}
 done
 ----
 
@@ -115,7 +115,7 @@ oc scale --replicas=2 deployment/catalog-v2
 [source,text]
 ----
 for i in $(seq 10); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl ${GATEWAY_SERVICE_URL}
 done
 ----
 
@@ -165,7 +165,7 @@ oc get routerule/catalog-default -o yaml
 [source,text]
 ----
 for i in $(seq 10); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl ${GATEWAY_SERVICE_URL}
 done
 ----
 
@@ -185,7 +185,7 @@ NOTE: We use `oc replace` instead of `oc create` since we are overlaying the pre
 [source,text]
 ----
 for i in $(seq 10); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl ${GATEWAY_SERVICE_URL}
 done
 ----
 +
@@ -206,7 +206,7 @@ oc delete -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v1.yml -n ${IST
 [source,text]
 ----
 for i in $(seq 10); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl ${GATEWAY_SERVICE_URL}
 done
 ----
 +
@@ -238,7 +238,7 @@ Now let's send in 10 requests:
 [source,text]
 ----
 for i in $(seq 10); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl ${GATEWAY_SERVICE_URL}
 done
 ----
 
@@ -260,7 +260,7 @@ And issue 10 more requests:
 [source,text]
 ----
 for i in $(seq 10); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl ${GATEWAY_SERVICE_URL}
 done
 ----
 
