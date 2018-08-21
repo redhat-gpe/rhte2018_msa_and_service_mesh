@@ -31,8 +31,7 @@ in different environments (prod, staging, dev, etc.). Common scenarios where thi
 A/B testing or canary rollouts. Istio’s https://istio.io/docs/concepts/traffic-management/rules-configuration.html[traffic routing rules, window="_blank"] can refer to service versions to
 provide additional control over traffic between services.
 
-Let's deploy the catalog `v1` pod with its sidecar.
-
+. Deploy the catalog `v1` pod with its sidecar.
 +
 [source,text]
 ----
@@ -43,8 +42,7 @@ oc create -n ${ISTIO_LAB_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kube
 Since the catalog service is at the end of our service chain (`customer -> preference -> catalog`),
 it is not exposed to the outside world.
 
-Wait for it to completely roll out and receive a `deployment xxxxxx successfully rolled out` result:
-
+. Wait for it to completely roll out and receive a `deployment xxxxxx successfully rolled out` result:
 +
 [source,text]
 ----
@@ -55,30 +53,29 @@ oc rollout status -w deployment/catalog-v1
 catalog later in this lab. Having both a v1 and v2 version of the catalog
 code will allow us to exercise some interesting aspects of Istio's capabilities.
 
-Now, test the customer service again (which will call the preference service which in turn calls
+. Test the customer service again (which will call the preference service which in turn calls
 the catalog service). Now that it's all deployed, it should work:
-
 +
 [source,text]
 ----
 curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
 ----
 
-You should see: `TODO: catalog json data`
+. You should see: `TODO: catalog json data`
 
 == Deploy Catalog service version 2 (`v2`)
 
 We can experiment with Istio routing rules by deploying a second version of the catalog
-service:
+service.
 
+. Deploy Catalog service version 2 
 +
 [source,text]
 ----
 oc create -n ${ISTIO_LAB_PROJECT} -f ${ISTIO_LAB_HOME}/src/catalog/src/main/kubernetes/Deployment-v2.yml
 ----
 
-You can see both versions of the catalog pods running using `oc get pods`:
-
+. You can see both versions of the catalog pods running using `oc get pods`:
 +
 [source,text]
 ----
@@ -87,12 +84,12 @@ oc get pods -l app=catalog
 NAME                                 READY     STATUS    RESTARTS   AGE
 catalog-v1-60483540-9snd9     2/2       Running   0          12m
 catalog-v2-2815683430-vpx4p   2/2       Running   0          15s
-
 ----
 
 By default, Istio will round-robin incoming requests to the Catalog _Service_
 so that both `v1` and `v2` pods get equal amounts of traffic:
 
+. Send requests to the catalog service
 +
 [source,text]
 ----
@@ -104,17 +101,16 @@ done
 Approximately half of the requests above go to `v1`, and half to `v2`.
 
 The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
-available pods behind a single Service. Add another replica of `v2`:
+available pods behind a single Service. 
 
-
+. Add another replica of `v2`:
 +
 [source,text]
 ----
 oc scale --replicas=2 deployment/catalog-v2
 ----
 
-Now, you will see double the number of requests to `v2` than for `v1`:
-
+. Now, you will see double the number of requests to `v2` than for `v1`:
 +
 [source,text]
 ----
@@ -123,8 +119,7 @@ for i in $(seq 10); do
 done
 ----
 
-Go back to 1 copy:
-
+. Go back to 1 copy:
 +
 [source,text]
 ----
