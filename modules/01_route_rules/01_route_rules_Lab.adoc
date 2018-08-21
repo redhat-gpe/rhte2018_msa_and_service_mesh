@@ -10,7 +10,7 @@
 
 There are two microservices in this lab and they are chained together in the following sequence:
 
-gateway -> catalog
+`gateway -> catalog`
 
 In this lab you'll dynamically alter routing between the services using Istio intelligent routing.
 
