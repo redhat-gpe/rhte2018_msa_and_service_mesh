@@ -117,9 +117,9 @@ for i in $(seq 20); do
   curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
 done
 ----
-
-NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. Just run the above command again if you see any `503`'s. You should eventually not see any.
 +
+NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. Just run the above command again if you see any `503`'s. You should eventually not see any.
+
 . Cleanup the retries and injected faults:
 +
 ----
