@@ -6,11 +6,9 @@
 |==========================
 |Task	|   Status |     Notes
 | link:modules/00_setup/00_setup_Lab.adoc[Lab 0: Setup]					|   0%     |
-| link:modules/01_route_rules/01_route_rules_Lab.adoc[Lab 1: Route Rules]		|   0%     |
+| link:modules/01_route_rules/01_route_rules_Lab.adoc[Lab 1: Route Rules]		|   30%     |
 | link:modules/02_fault_injection/02_fault_injection_Lab.adoc[Lab 2: Fault Injection]	|   0%     |
 | link:modules/03_circuit_breaker/03_circuit_breaker_Lab.adoc[Lab 3: Circuit Breaker]	|   0%     |
 | link:modules/04_egress_traffic/04_egress_traffic_Lab.adoc[Lab 4: Egress Traffic]	|   0%     |
-| link:modules/05_denials_white_black_listing/05_denials_white_black_listing_Lab.adoc[Lab 5: Denials and White/Black Listing]	|   0%     |
-| link:modules/06_smart_routing_canary_deployment/06_smart_routing_canary_deployment_Lab.adoc[Lab 6: Smart Routing (Canary Deployment)]	|   0%     |
 | Slides		|   0%     |
 |==========================
