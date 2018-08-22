@@ -7,8 +7,8 @@
 |Task	|   Status |     Notes
 | link:modules/00_setup/00_setup_Lab.adoc[Lab 0: Setup]					|   0%     |
 | link:modules/01_route_rules/01_route_rules_Lab.adoc[Lab 1: Route Rules]		|   40%     |
-| link:modules/02_fault_injection/02_fault_injection_Lab.adoc[Lab 2: Fault Injection]	|   40%     |
-| link:modules/03_circuit_breaker/03_circuit_breaker_Lab.adoc[Lab 3: Circuit Breaker]	|   0%     |
-| link:modules/04_egress_traffic/04_egress_traffic_Lab.adoc[Lab 4: Egress Traffic]	|   0%     |
+| link:modules/02_advanced_route_rules/02_advanced_route_rules_Lab.adoc[Lab 2: Advanced Route Rules]	|   0%     |
+| link:modules/03_fault_injection/02_fault_injection_Lab.adoc[Lab 3: Fault Injection]	|   40%     |
+| link:modules/04_circuit_breaker/03_circuit_breaker_Lab.adoc[Lab 4: Circuit Breaker]	|   0%     |
 | Slides		|   0%     |
 |==========================
