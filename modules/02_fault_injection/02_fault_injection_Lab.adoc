@@ -76,12 +76,58 @@ the Jaeger console once again (see above for how to access the URL).
 
 . Select `recommendation` from the **Service** drop-down and click **Find Traces**.
 
-* Some traces are fast, but some traces will show the delay:
-+
-image::images/delay.png[]
+* Some traces are fast, but some traces will show the delay: TODO: add trace image
 
 . Remove the delay:
 +
 ----
 oc delete routerule/recommendation-delay -n ${ISTIO_LAB_PROJECT}
 ----
+
+== Retry
+
+Here we can force Istio to retry failed service calls so that the application doesn't have to deal with retrying.
+
+We will use Istio and return HTTP Error 503 about 50% of the time. 
+
+. Send all users to `v2` which will throw out some 503’s:
++
+----
+oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-recommendation-v2_503.yml -n ${ISTIO_LAB_PROJECT}
+----
+
+. Access the customer endpoint several times, you should see some 503’s:
++
+----
+for i in $(seq 20); do
+  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+done
+----
+
+. Add the retry rule to make Istio retry when a 503 is received:
++
+----
+oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-recommendation-v2_retry.yml -n ${ISTIO_LAB_PROJECT}
+----
+
+. After a few seconds, things will settle down and the calls should succeed 100% of the time as Istio will retry whenever a 503 is received:
++
+----
+for i in $(seq 20); do
+  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+done
+----
+
+NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. Just run the above command again if you see any `503`'s. You should eventually not see any.
+
+. Cleanup the retries and injected faults:
++
+----
+oc delete routerule/recommendation-v2-retry routerule/recommendation-v2-503  -n ${ISTIO_LAB_PROJECT}
+----
+
+== References
+
+* https://openshift.com[Red Hat OpenShift, window="_blank"]
+* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift, window="_blank"]
+* https://istio.io[Istio Homepage, window="_blank"]

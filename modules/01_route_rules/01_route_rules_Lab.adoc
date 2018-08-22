@@ -388,7 +388,7 @@ In this lab you learned how to deploy microservices to form a _service mesh_ usi
 You also learned how to do traffic shaping and routing using _Route Rules_ which instruct
 the Istio sidecar proxies to distribute traffic according to specified policy.
 
-# References
+== References
 
 * https://openshift.com[Red Hat OpenShift, window="_blank"]
 * https://learn.openshift.com/servicemesh[Learn Istio on OpenShift, window="_blank"]
