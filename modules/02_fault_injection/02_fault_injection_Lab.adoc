@@ -16,8 +16,7 @@ recovery features that can be taken advantage of by the services in an applicati
 * Active (periodic) health checks on each member of the load balancing pool
 * Fine-grained circuit breakers (passive health checks) – applied per instance in the load balancing pool
 
-Together, these features enable the service mesh to tolerate failing nodes and prevent localized failures
-from cascading instability to other nodes.
+Together, these features enable the service mesh to tolerate failing nodes and prevent localized failures from cascading instability to other nodes.
 
 == Goals
 
@@ -28,28 +27,28 @@ In this lab, you will learn how to:
 
 == HTTP Error 503
 
-By default, recommendation v1 and v2 are being randomly load-balanced as that is the default behavior in Kubernetes/OpenShift.
+By default, catalog v1 and v2 are being randomly load-balanced as that is the default behavior in Kubernetes/OpenShift.
 
 . Inject 503’s, for approximately 50% of the requests:
 +
 -----
-oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-recommendation-503.yml -n ${ISTIO_LAB_PROJECT}
+oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-503.yml -n ${ISTIO_LAB_PROJECT}
 -----
 
 . After a few seconds, access the service 10 times:
 +
 -----
 for i in $(seq 10); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl "http://gateway-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
 done
 -----
 
-* You should see about half the time a failure `customer => 503 preference => 503 fault filter abort`.
+* You should see about half the time a failure `gateway => 503 fault filter abort`.
 
 . Remove the fault injector:
 +
 -----
-oc delete routerule/recommendation-503 -n ${ISTIO_LAB_PROJECT}
+oc delete routerule/catalog-503 -n ${ISTIO_LAB_PROJECT}
 -----
 
 == Delay
@@ -59,30 +58,30 @@ The most insidious of possible distributed computing faults is not a "down" serv
 . Inject a delay:
 +
 -----
-oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-recommendation-delay.yml -n ${ISTIO_LAB_PROJECT}
+oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-delay.yml -n ${ISTIO_LAB_PROJECT}
 -----
 
-. Now access the customer endpoint repeatedly:
+. Now access the gateway endpoint repeatedly:
 +
 -----
 while true; do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl "http://gateway-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
 done
 -----
 
-* You will notice many requests to the customer endpoint now have a delay (the rule injects a 7 second delay half the time when the `recommendation` service is called).
+* You will notice many requests to the gateway endpoint now have a delay (the rule injects a 7 second delay half the time when the `catalog` service is called).
 
 . You can also see this in Jaeger by opening
 the Jaeger console once again (see above for how to access the URL).
 
-. Select `recommendation` from the **Service** drop-down and click **Find Traces**.
+. Select `catalog` from the **Service** drop-down and click **Find Traces**.
 
 * Some traces are fast, but some traces will show the delay: TODO: add trace image
 
 . Remove the delay:
 +
 ----
-oc delete routerule/recommendation-delay -n ${ISTIO_LAB_PROJECT}
+oc delete routerule/catalog-delay -n ${ISTIO_LAB_PROJECT}
 ----
 
 == Retry
@@ -92,28 +91,28 @@ Here we can force Istio to retry failed service calls so that the application do
 . Send all users to `v2` which will throw out some 503’s:
 +
 ----
-oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-recommendation-v2_503.yml -n ${ISTIO_LAB_PROJECT}
+oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v2_503.yml -n ${ISTIO_LAB_PROJECT}
 ----
 
-. Access the customer endpoint several times, you should see some 503’s:
+. Access the gateway endpoint several times, you should see some 503’s:
 +
 ----
 for i in $(seq 20); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl "http://gateway-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
 done
 ----
 
 . Add the retry rule to make Istio retry when a 503 is received:
 +
 ----
-oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-recommendation-v2_retry.yml -n ${ISTIO_LAB_PROJECT}
+oc create -f ${ISTIO_LAB_HOME}/src/istiofiles/route-rule-catalog-v2_retry.yml -n ${ISTIO_LAB_PROJECT}
 ----
 
 . After a few seconds, things will settle down and the calls should succeed 100% of the time as Istio will retry whenever a 503 is received:
 +
 ----
 for i in $(seq 20); do
-  curl "http://customer-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
+  curl "http://gateway-${ISTIO_LAB_PROJECT}.{{APPS_SUFFIX}}"
 done
 ----
 +
@@ -122,7 +121,7 @@ NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. J
 . Cleanup the retries and injected faults:
 +
 ----
-oc delete routerule/recommendation-v2-retry routerule/recommendation-v2-503  -n ${ISTIO_LAB_PROJECT}
+oc delete routerule/catalog-v2-retry routerule/catalog-v2-503  -n ${ISTIO_LAB_PROJECT}
 ----
 
 == References
