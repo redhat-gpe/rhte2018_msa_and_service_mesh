@@ -119,7 +119,7 @@ done
 ----
 
 NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. Just run the above command again if you see any `503`'s. You should eventually not see any.
-
++
 . Cleanup the retries and injected faults:
 +
 ----
