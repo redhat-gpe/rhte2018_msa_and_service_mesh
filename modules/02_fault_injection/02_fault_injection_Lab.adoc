@@ -24,6 +24,7 @@ from cascading instability to other nodes.
 In this lab, you will learn how to:
 
 * Apply chaos engineering by injecting HTTP errors and network delays. 
+* Configure Istio to retry failed service calls
 
 == HTTP Error 503
 
@@ -86,9 +87,7 @@ oc delete routerule/recommendation-delay -n ${ISTIO_LAB_PROJECT}
 
 == Retry
 
-Here we can force Istio to retry failed service calls so that the application doesn't have to deal with retrying.
-
-We will use Istio and return HTTP Error 503 about 50% of the time. 
+Here we can force Istio to retry failed service calls so that the application doesn't have to deal with retrying. We will use Istio and return HTTP Error 503 about 50% of the time. 
 
 . Send all users to `v2` which will throw out some 503’s:
 +
