@@ -5,3 +5,11 @@
 :linkattrs:
 
 = Circuit Breaker Lab
+
+TODO
+
+== References
+
+* https://openshift.com[Red Hat OpenShift, window="_blank"]
+* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift, window="_blank"]
+* https://istio.io[Istio Homepage, window="_blank"]
