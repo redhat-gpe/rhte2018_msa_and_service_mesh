@@ -80,8 +80,8 @@ the Jaeger console once again (see above for how to access the URL).
 
 image::images/delay.png[]
 
-Remove the delay:
-
-~~~bash
+. Remove the delay:
++
+----
 oc delete routerule/recommendation-delay -n ${ISTIO_LAB_PROJECT}
-~~~
+----
