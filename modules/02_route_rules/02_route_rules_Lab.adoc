@@ -182,7 +182,7 @@ catalog => partner => gateway v2 from '99634814-sf4cl': 37
 catalog => partner => gateway v2 from '99634814-sf4cl': 38
 ----
 
-. Scale back to a single replica of the catalog-v2 Deployment:
+. Scale back to a single pod for the `catalog-v2` deployment:
 +
 ----
 oc scale --replicas=1 deployment/catalog-v2
