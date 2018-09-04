@@ -174,7 +174,7 @@ oc scale --replicas=2 deployment/catalog-v2
 ~/rhte-msa-and-service-mesh/scripts/run.sh
 ----
 
-* Expect to see the following output:
+* You should see:
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hj8xl': 8
@@ -224,7 +224,7 @@ istioctl create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PR
 scripts/run.sh
 ----
 +
-* Expect to see the following output:
+* You should see:
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hj8xl': 17
@@ -257,7 +257,7 @@ NOTE: We use `oc replace` instead of `oc create` since we are overlaying the pre
 scripts/run.sh
 ----
 +
-* Notice how all requests now to go `v1`.
+* You should see:
 +
 ----
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 17
@@ -271,6 +271,8 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 24
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 25
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 26
 ----
++
+* Notice how all requests now to go `v1`.
 
 . Remove the route rules to get back to default round-robin distribution
 of requests.
@@ -285,11 +287,13 @@ oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
 scripts/run.sh
 ----
 +
-* Traffic should be equally split once again between v1 and v2.
+* You should see:
 +
 ----
 TODO
 ----
++
+* Traffic should be equally split once again between v1 and v2.
 
 == Smart routing based on user's web browser
 
