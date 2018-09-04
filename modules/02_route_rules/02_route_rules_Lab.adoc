@@ -235,7 +235,11 @@ oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
 scripts/run.sh
 ----
 +
-Traffic should be equally split once again between v1 and v2.
+* Traffic should be equally split once again between v1 and v2.
++
+----
+TODO
+----
 
 == Use a Canary Deployment to slowly rollout `v2`
 
@@ -276,7 +280,7 @@ traffic over to the new version as it proves its worth in production over time.
 +
 [source,text]
 ----
-./scripts/clean.sh $OCP_TUTORIAL_PROJECT
+scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
 
 == Congratulations!
