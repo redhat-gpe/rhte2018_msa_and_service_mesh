@@ -10,11 +10,11 @@
 
 This exercise shows how to inject faults and test the resiliency of your application. Istio provides a set of failure recovery features that can be taken advantage of by the services in an application. Features include:
 
-    Timeouts
-    Bounded retries with timeout budgets and variable jitter between retries
-    Limits on number of concurrent connections and requests to upstream services
-    Active (periodic) health checks on each member of the load balancing pool
-    Fine-grained circuit breakers (passive health checks) – applied per instance in the load balancing pool
+* Timeouts
+* Bounded retries with timeout budgets and variable jitter between retries
+* Limits on number of concurrent connections and requests to upstream services
+* Active (periodic) health checks on each member of the load balancing pool
+* Fine-grained circuit breakers (passive health checks) – applied per instance in the load balancing pool
 
 Together, these features enable the service mesh to tolerate failing nodes and prevent localized failures from cascading instability to other nodes.
 
