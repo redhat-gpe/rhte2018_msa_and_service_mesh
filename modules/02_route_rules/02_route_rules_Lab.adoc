@@ -261,8 +261,8 @@ istioctl create -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PR
 ----
 istioctl replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n tutorial
 ----
-
-Based on these settings, Safari users will only see v2 responses from catalog. Note, this also applies to Chrome on the Mac since it includes Safari in the string. Users of the Firefox browser, it should only see v1 responses from catlog.
++
+* Based on these settings, Safari users will only see v2 responses from catalog. Note, this also applies to Chrome on the Mac since it includes Safari in the string. Users of the Firefox browser, it should only see v1 responses from catlog.
 
 . Simulate web browser requests using the curl command. This is for Safari users
 +
