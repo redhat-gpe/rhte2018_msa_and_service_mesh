@@ -289,39 +289,17 @@ scripts/run.sh
 +
 * Traffic should be equally split once again between `v1` and `v2`.
 
-. Clean up routing rules
-+
-----
-scripts/clean.sh $OCP_TUTORIAL_PROJECT
-----
-
 == Use a Canary Deployment to slowly rollout `v2`
 
 Canary Deployment scenario: push v2 into the cluster but slowly send end-user traffic to it, if you continue to see success, continue shifting more traffic over time.
 
-. Create the virtualservice that will send 90% of requests to v1 and 10% to v2:
+. Create the virtualservice that will send 75% of requests to v1 and 25% to v2:
 +
 ----
-istioctl create -f istiofiles/virtual-service-catalog-v1_and_v2.yml -n $OCP_TUTORIAL_PROJECT
+istioctl create -f istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
-. Now let's send in 10 requests:
-+
-----
-scripts/run.sh
-----
-+
-You should see only 1 request to `v2`, and 9 requests (90%) to `v1`. In reality you may get
-2 requests as our sample size is low, but if you invoked
-it 10 million times you should get approximately 1 million requests to `v2`.
-
-. Now let's move it to a 75/25 split:
-+
-----
-istioctl replace -f istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml -n $OCP_TUTORIAL_PROJECT
-----
-
-. And issue 10 more requests:
+. And issue 10 requests:
 +
 ----
 scripts/run.sh
