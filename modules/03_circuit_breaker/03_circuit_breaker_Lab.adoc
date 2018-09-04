@@ -79,13 +79,84 @@ catalog-v1-60483540-9snd9     2/2       Running   0          12m
 catalog-v2-2815683430-vpx4p   2/2       Running   0          15s
 ----
 
-
-
 == Pool Ejection
+Pool ejection or outlier detection is a resilience strategy that takes place whenever we have a pool of instances/pods to serve a client request. If the request is forwarded to a certain instance and it fails (e.g. returns a 50x error code), then Istio will eject this instance from the pool for a certain sleep window. In our example the sleep window is configured to be 15s. This increases the overall availability by making sure that only healthy pods participate in the pool of instances.
+
+First, you need to insure you have a destinationrule and virtualservice in place to send traffic to the services. 
+
+. Configure the rules to split the traffic 50/50.
++
+----
+cd ~/rhte-msa-and-service-mesh/
+
+istioctl create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT
+istioctl create -f istiofiles/virtual-service-catalog-v1_and_v2_50_50.yml -n $OCP_TUTORIAL_PROJECT
+----
+
+. Scale number of instances of v2 deployment
++
+----
+oc scale deployment catalog-v2 --replicas=2 -n $OCP_TUTORIAL_PROJECT
+----
+
+* Wait for all the pods to be in the ready state.
 
 === Test behavior without failing instances
 
+. Send some requests to the gateway service:
++
+----
+./scripts/run.sh
+----
+
+* You will see the load balancing 50/50 between the two different versions of the catalog service. And within version v2, you will also see that some requests are handled by one pod and some requests are handled by the other pod.
++
+----
+TODO
+----
+
 === Test behavior with failing instance and without pool ejection
+
+. Get the name of the pods for catalog v2
++
+----
+oc get pods -l app=catalog,version=v2
+----
+
+* You should see:
++
+----
+catalog-v2-2036617847-hdjv2   2/2       Running   0          1h
+catalog-v2-2036617847-spdrb   2/2       Running   0          7m
+----
+
+Now we’ll get into one the pods and add some erratic behavior on it. 
+
+. Get one of the pod names from your system and replace on the following command accordingly:
++
+----
+oc exec -it $(oc get pods|grep catalog-v2|awk '{ print $1 }'|head -1) -c catalog /bin/bash
+----
+
+. You will be inside the application container of your pod catalog-v2-2036617847-spdrb. Now execute:
++
+----
+curl localhost:8080/misbehave
+exit
+----
+* This is a special endpoint that will make our application return only `503` errors.
+
+. Send some requests to the gateway service:
++
+----
+./scripts/run.sh
+----
++
+* You’ll see that whenever the pod catalog-v2-2036617847-spdrb receives a request, you get a 503 error:
++
+----
+TODO
+----
 
 === Test behavior with failing instance and with pool ejection
 
