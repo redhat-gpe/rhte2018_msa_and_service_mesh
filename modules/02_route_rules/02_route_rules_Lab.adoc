@@ -287,13 +287,7 @@ oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
 scripts/run.sh
 ----
 +
-* You should see:
-+
-----
-TODO
-----
-+
-* Traffic should be equally split once again between v1 and v2.
+* Traffic should be equally split once again between `v1` and `v2`.
 
 == Smart routing based on user's web browser
 
