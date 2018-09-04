@@ -19,7 +19,6 @@ In this lab you'll dynamically alter routing between the services using Istio.
 
 In this lab, you will learn how to:
 
-* Deploy microservice applications to OpenShift
 * Inject sidecar proxies into applications which form a service mesh
 * Configure a service mesh to dynamically route and shape traffic to and from services
 

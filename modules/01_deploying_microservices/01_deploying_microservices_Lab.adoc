@@ -39,15 +39,12 @@ There are three microservices in this lab and they are chained together in the f
 
 `gateway -> partner -> catalog`
 
-In this lab you'll dynamically alter routing between the services using Istio.
-
 == Goals
 
-In this lab, you will learn how to:
+In this lab, you will:
 
+* Access the OpenShift environment
 * Deploy microservice applications to OpenShift
-* Inject sidecar proxies into applications which form a service mesh
-* Configure a service mesh to dynamically route and shape traffic to and from services
 
 == Environment Variables
 
@@ -62,13 +59,12 @@ $ export OCP_PASSWD=<provided by your instructor>
 
 #  Using above variables, copy & paste the following in same terminal #
 
-$ export OCP_GATEWAY_PROJECT=$OCP_USERNAME-coolstore-gateway
-$ export OCP_CATALOG_PROJECT=$OCP_USERNAME-coolstore-catalog
+$ export OCP_TUTORIAL_PROJECT=$OCP_USERNAME-istio-tutorial
 -----
 
 === OpenShift access
 
-You lab environment is built on Red Hat's OpenShift Container Platform.
+Your lab environment is built on Red Hat's OpenShift Container Platform.
 
 Access to your OCP resources can be gained via both the `oc` utility as well as the OCP web console.
 
@@ -78,23 +74,6 @@ Access to your OCP resources can be gained via both the `oc` utility as well as 
 $ oc login https://master.$REGION.openshift.opentlc.com -u $OCP_USERNAME -p $OCP_PASSWD
 -----
 
-. Ensure that your `oc` client is the same minor release version as the server:
-+
------
-$ oc version
-
-oc v3.9.30
-kubernetes v1.9.1+a0ce1bc657
-features: Basic-Auth GSSAPI Kerberos SPNEGO
-
-Server https://master.a4ec.openshift.opentlc.com:443
-openshift v3.9.31
-kubernetes v1.9.1+a0ce1bc657
------
-
-.. In the above example, notice that version of the `oc` client is of the same minor release (v3.9.30) of the OpenShift server (v3.9.31)
-.. There a known subtle problems with using a version of the `oc` client that is different from your target OpenShift server.
-
 . View existing projects:
 +
 -----
@@ -102,8 +81,6 @@ $ oc get projects
 
 NAME                      DISPLAY NAME              STATUS
 istio-system                                        Active
-userXX-coolstore-catalog   userXX-coolstore-catalog   Active
-userXX-coolstore-gateway   userXX-coolstore-gateway   Active
 -----
 
 .. Your OCP user has been provided with _view_ and _edit_ access to the central _istio-system_ namespace with all _control plane_ Istio functionality.
@@ -113,280 +90,145 @@ This utility will need both view and edit privileges to the _istio-system_ names
 
 .. Your OCP use has also been provided with _view_ access to a multi-tenant 
 
-.. The namespace _userXX-coolstore-catalog_ is where you will be working throughout the duration of this lab.
-
-. Switch to the Catalog OpenShift project
+. Create a new tutorial project
 +
------
-$ oc project $OCP_CATALOG_PROJECT
------
+----
+$ oc new-project $OCP_TUTORIAL_PROJECT
+----
 
-. Log into OpenShift Web Console
-.. Many OpenShift related tasks found in this lab can be completed in the Web Console (as an alternative to using the `oc` utility`.
-.. To access, point to your browser to the output of the following:
+. Set up permissions for the project
 +
------
-$ echo -en "\n\nhttps://master.$REGION.openshift.opentlc.com\n\n"
------
+----
+oc adm policy add-scc-to-user privileged -z default -n $OCP_TUTORIAL_PROJECT
+----
 
-.. Authenticate using the values of $OCP_USERNAME and $OCP_PASSWD
+. Switch to the tutorial project
++
+----
+$ oc project $OCP_TUTORIAL_PROJECT
+----
+
+== Clone Source Code
+
+Start by cloning the tutorial source files to your computer.
+
+. Open a terminal window and enter the following commands:
++
+----
+cd ~/
+
+git clone https://github.com/gpe-mw-training/rhte-msa-and-service-mesh.git
+
+cd rhte-msa-and-service-mesh
+----
 
 == Deploy Catalog service version 1 (`v1`)
 
-Istio introduces the concept of a service version, which is a finer-grained way to subdivide
-service instances by versions (`v1`, `v2`) or environment (`staging`, `prod`). These variants are not
-necessarily different API versions: they could be iterative changes to the same service, deployed
-in different environments (prod, staging, dev, etc.). Common scenarios where this is used include
-A/B testing or canary rollouts. Istio’s https://istio.io/docs/concepts/traffic-management/rules-configuration.html[traffic routing rules, window="_blank"] can refer to service versions to
-provide additional control over traffic between services.
+Now let's start by deploying the catalog service to OpenShift. The sidecar proxy will automatically be injected.
 
-. Deploy the catalog `v1` pod with its sidecar.
+. In your terminal window, enter the following commands:
 +
-[source,text]
 ----
-oc create -n $OCP_CATALOG_PROJECT -f $ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Deployment.yml
-oc create -n $OCP_CATALOG_PROJECT -f $ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Service.yml
+cd catalog/java/vertx
+mvn clean package
+docker build -t example/catalog:v1 .
+docker images | grep catalog
+
+oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
+oc create -f ../../kubernetes/Service.yml
 ----
+
+. Monitor the deployment of the pods. Enter the following command:
 +
-Since the catalog service is at the end of our service chain (`gateway -> catalog`),
-it is not exposed to the outside world.
+----
+oc get pods -w
+----
 
-. Wait for it to completely roll out and receive a `deployment xxxxxx successfully rolled out` result:
+* Wait until the status for the catalog service is Running and there are 2/2 pods in the Ready column. To exit, press Ctrl+C
+
+== Deploy Partner service 
+
+Next, we will deploy the partner service to OpenShift. 
+
+. In your terminal window, enter the following commands:
 +
-[source,text]
 ----
-oc rollout status -w deployment/catalog-v1
+cd ~/rhte-msa-and-service-mesh
+
+cd partner/java/springboot
+mvn clean package
+docker build -t example/partner:v1 .
+docker images | grep partner
+
+oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
+oc create -f ../../kubernetes/Service.yml
 ----
+
+. Monitor the deployment of the pods. Enter the following command:
 +
-NOTE: The tag "v1" at the end of the deployment is important. We will be creating a v2 version of
-catalog later in this lab. Having both a v1 and v2 version of the catalog
-code will allow us to exercise some interesting aspects of Istio's capabilities.
+----
+oc get pods -w
+----
 
-. Get the URL for the gateway service
+* Wait until the status for the partner service is Running and there are 2/2 pods in the Ready column. To exit, press Ctrl+C
+
+== Deploy Gateway service
+
+Finally, we will deploy the gateway service to OpenShift. This will complete our list of services: `gateway -> partner -> catalog`
+
+. In your terminal window, enter the following commands:
 +
-[source,text]
 ----
-export GATEWAY_SERVICE_URL=http://$(oc get route gateway-service -o template --template='{{.spec.host}}' -n $OCP_GATEWAY_PROJECT)
+cd ~/rhte-msa-and-service-mesh
+
+cd customer/java/springboot
+mvn clean package
+docker build -t example/customer .
+docker images | grep customer
+
+oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
+oc create -f ../../kubernetes/Service.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
-. Test the gateway service again (which will call the catalog service). Now that it's all deployed, it should work:
+. Monitor the deployment of the pods. Enter the following command:
 +
-[source,text]
 ----
-curl $GATEWAY_SERVICE_URL
+oc get pods -w
 ----
 
-. You should see: `TODO: catalog json data`
+* Wait until the status for the gateway service is Running and there are 2/2 pods in the Ready column. To exit, press Ctrl+C
 
-== Deploy Catalog service version 2 (`v2`)
+=== Expose Gateway Service
 
-We can experiment with Istio routing rules by deploying a second version of the catalog
-service.
-
-. Deploy Catalog service version 2 
+. Since the `gateway` service is the one our users will interact with, let’s add an OpenShift Route that exposes that endpoint.
 +
-[source,text]
 ----
-oc create -n $OCP_CATALOG_PROJECT -f $ISTIO_LAB_HOME/src/catalog/src/main/kubernetes/Deployment-v2.yml
+oc expose service gateway
 ----
 
-. You can see both versions of the catalog pods running using `oc get pods`:
+. Retrieve the URL for the gateway service
 +
-[source,text]
 ----
-oc get pods -l app=catalog
+$ export GATEWAY_URL=http://$(oc get route gateway-service -n $OCP_TUTORIAL_PROJECT -o template --template='{{.spec.host}}')
 
-NAME                                 READY     STATUS    RESTARTS   AGE
-catalog-v1-60483540-9snd9     2/2       Running   0          12m
-catalog-v2-2815683430-vpx4p   2/2       Running   0          15s
+$ echo $GATEWAY_URL
 ----
+
+. Test the gateway service
 +
-By default, Istio will round-robin incoming requests to the Catalog _Service_
-so that both `v1` and `v2` pods get equal amounts of traffic:
+----
+curl $GATEWAY_URL 
+----
 
-. Send requests to the catalog service
+. You should see the following output
 +
-[source,text]
 ----
-for i in $(seq 10); do
-  curl $GATEWAY_SERVICE_URL
-done
-----
-
-* Approximately half of the requests above go to `v1` and the other half to `v2`.
-
-* The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
-available pods behind a single Service. 
-
-. Add another replica of `v2`:
-+
-[source,text]
-----
-oc scale --replicas=2 deployment/catalog-v2
-----
-
-. Now, you will see double the number of requests to `v2` than for `v1`:
-+
-[source,text]
-----
-for i in $(seq 10); do
-  curl $GATEWAY_SERVICE_URL
-done
-----
-
-. Go back to 1 copy:
-+
-[source,text]
-----
-oc scale --replicas=1 deployment/catalog-v2
-----
-
-== Send all traffic to `catalog:v2`
-
-_Route rules_ control how requests are routed within an Istio service mesh.
-Route rules provide:
-
-* **Timeouts**
-* **Bounded retries** with timeout budgets and variable jitter between retries
-* **Limits** on number of concurrent connections and requests to upstream services
-* **Active (periodic) health checks** on each member of the load balancing pool
-* **Fine-grained circuit breakers** (passive health checks) – applied per instance in the load balancing pool
-
-Requests can be routed based on the source and destination, HTTP header fields, and weights associated with individual service versions. For example, a route rule could route requests to different versions of a service.
-
-In addition to the usual OpenShift object types like `BuildConfig`, `DeploymentConfig`,
-`Service` and `Route`,
-you also have new object types installed as part of Istio like `RouteRule`. Adding
-these objects to the running
-OpenShift cluster is how you configure routing rules for Istio.
-
-. Route all traffic to `v2`:
-+
-[source,text]
-----
-oc create -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v2.yml -n $OCP_CATALOG_PROJECT
-----
-
-. Inspect the rule:
-+
-[source,text]
-----
-oc get routerule/catalog-default -o yaml
-----
-
-. Access the `gateway` service 10 times - all requests should end up talking to
-`catalog:v2`:
-+
-[source,text]
-----
-for i in $(seq 10); do
-  curl $GATEWAY_SERVICE_URL
-done
-----
-
-== Send all traffic to `catalog:v1`
-
-. Now let's move everyone to `v1`:
-+
-[source,text]
-----
-oc replace -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v1.yml -n $OCP_CATALOG_PROJECT
-----
-+
-NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
-
-. Run the test again:
-+
-[source,text]
-----
-for i in $(seq 10); do
-  curl $GATEWAY_SERVICE_URL
-done
-----
-+
-Notice how all requests now to go `v1`.
-
-. Remove the route rules to get back to default round-robin distribution
-of requests.
-+
-[source,text]
-----
-oc delete -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v1.yml -n $OCP_CATALOG_PROJECT
-----
-
-. And test again:
-+
-[source,text]
-----
-for i in $(seq 10); do
-  curl $GATEWAY_SERVICE_URL
-done
-----
-+
-Traffic should be equally split once again.
-
-== Use a Canary Deployment to slowly rollout `v2`
-
-. To start the process, let's send 10% of the users to the `v2` version, to do a canary test:
-+
-[source,text]
-----
-oc create -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v1_and_v2.yml -n $OCP_CATALOG_PROJECT
-----
-
-. Inspect the rule:
-+
-[source,text]
-----
-oc get routerule/catalog-v1-v2 -o yaml
-----
-+
-You can see the use of the `weight` of each route to control the distribution of traffic.
-
-. Now let's send in 10 requests:
-+
-[source,text]
-----
-for i in $(seq 10); do
-  curl $GATEWAY_SERVICE_URL
-done
-----
-+
-You should see only 1 request to `v2`, and 9 requests (90%) to `v1`. In reality you may get
-2 requests as our sample size is low, but if you invoked
-it 10 million times you should get approximately 1 million requests to `v2`.
-
-. Now let's move it to a 75/25 split:
-+
-[source,text]
-----
-oc replace -f $ISTIO_LAB_HOME/src/istiofiles/route-rule-catalog-v1_and_v2_75_25.yml -n $OCP_CATALOG_PROJECT
-----
-
-. And issue 10 more requests:
-+
-[source,text]
-----
-for i in $(seq 10); do
-  curl $GATEWAY_SERVICE_URL
-done
-----
-+ 
-Now you should see 2 or 3 requests (~25%) going to `v2`. This process can be continued (and automated), slowly migrating
-traffic over to the new version as it proves its worth in production over time.
-
-. Remove the route rules before moving on:
-+
-[source,text]
-----
-oc delete routerule --all -n $OCP_CATALOG_PROJECT
+TODO:
 ----
 
 == Congratulations!
 
-In this lab you learned how to deploy microservices to form a _service mesh_ using Istio.
-You also learned how to do traffic shaping and routing using _Route Rules_ which instruct
-the Istio sidecar proxies to distribute traffic according to specified policy.
+In this lab you deployed microservices to OpenShift. In the next lab, you will learn how to leverage these microservices in a service mesh with Istio.
 
 == References
 
