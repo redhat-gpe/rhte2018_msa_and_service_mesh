@@ -163,7 +163,7 @@ TODO
 . Now let’s add the pool ejection behavior:
 +
 ----
-istioctl replace -f istiofiles/destination-rule-recommendation_cb_policy_pool_ejection.yml -n $OCP_TUTORIAL_PROJECT
+istioctl replace -f istiofiles/destination-rule-catalog_cb_policy_pool_ejection.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
 . Send some requests to the gateway service:
@@ -180,9 +180,44 @@ TODO
 
 == Ultimate resilience with retries, circuit breaker, and pool ejection
 
+Even with pool ejection your application doesn’t look that resilient. That’s probably because we’re still letting some errors to be propagated to our clients. But we can improve this. If we have enough instances and/or versions of a specific service running into our system, we can combine multiple Istio capabilities to achieve the ultimate backend resilience: 
 
+* Circuit Breaker to avoid multiple concurrent requests to an instance
+* Pool Ejection to remove failing instances from the pool of responding instances
+* Retries to forward the request to another instance just in case we get an open circuit breaker and/or pool ejection;
 
-====
+By simply adding a retry configuration to our current virtualservice, we’ll be able to get rid completely of our `503`s requests. This means that whenever we receive a failed request from an ejected instance, Istio will forward the request to another supposably healthy instance.
+
+. Add a retry configuration
++
+----
+istioctl replace -f istiofiles/virtual-service-recommendation-v1_and_v2_retry.yml -n $OCP_TUTORIAL_PROJECT
+----
+
+. Send some requests to the gateway service:
++
+----
+./scripts/run.sh
+----
++
+* You won’t receive 503`s anymore. But the requests from catalog `v2 are still taking more time to get a response::
++
+----
+TODO
+----
++
+NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. Just run the above command again if you see any 503's. You should eventually not see any.
+
+* Our misbehaving pod catalog-v2-2036617847-spdrb never shows up in the console, thanks to pool ejection and retry.
+
+== Clean up
+
+. Remove the route rules before moving on:
++
+----
+scripts/clean.sh $OCP_TUTORIAL_PROJECT
+----
+
 
 == References
 

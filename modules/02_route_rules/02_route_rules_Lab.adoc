@@ -321,6 +321,8 @@ scripts/run.sh
 * Now you should see 2 or 3 requests (~25%) going to `v2`. This process can be continued (and automated), slowly migrating
 traffic over to the new version as it proves its worth in production over time.
 
+==
+
 . Remove the route rules before moving on:
 +
 ----
