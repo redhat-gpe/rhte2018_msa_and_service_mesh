@@ -80,8 +80,10 @@ docker build -t example/catalog:v2 .
 NOTE: The "v2" tag during the Docker build is significant.
 
 . Deploy Catalog service version 2 
-
++
+----
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment-v2.yml) -n $OCP_TUTORIAL_PROJECT
+----
 
 This second deployment file `Deployment-v2.yml` will label the service correctly.
 
