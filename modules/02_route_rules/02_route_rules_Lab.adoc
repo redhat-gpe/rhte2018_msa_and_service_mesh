@@ -131,7 +131,7 @@ curl $GATEWAY_SERVICE_URL
 +
 * The `run.sh` script will loop and send 10 requests to the gateway service.
 
-. You should see
+* You should see:
 +
 ----
 TODO
