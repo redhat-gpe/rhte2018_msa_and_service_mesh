@@ -25,7 +25,6 @@ In this lab, you will learn how to:
 * Implement the pool ejection resilience strategy to increase the overall availability
 * Leverage the circuit breaker pattern to avoid multiple concurrent requests to an instance
 
-
 [NOTE]
 ._Before Start_
 ====
@@ -36,7 +35,7 @@ cd ~/rhte-msa-and-service-mesh/
 
 ./scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
-
++
 == Update Application Code
 
 In this section, you will update the CatalogVerticle to expose additional endpoints for testing
