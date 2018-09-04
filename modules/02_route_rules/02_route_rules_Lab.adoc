@@ -162,7 +162,7 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 7
 * The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
 available pods behind a single Service. 
 
-. Add another replica of `v2`:
+. Scale up the number of pods for the `catalog-v2` pod:
 +
 ----
 oc scale --replicas=2 deployment/catalog-v2
