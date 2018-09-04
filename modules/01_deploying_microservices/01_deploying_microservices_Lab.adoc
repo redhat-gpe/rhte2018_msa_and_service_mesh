@@ -160,8 +160,19 @@ oc create -f ../../kubernetes/Service.yml
 ----
 oc get pods -w
 ----
++
+* For the `partner` service, wait until the Ready column has `2/2` pods and the Status column has `Running`. 
 
-* Wait until the status for the partner service is Running and there are 2/2 pods in the Ready column. To exit, press Ctrl+C
+* Expect to see:
++
+----
+NAME                          READY     STATUS    RESTARTS   AGE
+partner-v1-68b4854c79-s5vnd   2/2       Running   0          2m
+...
+----
+
+* To exit, press Ctrl+C.
+
 
 == Deploy Gateway service
 
@@ -188,8 +199,18 @@ oc create -f ../../kubernetes/Service.yml -n $OCP_TUTORIAL_PROJECT
 ----
 oc get pods -w
 ----
++
+* For the `gateway` service, wait until the Ready column has `2/2` pods and the Status column has `Running`. 
 
-* Wait until the status for the gateway service is Running and there are 2/2 pods in the Ready column. To exit, press Ctrl+C
+* Expect to see:
++
+----
+NAME                          READY     STATUS    RESTARTS   AGE
+gateway-7b6bb9dcf7-zb8br      2/2       Running   0          1m
+...
+----
+
+* To exit, press Ctrl+C.
 
 === Expose Gateway Service
 
@@ -202,9 +223,9 @@ oc expose service gateway
 . Retrieve the URL for the gateway service
 +
 ----
-$ export GATEWAY_URL=http://$(oc get route gateway-service -n $OCP_TUTORIAL_PROJECT -o template --template='{{.spec.host}}')
+export GATEWAY_URL=http://$(oc get route gateway -n $OCP_TUTORIAL_PROJECT -o template --template='{{.spec.host}}')
 
-$ echo $GATEWAY_URL
+echo $GATEWAY_URL
 ----
 
 . Test the gateway service
@@ -212,11 +233,11 @@ $ echo $GATEWAY_URL
 ----
 curl $GATEWAY_URL 
 ----
-
-. You should see the following output
++
+* You should see the following output
 +
 ----
-TODO:
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 1
 ----
 
 == Congratulations!

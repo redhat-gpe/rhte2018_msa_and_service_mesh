@@ -100,16 +100,16 @@ catalog-v2-2815683430-vpx4p   2/2       Running   0          15s
 By default, Istio will round-robin incoming requests to the Gateway _Service_
 so that both `v1` and `v2` pods get equal amounts of traffic.
 
-. Make sure your environment variable for $GATEWAY_SERVICE_URL is still set.
+. Make sure your environment variable for $GATEWAY_URL is still set.
 +
 ----
-echo $GATEWAY_SERVICE_URL
+echo $GATEWAY_URL
 ----
 
 . Test the gateway service
 +
 ----
-curl $GATEWAY_SERVICE_URL
+curl $GATEWAY_URL
 ----
 
 * You will likely see `gateway => partner => catalog v1 from '99634814-d2z2t': 3`, where `99634814-d2z2t` is the pod running `v1` and the `3` is basically the number of times you hit the endpoint.
@@ -117,7 +117,7 @@ curl $GATEWAY_SERVICE_URL
 . Make another request to the gateway service
 +
 ----
-curl $GATEWAY_SERVICE_URL
+curl $GATEWAY_URL
 ----
 
 * You will likely see `gateway => partner => catalog v2 from '99634814-d2z2t': 1`, where `99634814-d2z2t` is the pod running `v2` and the `1` is basically the number of times you hit the endpoint. By default you get round-robin load-balancing when there is more than one Pod behind a Service
@@ -265,7 +265,7 @@ istioctl replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n tutorial
 . Simulate web browser requests using the curl command. This is for Safari users
 +
 ----
-curl -A Safari $GATEWAY_SERVICE_URL
+curl -A Safari $GATEWAY_URL
 ----
 
 * You should see a response from the v2 service.
@@ -273,7 +273,7 @@ curl -A Safari $GATEWAY_SERVICE_URL
 . Run a similar test for Firefox users
 +
 ----
-curl -A Firefox $GATEWAY_SERVICE_URL
+curl -A Firefox $GATEWAY_URL
 ----
 
 * You should see a response from the v1 service.
