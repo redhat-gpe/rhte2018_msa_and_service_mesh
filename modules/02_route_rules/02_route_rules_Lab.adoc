@@ -56,7 +56,7 @@ service.
 . Edit Java source code to show v2 message
 +
 ----
-cd ~/rhte-msa-and-service-mesh/catalog/java/vertex
+cd ~/rhte-msa-and-service-mesh/catalog/java/vertx
 
 vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
 ----
@@ -87,14 +87,17 @@ oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment-v2.yml) -n $OC
 +
 * This second deployment file `Deployment-v2.yml` will label the service correctly.
 
-. You can see both versions of the catalog pods running using `oc get pods`:
+. You can see both versions of the `catalog` pods running with the following command:
 +
 ----
 oc get pods -l app=catalog
-
-NAME                                 READY     STATUS    RESTARTS   AGE
-catalog-v1-60483540-9snd9     2/2       Running   0          12m
-catalog-v2-2815683430-vpx4p   2/2       Running   0          15s
+----
++
+* Expect to see the following:
+----
+NAME                          READY     STATUS    RESTARTS   AGE
+catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          31m
+catalog-v2-7764964564-hj8xl   2/2       Running   0          49s
 ----
 +
 By default, Istio will round-robin incoming requests to the Gateway _Service_
