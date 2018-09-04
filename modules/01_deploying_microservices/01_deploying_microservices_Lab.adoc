@@ -174,7 +174,9 @@ oc get pods -w
 
 == Deploy Gateway service
 
-Finally, we will deploy the gateway service to OpenShift. This will complete our list of services: `gateway -> partner -> catalog`
+Finally, we will deploy the gateway service to OpenShift. This will complete our list of services: 
+
+`gateway -> partner -> catalog`
 
 . In your terminal window, enter the following commands:
 +
