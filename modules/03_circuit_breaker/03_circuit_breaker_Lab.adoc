@@ -41,7 +41,7 @@ cd ~/rhte-msa-and-service-mesh/
 
 In this section, you will update the CatalogVerticle to expose additional endpoints for testing
 
-. Edit the file with the following commands:
+. Edit the file the CatalogVerticle:
 +
 ----
 cd ~/rhte-msa-and-service-mesh/catalog/java/vertex
@@ -51,7 +51,7 @@ vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
 
 . Uncomment the line `router.get("/").handler(this::timeout);`
 
-. Save the file and exit vi using `ESC` + `:wq`
+. Save the file and exit vi.
 
 . Build the service with the following commands:
 +

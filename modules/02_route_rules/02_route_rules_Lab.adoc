@@ -67,7 +67,7 @@ vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
 private static final String RESPONSE_STRING_FORMAT = "catalog v2 from '%s': %d\n";
 ----
 
-. Save the file and exit vi using `ESC` + `:wq`
+. Save the file and exit vi.
 
 . Build the service with the following commands:
 +
