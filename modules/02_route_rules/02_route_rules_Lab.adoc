@@ -123,11 +123,13 @@ curl $GATEWAY_SERVICE_URL
 
 * You likely see `gateway => partner => catalog v2 from '99634814-d2z2t': 1`, where `99634814-d2z2t` is the pod running `v2` and the `1` is basically the number of times you hit the endpoint. By default you get round-robin load-balancing when there is more than one Pod behind a Service
 
-. Send severals to the gateway service. The `run.sh` script will loop and send 10 requests to the gateway service.
+. Send severals to the gateway service. 
 +
 ----
 ~/rhte-msa-and-service-mesh/scripts/run.sh
 ----
++
+* The `run.sh` script will loop and send 10 requests to the gateway service.
 
 . You should see
 +
