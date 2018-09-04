@@ -191,7 +191,7 @@ By simply adding a retry configuration to our current virtualservice, we’ll be
 . Add a retry configuration
 +
 ----
-istioctl replace -f istiofiles/virtual-service-recommendation-v1_and_v2_retry.yml -n $OCP_TUTORIAL_PROJECT
+istioctl replace -f istiofiles/virtual-service-catalog-v1_and_v2_retry.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
 . Send some requests to the gateway service:
