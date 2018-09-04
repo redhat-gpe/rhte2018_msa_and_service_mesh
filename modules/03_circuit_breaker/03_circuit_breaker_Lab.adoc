@@ -7,7 +7,7 @@
 = Circuit Breaker Lab
 
 [NOTE]
-_Before Start_
+._Before Start_
 ====
 You should have NO virtualservice nor destinationrule (in tutorial namespace) istioctl get virtualservice istioctl get destinationrule if so run:
 
