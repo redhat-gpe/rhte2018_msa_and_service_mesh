@@ -97,6 +97,13 @@ cd rhte-msa-and-service-mesh
 
 == Deploy Catalog service version 1 (`v1`)
 
+Istio introduces the concept of a service version, which is a finer-grained way to subdivide
+service instances by versions (`v1`, `v2`) or environment (`staging`, `prod`). These variants are not
+necessarily different API versions: they could be iterative changes to the same service, deployed
+in different environments (prod, staging, dev, etc.). Common scenarios where this is used include
+A/B testing or canary rollouts. Istio’s https://istio.io/docs/concepts/traffic-management/rules-configuration.html[traffic routing rules, window="_blank"] can refer to service versions to
+provide additional control over traffic between services.
+
 Now let's start by deploying the catalog service to OpenShift. The sidecar proxy will automatically be injected.
 
 . In your terminal window, enter the following commands:
@@ -118,6 +125,8 @@ oc get pods -w
 ----
 
 * Wait until the status for the catalog service is Running and there are 2/2 pods in the Ready column. To exit, press Ctrl+C
+
+Since the catalog service is at the end of our service chain (`gateway -> partner -> catalog`), it is not exposed to the outside world.
 
 == Deploy Partner service 
 
