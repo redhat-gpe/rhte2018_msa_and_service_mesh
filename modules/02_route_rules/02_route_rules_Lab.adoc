@@ -174,12 +174,19 @@ oc scale --replicas=2 deployment/catalog-v2
 ~/rhte-msa-and-service-mesh/scripts/run.sh
 ----
 
-* Now, you will see double the number of requests to `v2` than for `v1`:
+* Now, you will see *double* the number of requests to `v2` than for `v1`:
 +
 ----
-catalog => partner => gateway v1 from '2819441432-qsp25': 29
-catalog => partner => gateway v2 from '99634814-sf4cl': 37
-catalog => partner => gateway v2 from '99634814-sf4cl': 38
+gateway => partner => catalog v2 from '7764964564-hj8xl': 8
+gateway => partner => catalog v2 from '7764964564-d8qwp': 1
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 9
+gateway => partner => catalog v2 from '7764964564-hj8xl': 9
+gateway => partner => catalog v2 from '7764964564-d8qwp': 2
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 10
+gateway => partner => catalog v2 from '7764964564-hj8xl': 10
+gateway => partner => catalog v2 from '7764964564-d8qwp': 3
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 11
+gateway => partner => catalog v2 from '7764964564-hj8xl': 11
 ----
 
 . Scale back to a single pod for the `catalog-v2` deployment:
@@ -187,6 +194,8 @@ catalog => partner => gateway v2 from '99634814-sf4cl': 38
 ----
 oc scale --replicas=1 deployment/catalog-v2
 ----
+
+. Run the test again and confirm that the requests are split evenly between `v1` and `v2`.
 
 == Send all traffic to `catalog:v2`
 
