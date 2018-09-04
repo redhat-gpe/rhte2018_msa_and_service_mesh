@@ -99,7 +99,7 @@ catalog-v2-2815683430-vpx4p   2/2       Running   0          15s
 ----
 +
 By default, Istio will round-robin incoming requests to the Gateway _Service_
-so that both `v1` and `v2` pods get equal amounts of traffic:
+so that both `v1` and `v2` pods get equal amounts of traffic.
 
 . Make sure your environment variable for $GATEWAY_SERVICE_URL is still set.
 +
@@ -113,7 +113,7 @@ echo $GATEWAY_SERVICE_URL
 curl $GATEWAY_SERVICE_URL
 ----
 
-* You likely see "gateway => partner => catalog v1 from '99634814-d2z2t': 3", where '99634814-d2z2t' is the pod running v1 and the 3 is basically the number of times you hit the endpoint.
+* You likely see `gateway => partner => catalog v1 from '99634814-d2z2t': 3`, where `99634814-d2z2t` is the pod running `v1` and the `3` is basically the number of times you hit the endpoint.
 
 . Make another request to the gateway service
 +
@@ -121,7 +121,7 @@ curl $GATEWAY_SERVICE_URL
 curl $GATEWAY_SERVICE_URL
 ----
 
-* You likely see "gateway => partner => catalog v2 from '99634814-d2z2t': 1", where '99634814-d2z2t' is the pod running v2 and the 1 is basically the number of times you hit the endpoint. By default you get round-robin load-balancing when there is more than one Pod behind a Service
+* You likely see `gateway => partner => catalog v2 from '99634814-d2z2t': 1`, where `99634814-d2z2t` is the pod running `v2` and the `1` is basically the number of times you hit the endpoint. By default you get round-robin load-balancing when there is more than one Pod behind a Service
 
 . Send severals to the gateway service. The `run.sh` script will loop and send 10 requests to the gateway service.
 +
@@ -169,21 +169,11 @@ oc scale --replicas=1 deployment/catalog-v2
 == Send all traffic to `catalog:v2`
 
 _Route rules_ control how requests are routed within an Istio service mesh.
-Route rules provide:
-
-* **Timeouts**
-* **Bounded retries** with timeout budgets and variable jitter between retries
-* **Limits** on number of concurrent connections and requests to upstream services
-* **Active (periodic) health checks** on each member of the load balancing pool
-* **Fine-grained circuit breakers** (passive health checks) – applied per instance in the load balancing pool
 
 Requests can be routed based on the source and destination, HTTP header fields, and weights associated with individual service versions. For example, a route rule could route requests to different versions of a service.
 
 In addition to the usual OpenShift object types like `BuildConfig`, `DeploymentConfig`,
-`Service` and `Route`,
-you also have new object types installed as part of Istio like `RouteRule`. Adding
-these objects to the running
-OpenShift cluster is how you configure routing rules for Istio.
+`Service` and `Route`, you also have new object types installed as part of Istio like `RouteRule`. Adding these objects to the running OpenShift cluster is how you configure routing rules for Istio.
 
 . Route all traffic to `v2`:
 +
