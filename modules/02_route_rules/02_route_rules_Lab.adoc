@@ -173,7 +173,8 @@ oc scale --replicas=2 deployment/catalog-v2
 ----
 ~/rhte-msa-and-service-mesh/scripts/run.sh
 ----
-* You should see:
+
+* Expect to see the following output:
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hj8xl': 8
@@ -188,7 +189,7 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 11
 gateway => partner => catalog v2 from '7764964564-hj8xl': 11
 ----
 +
-* Notice that *double* the number of requests to `v2` than for `v1`:
+* Notice that *double* the number of requests are sent to `v2` than for `v1`:
 
 . Scale back to a single pod for the `catalog-v2` deployment:
 +
@@ -223,7 +224,7 @@ istioctl create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PR
 scripts/run.sh
 ----
 +
-* You should only see `v2` being returned.
+* Expect to see the following output:
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hj8xl': 17
@@ -237,6 +238,8 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 24
 gateway => partner => catalog v2 from '7764964564-hj8xl': 25
 gateway => partner => catalog v2 from '7764964564-hj8xl': 26
 ----
++
+* You should only see `v2` being returned.
 
 == Send all traffic to `catalog:v1`
 
