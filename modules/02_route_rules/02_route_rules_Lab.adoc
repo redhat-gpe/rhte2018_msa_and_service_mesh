@@ -76,7 +76,7 @@ mvn clean package
 
 docker build -t example/catalog:v2 .
 ----
-
++
 NOTE: The "v2" tag during the Docker build is significant.
 
 . Deploy Catalog service version 2 
