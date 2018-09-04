@@ -289,13 +289,20 @@ scripts/run.sh
 +
 * Traffic should be equally split once again between `v1` and `v2`.
 
+. Clean up routing rules
++
+----
+scripts/clean.sh $OCP_TUTORIAL_PROJECT
+----
+
+////
 == Smart routing based on user's web browser
 
 Istio can perform smart routing based on the user's web browser. For example, you can send all users of the Safari web browser to catalog service v2. The users of the Firefox browser are routed to catalog service v1.
 
 This is accomplished by checking the request headers for `user-agent`. The "user-agent" header is added to OpenTracing baggage in the Gateway service. From there it is automatically propagated to all downstream services. To enable automatic baggage propagation all intermediate services have to be instrumented with OpenTracing. The baggage header for user agent has following form baggage-user-agent: <value>.
 
-. Set up the routing to all catalog service v1
+. Set up the routing to all traffic to catalog service v1
 +
 ----
 istioctl create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT
@@ -331,10 +338,9 @@ curl -A Firefox $GATEWAY_URL
 . Let's clean up by removing the Safari rule.
 +
 ----
-istioctl delete -f istiofiles/destination-rule-catalog-v1-v2.yml -n tutorial
-
-istioctl delete -f istiofiles/virtual-service-safari-catalog-v2.yml -n tutorial
+scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
+////
 
 == Use a Canary Deployment to slowly rollout `v2`
 
