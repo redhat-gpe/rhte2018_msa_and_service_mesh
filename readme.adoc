@@ -7,6 +7,6 @@
 |Task	|   Status |     Notes
 | link:modules/01_deploying_microservices/01_deploying_microservices_Lab.adoc[Lab 1: Deploying Microservices]		|   80%     |
 | link:modules/02_route_rules/02_route_rules_Lab.adoc[Lab 2: Route Rules]		|   80%     |
-| link:modules/03_circuit_breaker/03_circuit_breaker_Lab.adoc[Lab 3: Circuit Breaker]	|   0%     |
+| link:modules/03_circuit_breaker/03_circuit_breaker_Lab.adoc[Lab 3: Circuit Breaker]	|   80%     |
 | https://redhat.slides.com/jbride/03_msa_and_service_mesh[Slides]		|   100%     |
 |==========================
