@@ -192,7 +192,7 @@ istioctl create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PR
 ----
 scripts/run.sh
 ----
-
++
 * You should only see v2 being returned.
 +
 ----
@@ -214,8 +214,8 @@ NOTE: We use `oc replace` instead of `oc create` since we are overlaying the pre
 ----
 scripts/run.sh
 ----
-
-Notice how all requests now to go `v1`.
++
+* Notice how all requests now to go `v1`.
 +
 ----
 TODO
@@ -269,7 +269,7 @@ istioctl replace -f istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml -n $O
 scripts/run.sh
 ----
 + 
-Now you should see 2 or 3 requests (~25%) going to `v2`. This process can be continued (and automated), slowly migrating
+* Now you should see 2 or 3 requests (~25%) going to `v2`. This process can be continued (and automated), slowly migrating
 traffic over to the new version as it proves its worth in production over time.
 
 . Remove the route rules before moving on:
