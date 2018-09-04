@@ -156,10 +156,10 @@ Finally, we will deploy the gateway service to OpenShift. This will complete our
 ----
 cd ~/rhte-msa-and-service-mesh
 
-cd customer/java/springboot
+cd gateway/java/springboot
 mvn clean package
-docker build -t example/customer .
-docker images | grep customer
+docker build -t example/gateway .
+docker images | grep gateway
 
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
 oc create -f ../../kubernetes/Service.yml -n $OCP_TUTORIAL_PROJECT
