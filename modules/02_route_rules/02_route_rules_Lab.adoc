@@ -145,9 +145,18 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 1
 * You should see:
 +
 ----
-TODO
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 4
+gateway => partner => catalog v2 from '7764964564-hj8xl': 3
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 5
+gateway => partner => catalog v2 from '7764964564-hj8xl': 4
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 6
+gateway => partner => catalog v2 from '7764964564-hj8xl': 5
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 7
+gateway => partner => catalog v2 from '7764964564-hj8xl': 6
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 8
+gateway => partner => catalog v2 from '7764964564-hj8xl': 7
 ----
-
++
 * Approximately half of the requests above go to `v1` and the other half to `v2`.
 
 * The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
