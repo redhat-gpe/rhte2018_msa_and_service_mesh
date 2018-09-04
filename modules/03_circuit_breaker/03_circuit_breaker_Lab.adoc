@@ -212,6 +212,12 @@ NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. J
 
 == Clean up
 
+. Scale down the catalog v2 to a single pod
++
+----
+oc scale deployment catalog-v2 --replicas=1
+----
+
 . Remove the route rules before moving on:
 +
 ----
