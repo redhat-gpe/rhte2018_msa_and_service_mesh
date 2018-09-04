@@ -26,13 +26,13 @@ Before getting started, you'll want to open a terminal window and set the follow
 -----
 ######  Instructor will provide the values to these environment variables #######
 
-$ export REGION=<provided by your instructor>
-$ export OCP_USERNAME=<provided by your instructor>
-$ export OCP_PASSWD=<provided by your instructor>
+export REGION=<provided by your instructor>
+export OCP_USERNAME=<provided by your instructor>
+export OCP_PASSWD=<provided by your instructor>
 
 #  Using above variables, copy & paste the following in same terminal #
 
-$ export OCP_TUTORIAL_PROJECT=$OCP_USERNAME-istio-tutorial
+export OCP_TUTORIAL_PROJECT=$OCP_USERNAME-istio-tutorial
 -----
 
 === OpenShift access
@@ -44,13 +44,13 @@ Access to your OCP resources can be gained via both the `oc` utility as well as 
 . Log into OpenShift
 +
 -----
-$ oc login https://master.$REGION.openshift.opentlc.com -u $OCP_USERNAME -p $OCP_PASSWD
+oc login https://master.$REGION.openshift.opentlc.com -u $OCP_USERNAME -p $OCP_PASSWD
 -----
 
 . View existing projects:
 +
 -----
-$ oc get projects
+oc get projects
 
 NAME                      DISPLAY NAME              STATUS
 istio-system                                        Active
@@ -66,7 +66,7 @@ This utility will need both view and edit privileges to the _istio-system_ names
 . Create a new tutorial project
 +
 ----
-$ oc new-project $OCP_TUTORIAL_PROJECT
+oc new-project $OCP_TUTORIAL_PROJECT
 ----
 
 . Set up permissions for the project
@@ -78,7 +78,7 @@ oc adm policy add-scc-to-user privileged -z default -n $OCP_TUTORIAL_PROJECT
 . Switch to the tutorial project
 +
 ----
-$ oc project $OCP_TUTORIAL_PROJECT
+oc project $OCP_TUTORIAL_PROJECT
 ----
 
 == Clone Source Code
