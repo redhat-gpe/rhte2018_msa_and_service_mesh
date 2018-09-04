@@ -93,7 +93,7 @@ oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment-v2.yml) -n $OC
 oc get pods -l app=catalog
 ----
 +
-* Expect to see the following:
+* You should see:
 +
 ----
 NAME                          READY     STATUS    RESTARTS   AGE
