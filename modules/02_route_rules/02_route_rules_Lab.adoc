@@ -84,8 +84,8 @@ NOTE: The "v2" tag during the Docker build is significant.
 ----
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment-v2.yml) -n $OCP_TUTORIAL_PROJECT
 ----
-
-This second deployment file `Deployment-v2.yml` will label the service correctly.
++
+* This second deployment file `Deployment-v2.yml` will label the service correctly.
 
 . You can see both versions of the catalog pods running using `oc get pods`:
 +
