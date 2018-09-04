@@ -123,8 +123,16 @@ oc create -f ../../kubernetes/Service.yml
 ----
 oc get pods -w
 ----
++
+* Wait until the status for the catalog service is Running and there are 2/2 pods in the Ready column. 
 
-* Wait until the status for the catalog service is Running and there are 2/2 pods in the Ready column. To exit, press Ctrl+C
+* Expect to see:
++
+----
+NAME                          READY     STATUS    RESTARTS   AGE
+catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          1m
+----
+* To exit, press Ctrl+C
 
 Since the catalog service is at the end of our service chain (`gateway -> partner -> catalog`), it is not exposed to the outside world.
 
