@@ -114,16 +114,24 @@ echo $GATEWAY_URL
 ----
 curl $GATEWAY_URL
 ----
-
-* You will likely see `gateway => partner => catalog v1 from '99634814-d2z2t': 3`, where `99634814-d2z2t` is the pod running `v1` and the `3` is basically the number of times you hit the endpoint.
++
+* You will likely see:
++
+----
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 2
+----
++
+* Where `6b576ffcf8-g6b48` is the pod running `v1` and the `2` is the number of times you hit the endpoint.
 
 . Make another request to the gateway service
 +
 ----
-curl $GATEWAY_URL
+gateway => partner => catalog v2 from '7764964564-hj8xl': 1
 ----
++
+* Where `7764964564-hj8xl` is the pod running `v2` and the `1` is basically the number of times you hit the endpoint.
 
-* You will likely see `gateway => partner => catalog v2 from '99634814-d2z2t': 1`, where `99634814-d2z2t` is the pod running `v2` and the `1` is basically the number of times you hit the endpoint. By default you get round-robin load-balancing when there is more than one Pod behind a Service
+* By default you get round-robin load-balancing when there is more than one Pod behind a Service
 
 . Send severals to the gateway service. 
 +
