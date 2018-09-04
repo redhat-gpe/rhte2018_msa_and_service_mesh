@@ -222,15 +222,24 @@ istioctl create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PR
 scripts/run.sh
 ----
 +
-* You should only see v2 being returned.
+* You should only see `v2` being returned.
 +
 ----
-TODO
+gateway => partner => catalog v2 from '7764964564-hj8xl': 17
+gateway => partner => catalog v2 from '7764964564-hj8xl': 18
+gateway => partner => catalog v2 from '7764964564-hj8xl': 19
+gateway => partner => catalog v2 from '7764964564-hj8xl': 20
+gateway => partner => catalog v2 from '7764964564-hj8xl': 21
+gateway => partner => catalog v2 from '7764964564-hj8xl': 22
+gateway => partner => catalog v2 from '7764964564-hj8xl': 23
+gateway => partner => catalog v2 from '7764964564-hj8xl': 24
+gateway => partner => catalog v2 from '7764964564-hj8xl': 25
+gateway => partner => catalog v2 from '7764964564-hj8xl': 26
 ----
 
 == Send all traffic to `catalog:v1`
 
-. Now let's move everyone to `v1`:
+. Now let's move everyone to catalog service `v1`:
 +
 ----
 oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
