@@ -6,7 +6,17 @@
 
 = Circuit Breaker Lab
 
-TODO
+[NOTE]
+.Before Start
+====
+You should have NO virtualservice nor destinationrule (in tutorial namespace) istioctl get virtualservice istioctl get destinationrule if so run:
+
+----
+cd ~/rhte-msa-and-service-mesh/
+./scripts/clean.sh
+----
+
+====
 
 == References
 
