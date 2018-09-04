@@ -89,7 +89,6 @@ oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment-v2.yml) -n $OC
 
 . You can see both versions of the catalog pods running using `oc get pods`:
 +
-[source,text]
 ----
 oc get pods -l app=catalog
 
@@ -224,7 +223,6 @@ TODO
 . Remove the route rules to get back to default round-robin distribution
 of requests.
 +
-[source,text]
 ----
 oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
 ----
@@ -325,7 +323,6 @@ traffic over to the new version as it proves its worth in production over time.
 
 . Remove the route rules before moving on:
 +
-[source,text]
 ----
 scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
