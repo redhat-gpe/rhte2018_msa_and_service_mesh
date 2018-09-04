@@ -1,7 +1,0 @@
-:noaudio:
-:scrollbar:
-:data-uri:
-:toc2:
-:linkattrs:
-
-= Setup Lab
