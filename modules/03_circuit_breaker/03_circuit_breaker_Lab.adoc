@@ -150,8 +150,8 @@ catalog-v2-7764964564-8h2zt   2/2       Running   0          24m
 catalog-v2-7764964564-hrjq5   2/2       Running   0          4m
 ----
 
-Now we’ll get into one the pods and add some erratic behavior on it. 
-+
+* Now we’ll get into one the pods and add some erratic behavior on it. 
+
 . Get one of the pod names from your system and replace on the following command accordingly:
 +
 ----
