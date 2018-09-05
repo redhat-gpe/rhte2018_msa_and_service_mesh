@@ -44,7 +44,7 @@ In this section, you will update the CatalogVerticle to expose additional endpoi
 . Edit the file the CatalogVerticle:
 +
 ----
-cd ~/rhte-msa-and-service-mesh/catalog/java/vertex
+cd ~/rhte-msa-and-service-mesh/catalog/java/vertx
 
 vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
 ----
