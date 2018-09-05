@@ -150,15 +150,23 @@ catalog-v2-7764964564-8h2zt   2/2       Running   0          24m
 catalog-v2-7764964564-hrjq5   2/2       Running   0          4m
 ----
 
-* Now we’ll get into one the pods and add some erratic behavior on it. 
+. Now we’ll get into one the pods and add some erratic behavior on it. 
 
-. Get one of the pod names from your system and replace on the following command accordingly:
+. Connect to one of your pods using the following command:
 +
 ----
 oc exec -it $(oc get pods|grep catalog-v2|awk '{ print $1 }'|head -1) -c catalog /bin/bash
 ----
 
-. You will be inside the application container of your pod catalog-v2-2036617847-spdrb. Now execute:
+* You should see:
++
+----
+[jboss@catalog-v2-7764964564-8h2zt ~]$
+----
+
+* At this point, you are now inside the application container of your pod catalog-v2-7764964564-8h2zt. 
+
+. Now execute the following command:
 +
 ----
 curl localhost:8080/misbehave
@@ -166,16 +174,25 @@ exit
 ----
 * This is a special endpoint that will make our application return only `503` errors.
 
-. Send some requests to the gateway service:
+. Now let's send in 10 requests:
 +
 ----
-./scripts/run.sh
+scripts/run.sh
 ----
 +
-* You’ll see that whenever the pod catalog-v2-2036617847-spdrb receives a request, you get a 503 error:
+* You’ll see that whenever the pod `catalog-v2-7764964564-8h2zt` receives a request, you get a 503 error:
 +
 ----
-TODO
+gateway => partner => catalog v2 from '7764964564-hrjq5': 2
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 228
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 229
+gateway => 503 partner => 503 catalog misbehavior from '7764964564-8h2zt'
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 230
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 231
+gateway => partner => catalog v2 from '7764964564-hrjq5': 3
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 232
+gateway => 503 partner => 503 catalog misbehavior from '7764964564-8h2zt'
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 233
 ----
 
 === Test behavior with failing instance and with pool ejection
@@ -186,17 +203,28 @@ TODO
 istioctl replace -f istiofiles/destination-rule-catalog_cb_policy_pool_ejection.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
-. Send some requests to the gateway service:
+. Now let's send in 10 requests:
 +
 ----
-./scripts/run.sh
+scripts/run.sh
 ----
 +
-* You will see that whenever you get a failing request with 503 from the pod catalog-v2-2036617847-spdrb, it gets ejected from the pool, and it doesn’t receive any more requests until the sleep window expires - which takes at least 15s.:
+* You will see that whenever you get a failing request with 503 from the pod `catalog-v2-7764964564-8h2zt`, it gets ejected from the pool, and it doesn’t receive any more requests until the sleep window expires - which takes at least 15s.:
 +
 ----
-TODO
+gateway => partner => catalog v2 from '7764964564-hrjq5': 4
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 234
+gateway => partner => catalog v2 from '7764964564-hrjq5': 5
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 235
+gateway => partner => catalog v2 from '7764964564-hrjq5': 6
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 236
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 237
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 238
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 239
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 240
 ----
+
+. Wait for 15 seconds and run the test again. You will occasionally see a 503 error, but it will go away after first try ... during the 15 second window.
 
 == Ultimate resilience with retries, circuit breaker, and pool ejection
 
@@ -214,10 +242,10 @@ By simply adding a retry configuration to our current virtualservice, we’ll be
 istioctl replace -f istiofiles/virtual-service-catalog-v1_and_v2_retry.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
-. Send some requests to the gateway service:
+. Now let's send in 10 requests:
 +
 ----
-./scripts/run.sh
+scripts/run.sh
 ----
 +
 * You won’t receive 503`s anymore. But the requests from catalog `v2 are still taking more time to get a response::
