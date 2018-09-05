@@ -64,7 +64,7 @@ docker build -t example/catalog:v2 .
 . Redeploy the Catalog service version 2 
 +
 ----
-oc delete pod -l app=catalog-service,version=v2
+oc delete pod -l app=catalog,version=v2
 ----
 +
 * Why the delete pod? Based on the Deployment configuration, Kubernetes/OpenShift will recreate the pod, based on the new docker image as it attempts to keep the desired replicas available.
@@ -72,11 +72,11 @@ oc delete pod -l app=catalog-service,version=v2
 . You can see both versions of the catalog pods running using `oc get pods`:
 +
 ----
-oc get pods -l app=catalog
+oc get pods -l app=catalog -w
 
-NAME                                 READY     STATUS    RESTARTS   AGE
-catalog-v1-60483540-9snd9     2/2       Running   0          12m
-catalog-v2-2815683430-vpx4p   2/2       Running   0          15s
+NAME                          READY     STATUS    RESTARTS   AGE
+catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          31m
+catalog-v2-7764964564-8h2zt   2/2       Running   0          34s
 ----
 
 == Pool Ejection
@@ -93,27 +93,45 @@ istioctl create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIA
 istioctl create -f istiofiles/virtual-service-catalog-v1_and_v2_50_50.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
-. Scale number of instances of v2 deployment
+. Scale up the number of pods for the `catalog-v2` pod
 +
 ----
-oc scale deployment catalog-v2 --replicas=2 -n $OCP_TUTORIAL_PROJECT
+oc scale --replicas=2 deployment/catalog-v2
 ----
 
-* Wait for all the pods to be in the ready state.
+* Wait for all of the catalog pods to be in the ready state.
++
+----
+oc get pods -l app=catalog -w
+
+NAME                          READY     STATUS    RESTARTS   AGE
+catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          37m
+catalog-v2-7764964564-8h2zt   2/2       Running   0          20m
+catalog-v2-7764964564-hrjq5   2/2       Running   0          56s
+----
 
 === Test behavior without failing instances
 
 . Send some requests to the gateway service:
 +
 ----
-./scripts/run.sh
+scripts/run.sh
 ----
-
-* You will see the load balancing 50/50 between the two different versions of the catalog service. And within version v2, you will also see that some requests are handled by one pod and some requests are handled by the other pod.
+. You should see:
 +
 ----
-TODO
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 221
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 222
+gateway => partner => catalog v2 from '7764964564-8h2zt': 1
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 223
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 224
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 225
+gateway => partner => catalog v2 from '7764964564-hrjq5': 1
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 226
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 227
+gateway => partner => catalog v2 from '7764964564-8h2zt': 2
 ----
+* You will see the load balancing 50/50 between the two different versions of the catalog service. And within version v2, you will also see that some requests are handled by one pod and some requests are handled by the other pod.
 
 === Test behavior with failing instance and without pool ejection
 
