@@ -117,7 +117,8 @@ catalog-v2-7764964564-hrjq5   2/2       Running   0          56s
 ----
 scripts/run.sh
 ----
-. You should see:
+
+* You should see:
 +
 ----
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 221
@@ -180,7 +181,7 @@ exit
 scripts/run.sh
 ----
 
-* You will see:
+* You should see:
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hrjq5': 2
@@ -195,7 +196,7 @@ gateway => 503 partner => 503 catalog misbehavior from '7764964564-8h2zt'
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 233
 ----
 
-* You’ll see that whenever the pod `catalog-v2-7764964564-8h2zt` receives a request, you get a 503 error:
+* You’ll see that whenever the pod `catalog-v2-7764964564-8h2zt` receives a request, you get a 503 error.
 
 === Test behavior with failing instance and with pool ejection
 
@@ -210,6 +211,8 @@ istioctl replace -f istiofiles/destination-rule-catalog_cb_policy_pool_ejection.
 ----
 scripts/run.sh
 ----
+
+* You should see: 
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hrjq5': 4
@@ -223,8 +226,7 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 238
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 239
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 240
 ----
-* You will see that whenever you get a failing request with 503 from the pod `catalog-v2-7764964564-8h2zt`, it gets ejected from the pool, and it doesn’t receive any more requests until the sleep window expires - which takes at least 15s.:
-+
+* You will see that whenever you get a failing request with 503 from the pod `catalog-v2-7764964564-8h2zt`, it gets ejected from the pool, and it doesn’t receive any more requests until the sleep window expires - which takes at least 15s.
 
 . Wait for 15 seconds and run the test again. You will occasionally see a 503 error, but it will go away after first try ... during the 15 second window.
 
@@ -250,7 +252,8 @@ istioctl replace -f istiofiles/virtual-service-catalog-v1_and_v2_retry.yml -n $O
 scripts/run.sh
 ----
 
-. You will see:
+* You will see:
++
 ----
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 256
 gateway => partner => catalog v2 from '7764964564-hrjq5': 11
@@ -263,7 +266,7 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 258
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 259
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 260
 ----
-+
+
 * You won’t receive 503`s anymore. But the requests from catalog `v2 are still taking more time to get a response::
 
 NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. Just run the above command again if you see any 503's. You should eventually not see any.
