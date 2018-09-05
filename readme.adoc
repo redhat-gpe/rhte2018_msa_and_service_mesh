@@ -1,4 +1,4 @@
-= MSA and Service Mesh Multi-Product Lab
+= MSA and Service Mesh Multi-Product Lab (RHTE 2018)
 
 As microservices-based applications become more prevalent, both the number of and complexity of their interactions increases. Up until now much of the burden of managing these complex microservices interactions has been placed on the application developer, with different or non-existent support for microservice concepts depending on language and framework.
 
