@@ -4,7 +4,8 @@ As microservices-based applications become more prevalent, both the number of an
 
 The service mesh concept pushes this responsibility to the infrastructure, with features for traffic management, distributed tracing and observability, policy enforcement, and service/identity security, freeing the developer to focus on business value. In this hands-on session you will learn how to apply some of these features to a microservices application running on top of OpenShift using Istio.
 
-In this workshop, you will learn how to
+In this workshop, you will learn how to:
+
 * Deploy microservice applications to OpenShift
 * Inject sidecar proxies into applications which form a service mesh
 * Configure the Istio service mesh to dynamically route and shape traffic to and from services
