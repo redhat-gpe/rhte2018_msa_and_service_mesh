@@ -247,16 +247,26 @@ istioctl replace -f istiofiles/virtual-service-catalog-v1_and_v2_retry.yml -n $O
 ----
 scripts/run.sh
 ----
+
+. You will see:
+----
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 256
+gateway => partner => catalog v2 from '7764964564-hrjq5': 11
+gateway => partner => catalog v2 from '7764964564-hrjq5': 12
+gateway => partner => catalog v2 from '7764964564-hrjq5': 13
+gateway => partner => catalog v2 from '7764964564-hrjq5': 14
+gateway => partner => catalog v2 from '7764964564-hrjq5': 15
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 257
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 258
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 259
+gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 260
+----
 +
 * You won’t receive 503`s anymore. But the requests from catalog `v2 are still taking more time to get a response::
-+
-----
-TODO
-----
-+
+
 NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. Just run the above command again if you see any 503's. You should eventually not see any.
 
-* Our misbehaving pod catalog-v2-2036617847-spdrb never shows up in the console, thanks to pool ejection and retry.
+* Our misbehaving pod `catalog-v2-7764964564-8h2zt` never shows up in the console, thanks to pool ejection and retry.
 
 == Clean up
 
