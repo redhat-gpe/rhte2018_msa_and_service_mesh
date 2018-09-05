@@ -150,7 +150,7 @@ catalog-v2-7764964564-8h2zt   2/2       Running   0          24m
 catalog-v2-7764964564-hrjq5   2/2       Running   0          4m
 ----
 
-. Now we’ll get into one the pods and add some erratic behavior on it. 
+. Now we’ll connect to one the pods and add some erratic behavior on it. 
 
 . Connect to one of your pods using the following command:
 +
@@ -164,7 +164,7 @@ oc exec -it $(oc get pods|grep catalog-v2|awk '{ print $1 }'|head -1) -c catalog
 [jboss@catalog-v2-7764964564-8h2zt ~]$
 ----
 
-* At this point, you are now inside the application container of your pod catalog-v2-7764964564-8h2zt. 
+* At this point, you are now inside the application container of your pod `catalog-v2-7764964564-8h2zt`. 
 
 . Now execute the following command:
 +
@@ -172,15 +172,15 @@ oc exec -it $(oc get pods|grep catalog-v2|awk '{ print $1 }'|head -1) -c catalog
 curl localhost:8080/misbehave
 exit
 ----
-* This is a special endpoint that will make our application return only `503` errors.
+* This is a special endpoint that will make our application always return `503` errors.
 
 . Now let's send in 10 requests:
 +
 ----
 scripts/run.sh
 ----
-+
-* You’ll see that whenever the pod `catalog-v2-7764964564-8h2zt` receives a request, you get a 503 error:
+
+. You will see:
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hrjq5': 2
@@ -194,6 +194,8 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 232
 gateway => 503 partner => 503 catalog misbehavior from '7764964564-8h2zt'
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 233
 ----
+
+* You’ll see that whenever the pod `catalog-v2-7764964564-8h2zt` receives a request, you get a 503 error:
 
 === Test behavior with failing instance and with pool ejection
 
@@ -209,8 +211,6 @@ istioctl replace -f istiofiles/destination-rule-catalog_cb_policy_pool_ejection.
 scripts/run.sh
 ----
 +
-* You will see that whenever you get a failing request with 503 from the pod `catalog-v2-7764964564-8h2zt`, it gets ejected from the pool, and it doesn’t receive any more requests until the sleep window expires - which takes at least 15s.:
-+
 ----
 gateway => partner => catalog v2 from '7764964564-hrjq5': 4
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 234
@@ -223,6 +223,8 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 238
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 239
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 240
 ----
+* You will see that whenever you get a failing request with 503 from the pod `catalog-v2-7764964564-8h2zt`, it gets ejected from the pool, and it doesn’t receive any more requests until the sleep window expires - which takes at least 15s.:
++
 
 . Wait for 15 seconds and run the test again. You will occasionally see a 503 error, but it will go away after first try ... during the 15 second window.
 
