@@ -179,7 +179,7 @@ exit
 ----
 scripts/run.sh
 ----
-+
+
 * You will see:
 +
 ----
