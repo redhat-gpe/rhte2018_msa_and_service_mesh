@@ -179,8 +179,8 @@ exit
 ----
 scripts/run.sh
 ----
-
-. You will see:
++
+* You will see:
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hrjq5': 2
