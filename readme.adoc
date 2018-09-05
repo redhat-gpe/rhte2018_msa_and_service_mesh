@@ -1,5 +1,16 @@
 = MSA and Service Mesh Multi-Product Lab
 
+As microservices-based applications become more prevalent, both the number of and complexity of their interactions increases. Up until now much of the burden of managing these complex microservices interactions has been placed on the application developer, with different or non-existent support for microservice concepts depending on language and framework.
+
+The service mesh concept pushes this responsibility to the infrastructure, with features for traffic management, distributed tracing and observability, policy enforcement, and service/identity security, freeing the developer to focus on business value. In this hands-on session you will learn how to apply some of these features to a microservices application running on top of OpenShift using Istio.
+
+In this workshop, you will learn how to
+* Deploy microservice applications to OpenShift
+* Inject sidecar proxies into applications which form a service mesh
+* Configure the Istio service mesh to dynamically route and shape traffic to and from services
+* Apply the Circuit Breaker pattern to limit the impact of failures and network latency
+* Inject chaos, faults and timeouts to test the service resiliency of your application
+
 == Project Plan
 
 [width="100%",cols="5,1,3"options="header"]
