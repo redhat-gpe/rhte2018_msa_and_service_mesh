@@ -289,7 +289,7 @@ scripts/clean.sh $OCP_TUTORIAL_PROJECT
 
 == Congratulations!
 
-In this lab you learned how to implement the pool ejection resilience strategy to increase the overall availability. You also leverage the circuit breaker pattern to avoid multiple concurrent requests to a failed instance.
+In this lab you learned how to implement the pool ejection resilience strategy to increase the overall availability. You also leveraged the circuit breaker pattern to avoid multiple requests to a failed instance.
 
 == References
 
