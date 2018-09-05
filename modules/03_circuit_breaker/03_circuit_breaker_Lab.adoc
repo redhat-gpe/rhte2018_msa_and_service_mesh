@@ -145,12 +145,13 @@ oc get pods -l app=catalog,version=v2
 * You should see:
 +
 ----
-catalog-v2-2036617847-hdjv2   2/2       Running   0          1h
-catalog-v2-2036617847-spdrb   2/2       Running   0          7m
+NAME                          READY     STATUS    RESTARTS   AGE
+catalog-v2-7764964564-8h2zt   2/2       Running   0          24m
+catalog-v2-7764964564-hrjq5   2/2       Running   0          4m
 ----
 
 Now we’ll get into one the pods and add some erratic behavior on it. 
-
++
 . Get one of the pod names from your system and replace on the following command accordingly:
 +
 ----
