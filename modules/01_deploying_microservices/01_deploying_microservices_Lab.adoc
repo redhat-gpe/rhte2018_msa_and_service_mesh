@@ -266,10 +266,9 @@ oc create -f ../../kubernetes/Service.yml -n $OCP_TUTORIAL_PROJECT
 * Expect to see:
 +
 ----
-...
-example/gateway          latest         a08a674ee02c        8 seconds ago       459 MB
+deployment.extensions "gateway" created
+service "gateway" created
 ----
-
 
 . Monitor the deployment of the pods. Enter the following command:
 +
