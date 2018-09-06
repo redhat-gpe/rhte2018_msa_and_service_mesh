@@ -19,22 +19,6 @@ In this lab, you will:
 * Access the OpenShift environment
 * Deploy microservice applications to OpenShift
 
-== Environment Variables
-
-Before getting started, you'll want to open a terminal window and set the following environment variables that will be used throughout the duration of this lab.
-
------
-######  Instructor will provide the values to these environment variables #######
-
-export REGION=<provided by your instructor>
-export OCP_USERNAME=<provided by your instructor>
-export OCP_PASSWD=<provided by your instructor>
-
-#  Using above variables, copy & paste the following in same terminal #
-
-export OCP_TUTORIAL_PROJECT=$OCP_USERNAME-istio-tutorial
------
-
 === OpenShift access
 
 . Create a new tutorial project
