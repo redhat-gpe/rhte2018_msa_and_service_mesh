@@ -94,7 +94,7 @@ sudo docker images | grep example/catalog
 * Expect to see:
 +
 ----
-example/catalog         v1                  4e6674de4628        2 minutes ago      443 MB
+example/catalog         v1       4e6674de4628        2 minutes ago      443 MB
 ----
 
 . Deploy the microservice and inject the istio sidecar.
