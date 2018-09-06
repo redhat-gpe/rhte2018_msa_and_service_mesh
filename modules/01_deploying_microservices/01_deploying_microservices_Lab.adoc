@@ -94,6 +94,7 @@ sudo docker images | grep example/catalog
 * Expect to see:
 +
 ----
+...
 example/catalog         v1       4e6674de4628        40 seconds ago      443 MB
 ----
 
@@ -171,10 +172,11 @@ sudo docker images | grep example/partner
 * Expect to see:
 +
 ----
+...
 example/partner       v1       2be57b4f5feb        16 seconds ago       459 MB
 ----
 
-. Deploy the `catalog` service and inject the istio sidecar.
+. Deploy the `partner` service and inject the istio sidecar.
 +
 ----
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
@@ -250,12 +252,24 @@ sudo docker images | grep example/gateway
 * Expect to see:
 +
 ----
-
+...
+example/gateway          latest         a08a674ee02c        8 seconds ago       459 MB
 ----
 
+. Deploy the `gateway` service and inject the istio sidecar.
++
+----
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
 oc create -f ../../kubernetes/Service.yml -n $OCP_TUTORIAL_PROJECT
 ----
+
+* Expect to see:
++
+----
+...
+example/gateway          latest         a08a674ee02c        8 seconds ago       459 MB
+----
+
 
 . Monitor the deployment of the pods. Enter the following command:
 +
