@@ -31,7 +31,7 @@ In this lab, you will learn how to:
 You should have NO virtualservice nor destinationrule. Run this command to clean up:
 
 ----
-cd ~/rhte-msa-and-service-mesh/
+cd ~/lab/rhte-msa-and-service-mesh/
 
 ./scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
@@ -44,7 +44,7 @@ In this section, you will update the CatalogVerticle to expose additional endpoi
 . Edit the file the CatalogVerticle:
 +
 ----
-cd ~/rhte-msa-and-service-mesh/catalog/java/vertx
+cd ~/lab/rhte-msa-and-service-mesh/catalog/java/vertx
 
 vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
 ----
@@ -87,7 +87,7 @@ First, you need to insure you have a destinationrule and virtualservice in place
 . Configure the rules to split the traffic 50/50.
 +
 ----
-cd ~/rhte-msa-and-service-mesh/
+cd ~/lab/rhte-msa-and-service-mesh/
 
 istioctl create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT
 istioctl create -f istiofiles/virtual-service-catalog-v1_and_v2_50_50.yml -n $OCP_TUTORIAL_PROJECT

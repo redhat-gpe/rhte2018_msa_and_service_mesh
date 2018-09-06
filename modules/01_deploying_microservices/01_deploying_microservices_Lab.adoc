@@ -37,32 +37,6 @@ export OCP_TUTORIAL_PROJECT=$OCP_USERNAME-istio-tutorial
 
 === OpenShift access
 
-Your lab environment is built on Red Hat's OpenShift Container Platform.
-
-Access to your OCP resources can be gained via both the `oc` utility as well as the OCP web console.
-
-. Log into OpenShift
-+
------
-oc login https://master.$REGION.openshift.opentlc.com -u $OCP_USERNAME -p $OCP_PASSWD
------
-
-. View existing projects:
-+
------
-oc get projects
-
-NAME                      DISPLAY NAME              STATUS
-istio-system                                        Active
------
-
-.. Your OCP user has been provided with _view_ and _edit_ access to the central _istio-system_ namespace with all _control plane_ Istio functionality.
-+
-Later in this lab, you'll use a utility called _istioctl_ .
-This utility will need both view and edit privileges to the _istio-system_ namespace.
-
-.. Your OCP use has also been provided with _view_ access to a multi-tenant 
-
 . Create a new tutorial project
 +
 ----
@@ -88,7 +62,7 @@ Start by cloning the tutorial source files to your computer.
 . Open a terminal window and enter the following commands:
 +
 ----
-cd ~/
+cd ~/lab
 
 git clone https://github.com/gpe-mw-training/rhte-msa-and-service-mesh.git
 
@@ -144,7 +118,7 @@ Next, we will deploy the partner service to OpenShift.
 . In your terminal window, enter the following commands:
 +
 ----
-cd ~/rhte-msa-and-service-mesh
+cd ~/lab/rhte-msa-and-service-mesh
 
 cd partner/java/springboot
 mvn clean package
@@ -183,7 +157,7 @@ Finally, we will deploy the gateway service to OpenShift. This will complete our
 . In your terminal window, enter the following commands:
 +
 ----
-cd ~/rhte-msa-and-service-mesh
+cd ~/lab/rhte-msa-and-service-mesh
 
 cd gateway/java/springboot
 mvn clean package

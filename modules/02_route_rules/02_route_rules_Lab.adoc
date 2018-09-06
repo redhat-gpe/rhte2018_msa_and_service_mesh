@@ -56,7 +56,7 @@ service.
 . Edit Java source code to show v2 message
 +
 ----
-cd ~/rhte-msa-and-service-mesh/catalog/java/vertx
+cd ~/lab/rhte-msa-and-service-mesh/catalog/java/vertx
 
 vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
 ----
@@ -211,7 +211,7 @@ In addition to the usual OpenShift object types like `BuildConfig`, `DeploymentC
 . Route all traffic to `v2`:
 +
 ----
-cd ~/rhte-msa-and-service-mesh
+cd ~/lab/rhte-msa-and-service-mesh
 
 istioctl create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT
 istioctl create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT
