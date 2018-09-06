@@ -82,7 +82,7 @@ Access to your OCP resources can be gained via both the `oc` utility as well as 
 . Verify that OCP has started:
 +
 -----
-$ sudo systemctl status oc-cluster
+sudo systemctl status oc-cluster
 
 ...
 
@@ -101,14 +101,18 @@ Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com systemd[1]: Started OpenShift oc 
 . Using the `oc` utility, log into OpenShift
 +
 -----
-$ oc login https://$HOSTNAME:8443 -u $OCP_USERNAME -p $OCP_PASSWD
+oc login https://$HOSTNAME:8443 -u $OCP_USERNAME -p $OCP_PASSWD
 -----
 
 . Ensure that your `oc` client is the same minor release version as the server:
 +
 -----
-$ oc version
+oc version
+-----
 
+* You should see:
++
+-----
 oc v3.10.14
 kubernetes v1.10.0+b81c8f8
 features: Basic-Auth GSSAPI Kerberos SPNEGO
@@ -124,8 +128,12 @@ kubernetes v1.10.0+b81c8f8
 . View existing projects:
 +
 -----
-$ oc get projects
+oc get projects
+-----
 
+* You should see:
++
+-----
 ...
 
 istio-system                                      Active
@@ -143,7 +151,7 @@ This utility will need both view and edit privileges to the _istio-system_ names
 .. To access the OCP web console, point to your browser to the output of the following:
 +
 -----
-$ echo -en "\n\nhttps://$OCP_DOMAIN:8443\n\n"
+echo -en "\n\nhttps://$OCP_DOMAIN:8443\n\n"
 -----
 
 .. Authenticate using the values of $OCP_USERNAME and $OCP_PASSWD
@@ -159,17 +167,17 @@ NOTE: This is for information only. You do not need to follow these steps.
 . As the `root` operating system user, `cluster admin` access to your OCP environment can be achieved by executing :
 +
 -----
-# oc login -u system:admin
+oc login -u system:admin
 -----
 
 . You can check the status of the OCP system service by executing:
 +
 -----
-# systemctl status oc-cluster.service
+systemctl status oc-cluster.service
 -----
 
 . The OCP environment can be restarted as follows:
 +
 -----
-# systemctl restart oc-cluster.service
+systemctl restart oc-cluster.service
 -----
