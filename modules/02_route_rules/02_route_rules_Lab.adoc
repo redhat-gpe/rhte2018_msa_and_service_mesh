@@ -238,8 +238,8 @@ In addition to the usual OpenShift object types like `BuildConfig`, `DeploymentC
 ----
 cd ~/lab/rhte-msa-and-service-mesh
 
-istioctl create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT
-istioctl create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT
+sudo istioctl create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT
+sudo istioctl create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
 . Test the `gateway` service again - all requests should end up talking to
@@ -321,7 +321,7 @@ Canary Deployment scenario: push v2 into the cluster but slowly send end-user tr
 . Create the virtualservice that will send 75% of requests to v1 and 25% to v2:
 +
 ----
-istioctl create -f istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml -n $OCP_TUTORIAL_PROJECT
+sudo istioctl create -f istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
 . And issue 10 requests:
