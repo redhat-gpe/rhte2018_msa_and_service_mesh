@@ -241,7 +241,7 @@ cd ~/lab/rhte-msa-and-service-mesh
 oc create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 oc create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
-
++
 NOTE: Your OCP user has been provided with the ability to impersonate the system:admin user so as to execute this command. Please use this capability with caution. In a real-world setting, you would have coordinated with a team-member who does with cluster admin rights to execute this command for you. 
 
 . Test the `gateway` service again - all requests should end up talking to
