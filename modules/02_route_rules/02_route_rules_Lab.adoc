@@ -251,7 +251,7 @@ NOTE: Your OCP user has been provided with the ability to impersonate the system
 scripts/run.sh
 ----
 +
-* You should see:
+* You should only see `v2` being returned.
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hj8xl': 17
@@ -265,8 +265,6 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 24
 gateway => partner => catalog v2 from '7764964564-hj8xl': 25
 gateway => partner => catalog v2 from '7764964564-hj8xl': 26
 ----
-+
-* You should only see `v2` being returned.
 
 == Send all traffic to `catalog:v1`
 
