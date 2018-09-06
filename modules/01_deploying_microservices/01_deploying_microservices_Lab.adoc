@@ -30,13 +30,7 @@ oc new-project $OCP_TUTORIAL_PROJECT
 . Set up permissions for the project
 +
 ----
-oc adm policy add-scc-to-user privileged -z default -n $OCP_TUTORIAL_PROJECT
-----
-
-. Switch to the tutorial project
-+
-----
-oc project $OCP_TUTORIAL_PROJECT
+sudo oc adm policy add-scc-to-user privileged -z default -n $OCP_TUTORIAL_PROJECT
 ----
 
 == Clone Source Code
