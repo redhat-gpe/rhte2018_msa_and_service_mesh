@@ -301,7 +301,7 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 26
 of requests.
 +
 ----
-oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT 
+oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
 . Now let's send in 10 requests:
