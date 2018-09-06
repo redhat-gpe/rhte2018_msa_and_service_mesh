@@ -90,9 +90,11 @@ oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment-v2.yml) -n $OC
 . You can see both versions of the `catalog` pods running with the following command:
 +
 ----
-oc get pods -l app=catalog
+oc get pods -l app=catalog -w
 ----
 +
+* For the `catalog-v2` service, wait until the Ready column has `2/2` pods and the Status column has `Running`. 
+
 * You should see:
 +
 ----
