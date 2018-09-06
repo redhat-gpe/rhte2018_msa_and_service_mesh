@@ -173,7 +173,7 @@ oc delete project developer-coolstore-gateway
 echo -en "\n\nhttps://$OCP_DOMAIN:8443\n\n"
 -----
 
-.. Authenticate using the values of $OCP_USERNAME and $OCP_PASSWD
+.. Authenticate using the values of `developer` and `r3dh4t1!`
 
 
 == Appendix
