@@ -173,6 +173,26 @@ available pods behind a single Service.
 oc scale --replicas=2 deployment/catalog-v2
 ----
 
+. Monitor the scaling up of the new pod
++
+----
+oc get pods -l app=catalog -w
+----
++
+* Wait until you see two entries for the `catalog-v2` service. Also wait until the Ready column has `2/2` pods and the Status column has `Running`. 
+
+* You should see:
++
+----
+NAME                          READY     STATUS    RESTARTS   AGE
+catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          31m
+catalog-v2-7764964564-hj8xl   2/2       Running   0          10m
+catalog-v2-7764964564-qrnnl   2/2       Running   0          49s
+----
++
+
+* To exit, press Ctrl+C.
+
 . Now let's send in 10 requests
 +
 ----
