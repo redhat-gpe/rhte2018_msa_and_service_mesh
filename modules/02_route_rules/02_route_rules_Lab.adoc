@@ -145,7 +145,7 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 1
 ~/lab/rhte-msa-and-service-mesh/scripts/run.sh
 ----
 +
-* The `run.sh` script will loop and send 10 requests to the gateway service.
+* The `run.sh` script will loop and send 10 requests to the `gateway` service.
 
 * You should see:
 +
