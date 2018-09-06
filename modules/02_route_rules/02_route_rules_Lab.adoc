@@ -74,7 +74,7 @@ private static final String RESPONSE_STRING_FORMAT = "catalog v2 from '%s': %d\n
 ----
 mvn clean package
 
-docker build -t example/catalog:v2 .
+sudo docker build -t example/catalog:v2 .
 ----
 +
 NOTE: The "v2" tag during the Docker build is significant.
