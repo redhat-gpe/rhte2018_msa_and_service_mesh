@@ -282,7 +282,7 @@ NOTE: We use `oc replace` instead of `oc create` since we are overlaying the pre
 scripts/run.sh
 ----
 +
-* You should see:
+* You should see all requests now to go `v1`:
 +
 ----
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 17
@@ -296,8 +296,6 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 24
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 25
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 26
 ----
-+
-* Notice how all requests now to go `v1`.
 
 . Remove the route rules to get back to default round-robin distribution
 of requests.
