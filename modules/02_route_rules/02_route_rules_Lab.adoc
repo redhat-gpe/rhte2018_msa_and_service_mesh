@@ -103,6 +103,9 @@ catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          31m
 catalog-v2-7764964564-hj8xl   2/2       Running   0          49s
 ----
 +
+
+* To exit, press Ctrl+C.
+
 * By default, Istio will round-robin incoming requests to the `catalog` Service
 so that both `v1` and `v2` pods get equal amounts of traffic.
 
