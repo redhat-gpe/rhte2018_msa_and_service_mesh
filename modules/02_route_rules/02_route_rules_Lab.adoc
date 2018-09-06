@@ -271,7 +271,7 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 26
 . Now let's move everyone to catalog service `v1`:
 +
 ----
-oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
+oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 +
 NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
@@ -303,7 +303,7 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 26
 of requests.
 +
 ----
-oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
+oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT 
 ----
 
 . Now let's send in 10 requests:
@@ -321,7 +321,7 @@ Canary Deployment scenario: push v2 into the cluster but slowly send end-user tr
 . Create the virtualservice that will send 75% of requests to v1 and 25% to v2:
 +
 ----
-sudo istioctl create -f istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml -n $OCP_TUTORIAL_PROJECT
+oc create -f istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
 . And issue 10 requests:
