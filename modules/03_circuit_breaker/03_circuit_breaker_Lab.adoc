@@ -73,11 +73,20 @@ oc delete pod -l app=catalog,version=v2
 +
 ----
 oc get pods -l app=catalog -w
+----
++
+* For the `catalog` service, wait until the Ready column has `2/2` pods and the Status column has `Running`. 
 
+* You should see:
++
+----
 NAME                          READY     STATUS    RESTARTS   AGE
 catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          31m
 catalog-v2-7764964564-8h2zt   2/2       Running   0          34s
 ----
+
+* To exit, press Ctrl+C.
+
 
 == Pool Ejection
 Pool ejection or outlier detection is a resilience strategy that takes place whenever we have a pool of instances/pods to serve a client request. If the request is forwarded to a certain instance and it fails (e.g. returns a 50x error code), then Istio will eject this instance from the pool for a certain sleep window. In our example the sleep window is configured to be 15s. This increases the overall availability by making sure that only healthy pods participate in the pool of instances.
