@@ -33,7 +33,7 @@ You should have NO virtualservice nor destinationrule. Run this command to clean
 ----
 cd ~/lab/rhte-msa-and-service-mesh/
 
-./scripts/clean.sh $OCP_TUTORIAL_PROJECT
+scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
 ====
 
