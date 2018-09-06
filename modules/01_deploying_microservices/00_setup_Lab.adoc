@@ -67,6 +67,7 @@ echo "export LAB_CODE=a1001" >> ~/.bashrc
 echo "export OCP_USERNAME=developer" >> ~/.bashrc
 echo "export OCP_PASSWD=r3dh4t1\!" >> ~/.bashrc
 echo "export OCP_REGION=`echo $HOSTNAME | cut -d'.' -f2`" >> ~/.bashrc
+echo "export OCP_DOMAIN=clientvm.\$OCP_REGION.rhte.opentlc.com" >> ~/.bashrc
 echo "export OCP_TUTORIAL_PROJECT=\$OCP_USERNAME-istio-tutorial" >> ~/.bashrc
 
 source ~/.bashrc
