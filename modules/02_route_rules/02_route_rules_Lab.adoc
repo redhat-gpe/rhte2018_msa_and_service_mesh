@@ -187,7 +187,7 @@ oc get pods -l app=catalog -w
 NAME                          READY     STATUS    RESTARTS   AGE
 catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          31m
 catalog-v2-7764964564-hj8xl   2/2       Running   0          10m
-catalog-v2-7764964564-qrnnl   2/2       Running   0          49s
+catalog-v2-7764964564-d8qwp   2/2       Running   0          49s
 ----
 +
 
