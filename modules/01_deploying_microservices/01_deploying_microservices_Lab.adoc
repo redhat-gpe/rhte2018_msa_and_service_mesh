@@ -324,6 +324,6 @@ Proceed to the next lab: link:02_route_rules_Lab.html[*02 - Dynamic Routing with
 
 == References
 
-* https://openshift.com[Red Hat OpenShift, window="_blank"]
-* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift, window="_blank"]
-* https://istio.io[Istio Homepage, window="_blank"]
+* https://openshift.com[Red Hat OpenShift]
+* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
+* https://istio.io[Istio Homepage]
