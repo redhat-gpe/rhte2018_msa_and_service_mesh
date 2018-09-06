@@ -102,8 +102,9 @@ cd ~/lab/rhte-msa-and-service-mesh
 
 cd partner/java/springboot
 mvn clean package
-docker build -t example/partner:v1 .
-docker images | grep partner
+
+sudo docker build -t example/partner:v1 .
+sudo docker images | grep example/partner
 
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
 oc create -f ../../kubernetes/Service.yml
@@ -141,8 +142,9 @@ cd ~/lab/rhte-msa-and-service-mesh
 
 cd gateway/java/springboot
 mvn clean package
-docker build -t example/gateway .
-docker images | grep gateway
+
+sudo docker build -t example/gateway .
+sudo docker images | grep example/gateway
 
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
 oc create -f ../../kubernetes/Service.yml -n $OCP_TUTORIAL_PROJECT
