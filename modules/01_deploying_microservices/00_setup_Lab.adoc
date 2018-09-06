@@ -143,7 +143,7 @@ oc get projects
 istio-system                                      Active
 -----
 
-.. *istio-system*
+** *istio-system*
 +
 Your OCP user has been provided with _view_ and _edit_ access to the central _istio-system_ namespace with all _control plane_ Istio functionality.
 +
