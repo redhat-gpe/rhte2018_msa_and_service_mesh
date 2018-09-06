@@ -83,7 +83,11 @@ Access to your OCP resources can be gained via both the `oc` utility as well as 
 +
 -----
 sudo systemctl status oc-cluster
+-----
 
+* You should see
++
+-----
 ...
 
 Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: Server Information ...
