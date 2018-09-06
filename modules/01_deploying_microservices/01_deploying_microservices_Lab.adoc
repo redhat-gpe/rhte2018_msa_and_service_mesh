@@ -213,7 +213,7 @@ Finally, we will deploy the gateway service to OpenShift. This will complete our
 
 `gateway -> partner -> catalog`
 
-. In your terminal window, build the microservice with the following commands:
+. In your terminal window, build the `gateway` service with the following commands:
 +
 ----
 cd ~/lab/rhte-msa-and-service-mesh
@@ -225,10 +225,22 @@ mvn clean package
 * Expect to see:
 +
 ----
-
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< com.redhat.developer.demos:gateway >-----------------
+[INFO] Building gateway 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+...
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4.658 s
+[INFO] Finished at: 2018-09-06T19:20:10Z
+[INFO] ------------------------------------------------------------------------
 ----
 
-. Create the docker image for the gateway microservice. Also, verify the image is in the local docker repository.
+. Create the docker image for the `gateway` service. Also, verify the image is in the local docker repository.
 +
 ----
 sudo docker build -t example/gateway .
