@@ -64,8 +64,9 @@ Now let's start by deploying the catalog service to OpenShift. The sidecar proxy
 ----
 cd catalog/java/vertx
 mvn clean package
-docker build -t example/catalog:v1 .
-docker images | grep catalog
+
+sudo docker build -t example/catalog:v1 .
+sudo docker images | grep catalog
 
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
 oc create -f ../../kubernetes/Service.yml
