@@ -58,7 +58,7 @@ vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
 ----
 mvn clean package
 
-docker build -t example/catalog:v2 .
+sudo docker build -t example/catalog:v2 .
 ----
 
 . Redeploy the Catalog service version 2 
