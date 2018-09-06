@@ -89,8 +89,8 @@ First, you need to insure you have a destinationrule and virtualservice in place
 ----
 cd ~/lab/rhte-msa-and-service-mesh/
 
-istioctl create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT
-istioctl create -f istiofiles/virtual-service-catalog-v1_and_v2_50_50.yml -n $OCP_TUTORIAL_PROJECT
+oc create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+oc create -f istiofiles/virtual-service-catalog-v1_and_v2_50_50.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
 . Scale up the number of pods for the `catalog-v2` pod
@@ -203,7 +203,7 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 233
 . Now let’s add the pool ejection behavior:
 +
 ----
-istioctl replace -f istiofiles/destination-rule-catalog_cb_policy_pool_ejection.yml -n $OCP_TUTORIAL_PROJECT
+oc replace -f istiofiles/destination-rule-catalog_cb_policy_pool_ejection.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
 . Now let's send in 10 requests:
@@ -243,7 +243,7 @@ By simply adding a retry configuration to our current virtualservice, we’ll be
 . Add a retry configuration
 +
 ----
-istioctl replace -f istiofiles/virtual-service-catalog-v1_and_v2_retry.yml -n $OCP_TUTORIAL_PROJECT
+oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_retry.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
 . Now let's send in 10 requests:
