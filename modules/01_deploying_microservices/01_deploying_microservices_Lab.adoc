@@ -59,7 +59,7 @@ provide additional control over traffic between services.
 
 Now let's start by deploying the catalog service to OpenShift. The sidecar proxy will automatically be injected.
 
-. In your terminal window, enter the following commands:
+. In your terminal window, build the `catalog` service using the following commands:
 +
 ----
 cd catalog/java/vertx
@@ -84,7 +84,7 @@ mvn clean package
 [INFO] ------------------------------------------------------------------------
 ----
 
-. Create the docker image for the gateway microservice. Also, verify the image is in the local docker repository.
+. Create the docker image for the `catalog` service. Also, verify the image is in the local docker repository.
 +
 ----
 sudo docker build -t example/catalog:v1 .
@@ -94,10 +94,10 @@ sudo docker images | grep example/catalog
 * Expect to see:
 +
 ----
-example/catalog         v1       4e6674de4628        2 minutes ago      443 MB
+example/catalog         v1       4e6674de4628        40 seconds ago      443 MB
 ----
 
-. Deploy the microservice and inject the istio sidecar.
+. Deploy the `catalog` service and inject the istio sidecar.
 +
 ----
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
@@ -107,7 +107,8 @@ oc create -f ../../kubernetes/Service.yml
 * Expect to see:
 +
 ----
-
+deployment.extensions "catalog-v1" created
+service "catalog" created
 ----
 
 . Monitor the deployment of the pods. Enter the following command:
@@ -127,11 +128,11 @@ catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          1m
 
 * To exit, press Ctrl+C.
 
-Since the catalog service is at the end of our service chain (`gateway -> partner -> catalog`), it is not exposed to the outside world.
+Since the `catalog` service is at the end of our service chain (`gateway -> partner -> catalog`), it is not exposed to the outside world.
 
 == Deploy Partner service 
 
-Next, we will deploy the partner service to OpenShift. 
+Next, we will deploy the `partner` service to OpenShift. 
 
 . In your terminal window, enter the following commands:
 +
@@ -140,12 +141,51 @@ cd ~/lab/rhte-msa-and-service-mesh
 
 cd partner/java/springboot
 mvn clean package
+----
 
+* Expect to see:
++
+----
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< com.redhat.developer.demos:partner >-----------------
+[INFO] Building partner 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+...
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 01:14 min
+[INFO] Finished at: 2018-09-06T18:49:10Z
+[INFO] ------------------------------------------------------------------------
+----
+
+. Create the docker image for the `partner` service. Also, verify the image is in the local docker repository.
++
+----
 sudo docker build -t example/partner:v1 .
 sudo docker images | grep example/partner
+----
 
+* Expect to see:
++
+----
+example/partner       v1       2be57b4f5feb        16 seconds ago       459 MB
+----
+
+. Deploy the `catalog` service and inject the istio sidecar.
++
+----
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
 oc create -f ../../kubernetes/Service.yml
+----
+
+* Expect to see:
++
+----
+deployment.extensions "partner-v1" created
+service "partner" created
 ----
 
 . Monitor the deployment of the pods. Enter the following command:
