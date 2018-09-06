@@ -64,12 +64,50 @@ Now let's start by deploying the catalog service to OpenShift. The sidecar proxy
 ----
 cd catalog/java/vertx
 mvn clean package
+----
 
+* Expect to see:
++
+----
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< com.redhat.developer.demos:catalog >-----------------
+[INFO] Building catalog 1.0.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+...
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4.330 s
+[INFO] Finished at: 2018-09-06T19:07:50Z
+[INFO] ------------------------------------------------------------------------
+----
+
+. Create the docker image for the gateway microservice. Also, verify the image is in the local docker repository.
++
+----
 sudo docker build -t example/catalog:v1 .
 sudo docker images | grep example/catalog
+----
 
+* Expect to see:
++
+----
+example/catalog                                             v1                  4e6674de4628        2 minutes ago      443 MB
+----
+
+. Deploy the microservice and inject the istio sidecar.
++
+----
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
 oc create -f ../../kubernetes/Service.yml
+----
+
+* Expect to see:
++
+----
+
 ----
 
 . Monitor the deployment of the pods. Enter the following command:
@@ -135,16 +173,33 @@ Finally, we will deploy the gateway service to OpenShift. This will complete our
 
 `gateway -> partner -> catalog`
 
-. In your terminal window, enter the following commands:
+. In your terminal window, build the microservice with the following commands:
 +
 ----
 cd ~/lab/rhte-msa-and-service-mesh
 
 cd gateway/java/springboot
 mvn clean package
+----
 
+* Expect to see:
++
+----
+
+----
+
+. Create the docker image for the gateway microservice. Also, verify the image is in the local docker repository.
++
+----
 sudo docker build -t example/gateway .
 sudo docker images | grep example/gateway
+----
+
+* Expect to see:
++
+----
+
+----
 
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
 oc create -f ../../kubernetes/Service.yml -n $OCP_TUTORIAL_PROJECT
