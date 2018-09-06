@@ -179,9 +179,9 @@ NOTE: If your web browser prompts about `connection privacy / security`, select 
 
 == Congratulations!
 
-In this lab you successfully completed the intial lab set up.
+In this lab you successfully completed the intial set up.
 
-Proceed to the next lab: [01_deploying_microservices_Lab.html]*01 - Deploying Microservices*
+Proceed to the next lab: link:01_deploying_microservices_Lab.html[*01 - Deploying Microservices*]
 
 == Appendix
 
