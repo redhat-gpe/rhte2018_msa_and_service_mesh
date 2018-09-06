@@ -66,7 +66,7 @@ cd catalog/java/vertx
 mvn clean package
 
 sudo docker build -t example/catalog:v1 .
-sudo docker images | grep catalog
+sudo docker images | grep example/catalog
 
 oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment.yml) -n $OCP_TUTORIAL_PROJECT
 oc create -f ../../kubernetes/Service.yml
