@@ -172,9 +172,9 @@ oc delete project developer-coolstore-gateway
 -----
 echo -en "\n\nhttps://$OCP_DOMAIN:8443\n\n"
 -----
-
++
 NOTE: If prompted about `connection privacy`, select `Advanced` and continue.
-
++
 .. Authenticate using the values of `developer` and `r3dh4t1!`
 
 
