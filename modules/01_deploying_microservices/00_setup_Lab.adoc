@@ -177,6 +177,11 @@ NOTE: If your web browser prompts about `connection privacy / security`, select 
 +
 .. Authenticate using the values of `developer` and `r3dh4t1!`
 
+== Congratulations!
+
+In this lab you successfully completed the intial lab set up.
+
+Proceed to the next lab: [01_deploying_microservices_Lab.html]*01 - Deploying Microservices*
 
 == Appendix
 
