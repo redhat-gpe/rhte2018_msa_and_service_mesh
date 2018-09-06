@@ -238,8 +238,8 @@ In addition to the usual OpenShift object types like `BuildConfig`, `DeploymentC
 ----
 cd ~/lab/rhte-msa-and-service-mesh
 
-sudo istioctl create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT
-sudo istioctl create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT
+oc create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+oc create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
 . Test the `gateway` service again - all requests should end up talking to
