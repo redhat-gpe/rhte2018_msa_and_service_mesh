@@ -33,7 +33,6 @@ your application. This proxy intercepts all network communication between your
 microservices microservices, and is configured and managed using Istio’s control
 plane functionality -- not your application code!
 
-+
 image::images/02_service_mesh_architecture.png[Service Mesh Architecture]
 
 == Lab Overview
