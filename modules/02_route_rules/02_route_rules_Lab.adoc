@@ -122,7 +122,7 @@ echo $GATEWAY_URL
 ----
 curl $GATEWAY_URL
 ----
-+
+
 * You will likely see:
 +
 ----
@@ -132,6 +132,12 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 2
 * Where `6b576ffcf8-g6b48` is the pod running `v1` and the `2` is the number of times you hit the endpoint.
 
 . Make another request to the gateway service
++
+----
+curl $GATEWAY_URL
+----
+
+* You will likely see:
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hj8xl': 1
