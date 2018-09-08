@@ -108,7 +108,7 @@ oc create -f istiofiles/virtual-service-catalog-v1_and_v2_50_50.yml -n $OCP_TUTO
 oc scale --replicas=2 deployment/catalog-v2
 ----
 
-* Wait for all of the catalog pods to be in the ready state.
+. Wait for all of the catalog pods to be in the ready state.
 +
 ----
 oc get pods -l app=catalog -w
