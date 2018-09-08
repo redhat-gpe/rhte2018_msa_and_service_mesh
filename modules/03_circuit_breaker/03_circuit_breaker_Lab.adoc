@@ -215,6 +215,8 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 233
 
 === Test behavior with failing instance and with pool ejection
 
+If the request is forwarded to a certain instance and it fails (e.g. returns a 50x error code), then Istio will eject this instance from the pool for a certain sleep window. In our example the sleep window is configured to be 15s. This increases the overall availability by making sure that only healthy pods participate in the pool of instances.
+
 . Now let’s add the pool ejection behavior:
 +
 ----
