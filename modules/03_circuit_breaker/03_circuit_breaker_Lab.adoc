@@ -148,6 +148,7 @@ gateway => partner => catalog v2 from '7764964564-8h2zt': 2
 ----
 * You should see the load balancing 50/50 between the two different versions of the catalog service. 
 * Within version v2, you will also see that some requests are handled by one pod and some requests are handled by the other pod.
+* Also the version v2, there is a three second delay for all requests. So the test will take a bit longer to run.
 
 === Test behavior with failing instance and without pool ejection
 
