@@ -149,7 +149,9 @@ This utility will need both view and edit privileges to the _istio-system_ names
 
 == Clean up
 
-. Clean up other projects
+The OpenShift environment currently has other accounts that we are not using. We'll remove them now.
+
+. Clean up other projects. 
 +
 -----
 oc delete all --all -n developer-coolstore-catalog
