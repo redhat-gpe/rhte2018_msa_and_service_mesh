@@ -32,7 +32,7 @@ This GUID will be used to access the lab environment.
 
 . Begin by going to http://bit.ly/rhte-guidgrabber
 +
-image::images/gg1.png[GuidGrabber Landing Page]
+image::images/00_setup_guid_grabber_landing_page.png[GUID Grabber Landing Page]
 
 . From this page select the *Lab Code* :  _A1001_
 
@@ -42,7 +42,7 @@ image::images/gg1.png[GuidGrabber Landing Page]
 
 . The resulting page will display your lab's GUID and other useful information about your lab environment.
 +
-image::images/guid_grabber_response.png[Guid Grabber Information Page]
+image::images/00_setup_guid_grabber_response_page.png[GUID Grabber Response Page]
 
 . Your remote virtual machine is accessible via the `ssh` protocol.
 +
