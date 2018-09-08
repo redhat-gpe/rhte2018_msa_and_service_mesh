@@ -112,7 +112,11 @@ oc scale --replicas=2 deployment/catalog-v2
 +
 ----
 oc get pods -l app=catalog -w
+----
 
+* You should see:
++
+----
 NAME                          READY     STATUS    RESTARTS   AGE
 catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          37m
 catalog-v2-7764964564-8h2zt   2/2       Running   0          20m
