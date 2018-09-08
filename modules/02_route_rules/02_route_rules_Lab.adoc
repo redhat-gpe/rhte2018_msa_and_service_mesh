@@ -336,7 +336,7 @@ oc create -f istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml -n $OCP_TUTO
 scripts/run.sh
 ----
 + 
-* Now you should see 2 or 3 requests (~25%) going to `v2`. This process can be continued (and automated), slowly migrating
+* Now you should see 7 or 8 requests (~75%) going to `v1`. You should see 2 or 3 requests (~25%) going to `v2`. This process can be continued (and automated), slowly migrating
 traffic over to the new version as it proves its worth in production over time.
 
 == Clean Up
