@@ -177,7 +177,7 @@ NOTE: If your web browser prompts about `connection privacy / security`, select 
 
 * You should see:
 +
-image::images/openshift-web-console-projects.png[OpenShift Web Projects]
+image::images/00_openshift-web-console-projects.png[OpenShift Web Projects]
 
 == Congratulations!
 
