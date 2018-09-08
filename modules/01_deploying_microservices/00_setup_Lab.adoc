@@ -173,6 +173,10 @@ NOTE: If your web browser prompts about `connection privacy / security`, select 
 +
 .. Authenticate using the values of `developer` and `r3dh4t1!`
 
+* You should see:
++
+image::images/openshift-web-console-projcets.png[OpenShift Web Projects]
+
 == Congratulations!
 
 In this lab you successfully completed the intial set up.
