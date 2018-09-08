@@ -51,6 +51,7 @@ vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
 
 . Uncomment the line `router.get("/").handler(this::timeout);`
 
+* This modification will add a three second delay to all requests for the service. 
 . Save the file and exit vi.
 
 . Build the service with the following commands:
