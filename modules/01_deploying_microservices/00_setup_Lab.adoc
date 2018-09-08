@@ -89,18 +89,14 @@ sudo systemctl status oc-cluster
 * You should see
 +
 -----
-...
-
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: Server Information ...
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: OpenShift server started.
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: The server is accessible via web console at:
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: https://clientvm.a4f6.rhte.opentlc.com:8443
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: You are logged in as:
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: User:     developer
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: Password: <any value>
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: To login as administrator:
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com occlusterup[20544]: oc login -u system:admin
-Aug 31 21:58:27 clientvm.a4f6.rhte.opentlc.com systemd[1]: Started OpenShift oc cluster up Service.
+ oc-cluster.service - OpenShift oc cluster up Service
+   Loaded: loaded (/usr/lib/systemd/system/oc-cluster.service; enabled; vendor preset: disabled)
+   Active: active (exited) since Thu 2018-09-06 02:04:56 UTC; 2 days ago
+  Process: 21090 ExecStart=/bin/oc cluster up --base-dir=/var/lib/openshift --public-hostname=clientvm.7b13.rhte.opentlc.com --routing-suffix=apps.clientvm.7b13.rhte.opentlc.com --loglevel=1 (code=exited, status=0/SUCCESS)
+ Main PID: 21090 (code=exited, status=0/SUCCESS)
+    Tasks: 0
+   Memory: 0B
+   CGroup: /system.slice/oc-cluster.service
 -----
 
 . Using the `oc` utility, log into OpenShift
