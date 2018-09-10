@@ -168,7 +168,7 @@ On the VMs, it has an older version of Maven 3.0.5.  The labs require Maven 3.5.
 . Download Maven
 +
 ----
-curl http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz | tar -xzf - -C ~/
+curl https://bit.ly/2oXajrI | tar -xzf - -C ~/
 ----
 
 . Update your Linux path
