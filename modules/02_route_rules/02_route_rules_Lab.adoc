@@ -306,7 +306,7 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 26
 
 . Now let's switch this over to v1. We'll use the following configuration. 
 
-* File: istiofiles/virtual-service-catalog-v1.yml
+* File name: `istiofiles/virtual-service-catalog-v1.yml`
 +
 ----
 apiVersion: networking.istio.io/v1alpha3
