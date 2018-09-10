@@ -166,7 +166,7 @@ oc delete project developer-coolstore-gateway
 On the VMs, it has an older version of Maven 3.0.5.  The labs require Maven 3.5.x. Here are quick steps to update Maven for your VM.  
 
 . Download Maven 
-* _The `curl` command below should be entered all on one line)_
+* _The `curl` command below should be entered all on one line_
 +
 ----
 curl http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz | tar -xzf - -C ~/
