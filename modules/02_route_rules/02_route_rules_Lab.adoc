@@ -321,7 +321,7 @@ spec:
         host: catalog 
         subset: version-v1 
       weight: 100 
----
+----
 
 . Now let's move everyone to catalog service `v1`:
 +
