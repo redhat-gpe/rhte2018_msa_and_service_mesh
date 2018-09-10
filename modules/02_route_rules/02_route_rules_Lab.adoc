@@ -374,7 +374,7 @@ scripts/run.sh
 
 Canary Deployment scenario: push v2 into the cluster but slowly send end-user traffic to it, if you continue to see success, continue shifting more traffic over time.
 
-. Below is an istio configuration file to route 75% of traffic to `v1` and 25% of traffic to `v2`. 
+. Below is an istio configuration file for use in a canary deployment. 
 
 * File name: `istiofiles/virtual-service-catalog-v2.yml`.
 +
@@ -400,7 +400,7 @@ spec:
 ---
 ----
 
-** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 75% of traffic _(weight)_ for the catalog service will always go to pods matching the labels version: `v1`. The remaining 25% of traffic will be routed to `v2` of the `catalog` service.
+** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 75% of traffic _(weight)_ for the catalog service will go to pods matching the labels version: `v1`. The remaining 25% of traffic will be routed to `v2` of the `catalog` service.
 
 . Create the virtualservice that will send 75% of requests to v1 and 25% to v2:
 +
