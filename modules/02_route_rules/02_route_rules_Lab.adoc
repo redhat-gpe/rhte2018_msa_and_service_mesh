@@ -241,7 +241,34 @@ Requests can be routed based on the source and destination, HTTP header fields, 
 In addition to the usual OpenShift object types like `BuildConfig`, `DeploymentConfig`,
 `Service` and `Route`, you also have new object types installed as part of Istio like `RouteRule`. Adding these objects to the running OpenShift cluster is how you configure routing rules for Istio.
 
-. Route all traffic to `v2`:
+* `DestinationRule` defines policies that apply to traffic intended for a service after routing has occurred. These rules specify configuration for load balancing, connection pool size from the sidecar, and outlier detection settings to detect and evict unhealthy hosts from the load balancing pool. 
+. View a simple load balancing policy for the `catalog` service 
+
+. Below is an istio configuration file to route all traffic to `v2`. File name: `istiofiles/virtual-service-catalog-v2.yml`.
++
+----
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: catalog
+spec:
+  hosts:
+  - catalog
+  http:
+  - route:
+    - destination:
+        host: catalog <1>
+        subset: version-v2 <2>
+      weight: 100 <3>
+---
+
+<1> Apply this for the destination `catalog`
+<2> Apply to `v2` of `catalog`
+<3> Route 100% of traffic to `catalog v2`
+
+* This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 100% of traffic for the catalog service will always go to pods matching the labels version: `v2`. The selection of pods here is very similar to the Kubernetes selector model for matching based on labels. So, any service within the service mesh that tries to communicate with the `catalog` service will always be routed to `v2` of the `catalog` service.
+
+. Route all traffic to `v2` using the configuration file:
 +
 ----
 cd ~/lab/rhte-msa-and-service-mesh
@@ -275,6 +302,28 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 26
 ----
 
 == Send all traffic to `catalog:v1`
+
+* Now let's switch this over to v1. We'll use the following configuration. File: istiofiles/virtual-service-catalog-v1.yml
++
+----
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: catalog
+spec:
+  hosts:
+  - catalog
+  http:
+  - route:
+    - destination:
+        host: catalog <1>
+        subset: version-v1 <2>
+      weight: 100 <3>
+---
+
+<1> Apply this for the destination `catalog`
+<2> Apply to `v2` of `catalog`
+<3> Route 100% of traffic to `catalog v2`
 
 . Now let's move everyone to catalog service `v1`:
 +
