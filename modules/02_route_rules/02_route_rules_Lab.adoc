@@ -260,7 +260,7 @@ spec:
         host: catalog <1>
         subset: version-v2 <2>
       weight: 100 <3>
----
+----
 
 <1> Apply this for the destination `catalog`
 <2> Apply to `v2` of `catalog`
