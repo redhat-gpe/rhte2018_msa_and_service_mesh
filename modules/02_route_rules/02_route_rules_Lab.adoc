@@ -264,6 +264,7 @@ spec:
         host: catalog 
         subset: version-v2 
       weight: 100 
+---
 ----
 
 ** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 100% of traffic _(weight)_ for the catalog service will always go to pods matching the labels version: `v2`. The selection of pods here is very similar to the Kubernetes selector model for matching based on labels. So, any service within the service mesh that tries to communicate with the `catalog` service will always be routed to `v2` of the `catalog` service.
@@ -321,7 +322,9 @@ spec:
         host: catalog 
         subset: version-v1 
       weight: 100 
+---
 ----
+* Make note of the weight set to 100 for catalog v1.
 
 . Now let's move everyone to catalog service `v1`:
 +
@@ -370,6 +373,34 @@ scripts/run.sh
 == Use a Canary Deployment to slowly rollout `v2`
 
 Canary Deployment scenario: push v2 into the cluster but slowly send end-user traffic to it, if you continue to see success, continue shifting more traffic over time.
+
+. Below is an istio configuration file to route all traffic to `v2`. 
+
+* File name: `istiofiles/virtual-service-catalog-v2.yml`.
++
+----
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  creationTimestamp: null
+  name: catalog
+spec:
+  hosts:
+  - catalog
+  http:
+  - route:
+    - destination:
+        host: catalog
+        subset: version-v1
+      weight: 75
+    - destination:
+        host: catalog
+        subset: version-v2
+      weight: 25
+---
+----
+
+** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 75% of traffic _(weight)_ for the catalog service will always go to pods matching the labels version: `v1`. The remaining 25% of traffic will be routed to `v2` of the `catalog` service.
 
 . Create the virtualservice that will send 75% of requests to v1 and 25% to v2:
 +
