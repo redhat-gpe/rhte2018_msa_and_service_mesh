@@ -248,7 +248,7 @@ A `VirtualService` defines a set of traffic routing rules to apply when a host i
 
 . Below is an istio configuration file to route all traffic to `v2`. 
 
-* File name: `istiofiles/virtual-service-catalog-v2.yml`.
+* File name: `istiofiles/virtual-service-catalog-v2.yml`
 +
 ----
 apiVersion: networking.istio.io/v1alpha3
@@ -376,7 +376,7 @@ Canary Deployment scenario: push v2 into the cluster but slowly send end-user tr
 
 . Below is an istio configuration file for use in a canary deployment. 
 
-* File name: `istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml`.
+* File name: `istiofiles/virtual-service-catalog-v1_and_v2_75_25.yml`
 +
 ----
 apiVersion: networking.istio.io/v1alpha3
