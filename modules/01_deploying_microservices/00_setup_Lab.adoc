@@ -97,6 +97,17 @@ sudo systemctl status oc-cluster
     Tasks: 0
    Memory: 0B
    CGroup: /system.slice/oc-cluster.service
+
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: Server Information ...
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: OpenShift server started.
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: The server is accessible via web console at:
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: https://clientvm.eee0.rhte.opentlc.com:8443
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: You are logged in as:
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: User:     developer
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: Password: <any value>
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: To login as administrator:
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: oc login -u system:admin
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com systemd[1]: Started OpenShift oc cluster up Service.   
 -----
 
 . Using the `oc` utility, log into OpenShift
