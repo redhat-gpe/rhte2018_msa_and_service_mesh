@@ -146,9 +146,11 @@ oc get projects
 * You should see:
 +
 -----
-...
-
-istio-system                                      Active
+NAME                          DISPLAY NAME                  STATUS
+developer-coolstore-catalog   developer-coolstore-catalog   Active
+developer-coolstore-gateway   developer-coolstore-gateway   Active
+istio-system                                                Active
+myproject                     My Project                    Active
 -----
 
 * *istio-system*
