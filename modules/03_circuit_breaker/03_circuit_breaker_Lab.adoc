@@ -194,15 +194,13 @@ oc delete pod -l app=catalog,version=v2
 . Delete the timeout rule
 +
 ----
-oc create -f ~/lab/rhte-msa-and-service-mesh/istiofiles/virtual-service-catalog-timeout.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+oc delete -f ~/lab/rhte-msa-and-service-mesh/istiofiles/virtual-service-catalog-timeout.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
 . Test the app again and make sure it alternates between `catalog:v1` and `catalog:v2`. The app should not have any delay.
 +
 ----
-cd ~/lab/rhte-msa-and-service-mesh
-
-scripts/run.sh
+~/lab/rhte-msa-and-service-mesh/scripts/run.sh
 ----
 
 == Pool Ejection
