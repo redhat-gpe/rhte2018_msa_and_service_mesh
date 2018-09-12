@@ -263,18 +263,17 @@ scripts/run.sh
 * You should see:
 +
 ----
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 221
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 222
-gateway => partner => catalog v2 from '7764964564-8h2zt': 1
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 223
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 224
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 225
-gateway => partner => catalog v2 from '7764964564-hrjq5': 1
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 226
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 227
-gateway => partner => catalog v2 from '7764964564-8h2zt': 2
-----
-* You should see the load balancing 50/50 between the two different versions of the catalog service. 
+gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 11
+gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 105
+gateway => partner => catalog v2 from '7d66bdd7d7-g6zpp': 1
+gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 12
+gateway => partner => catalog v2 from '7d66bdd7d7-g6zpp': 2
+gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 13
+gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 106
+gateway => partner => catalog v2 from '7d66bdd7d7-g6zpp': 3
+gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 107
+gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 108----
+* Notice that *double* the number of requests are sent to `v2` than for `v1`:
 * Within version v2, you will also see that some requests are handled by one pod and some requests are handled by the other pod.
 
 === Test behavior with failing instance and without pool ejection
