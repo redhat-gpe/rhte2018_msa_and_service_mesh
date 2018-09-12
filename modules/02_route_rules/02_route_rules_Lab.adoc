@@ -431,7 +431,7 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUT
 oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Issue 10 requests.
+. Issue 10 more requests.
 
 . Finally, let's move everything over to v2.
 +
@@ -439,7 +439,7 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUT
 oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Issue 10 requests.
+. Issue 10 more requests.
 
 == Clean Up
 
