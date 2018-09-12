@@ -447,7 +447,7 @@ oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT
 
 The "user-agent" header is added to OpenTracing baggage in the Gateway service. This is accomplished with the following code:
 
-* File: src/com/redhat/developer/demos/gateway/GatewayController.java
+* File name: `src/com/redhat/developer/demos/gateway/GatewayController.java`
 +
 ----
     @RequestMapping("/")
@@ -475,7 +475,7 @@ istioctl replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_P
 
 . We can configure Istio to send Safari users to `catalog:v2`. Below is the configuration file.
 
-* File: `virtual-service-safari-catalog-v2.yml`
+* File name: `virtual-service-safari-catalog-v2.yml`
 +
 ----
 apiVersion: networking.istio.io/v1alpha3
