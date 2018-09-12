@@ -331,7 +331,7 @@ spec:
 ---
 ----
 
-** This definition sets up the retry configuration. It will perform 3 attempts and uses 4 second per try timeout.
+** This definition sets up the retry configuration (`retries`). It will perform 3 attempts and uses 4 second per try timeout.
 
 . Add a retry configuration
 +
