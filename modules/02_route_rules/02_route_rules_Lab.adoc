@@ -470,7 +470,7 @@ From there the user-agent header is automatically propagated to all downstream s
 . Set all requests to go to `catalog:v1`.
 +
 ----
-istioctl replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
 . We can configure Istio to send Safari users to `catalog:v2`. Below is the configuration file.
