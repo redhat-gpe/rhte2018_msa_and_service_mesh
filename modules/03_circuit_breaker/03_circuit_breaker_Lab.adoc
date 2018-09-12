@@ -109,6 +109,102 @@ user  0m0.002s
 sys 0m0.004s
 ----
 
+. Press CTRL+C to exit the script.
+
+. In Istio, we can set a timeout that will return failure if it does not get response within *N* seconds. Below is an istio timeout rule.
+
+* File name: `istiofiles/route-rule-catalog-timeout.yml`
++
+----
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  creationTimestamp: null
+  name: catalog
+spec:
+  hosts:
+  - catalog
+  http:
+  - route:
+    - destination:
+        host: catalog
+    timeout: 1.000s
+----
+
+* This will cause istio to only wait 1 second for a response from the catalog service before timing out and returning HTTP 503. Since the `catalog:v2` service now has a 3 second delay, this will cause Istio to immediately timeout after 1 second and return a 503 error for access to `catalog:v2`.
+
+. Apply the istio timeout rule:
++
+----
+oc create -f ~/lab/rhte-msa-and-service-mesh/istiofiles/virtual-service-catalog-timeout.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+----
+
+. Test that the timeout is working as expected
++
+----
+while true ; do time curl $GATEWAY_URL ; sleep .1 ; done
+----
+
+* When accessing `catalog:v2` you will see it return "504 upstream request timeout" after waiting about 1 second (real 0m1.036s).
++
+----
+gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 77
+
+real  0m0.053s
+user  0m0.001s
+sys 0m0.009s
+gateway => 503 partner => 504 upstream request timeout
+
+real  0m1.036s
+user  0m0.001s
+sys 0m0.006s
+----
+* This confirms the 1 second timeout for `catalog:v2` is working as expected.
+
+. Press CTRL+C to exit the script.
+
+=== Clean up
+Let's now clean up the timeout istio rule and revert back to the non-delayed catalog-v2.
+
+. Edit the file the CatalogVerticle:
++
+----
+vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
+----
+
+. Comment the line `router.get("/").handler(this::timeout);`
+
+* This modification removes the three second delay for requests for the `catalog` service `v2`. 
+. Save the file and exit vi.
+
+. Build the service with the following commands:
++
+----
+mvn clean package
+
+sudo docker build -t example/catalog:v2 .
+----
+
+. Redeploy the Catalog service version 2 
++
+----
+oc delete pod -l app=catalog,version=v2
+----
+
+. Delete the timeout rule
++
+----
+oc create -f ~/lab/rhte-msa-and-service-mesh/istiofiles/virtual-service-catalog-timeout.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+----
+
+. Test the app again and make sure it alternates between `catalog:v1` and `catalog:v2`. The app should not have any delay.
++
+----
+cd ~/lab/rhte-msa-and-service-mesh
+
+scripts/run.sh
+----
+
 == Pool Ejection
 Pool ejection or outlier detection is a resilience strategy that takes place whenever we have a pool of instances/pods to serve a client request. If the request is forwarded to a certain instance and it fails (e.g. returns a 50x error code), then Istio will eject this instance from the pool for a certain sleep window. In our example the sleep window is configured to be 15s. This increases the overall availability by making sure that only healthy pods participate in the pool of instances.
 
@@ -168,7 +264,6 @@ gateway => partner => catalog v2 from '7764964564-8h2zt': 2
 ----
 * You should see the load balancing 50/50 between the two different versions of the catalog service. 
 * Within version v2, you will also see that some requests are handled by one pod and some requests are handled by the other pod.
-* Also the version v2, there is a three second delay for all requests. So the test will take a bit longer to run.
 
 === Test behavior with failing instance and without pool ejection
 
