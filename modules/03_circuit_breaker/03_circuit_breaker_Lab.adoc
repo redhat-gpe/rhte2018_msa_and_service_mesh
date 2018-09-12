@@ -191,10 +191,10 @@ sudo docker build -t example/catalog:v2 .
 oc delete pod -l app=catalog,version=v2
 ----
 
-. Delete the timeout rule
+. Delete the timeout rule for the catalog virtualservice
 +
 ----
-oc delete -f ~/lab/rhte-msa-and-service-mesh/istiofiles/virtual-service-catalog-timeout.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+oc delete virtualservice catalog --as=system:admin
 ----
 
 . Test the app again.
