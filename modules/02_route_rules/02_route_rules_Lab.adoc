@@ -426,9 +426,7 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUT
 ----
 
 . Issue 10 more requests.
-+
-NOTE: You will not see the EXACT percentage of requests. This is just an approximation.
-+
+
 . And shift the traffic to 10% to v1 and 90% to v2.
 +
 ----
