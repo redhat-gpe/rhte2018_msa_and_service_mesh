@@ -360,7 +360,7 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 259
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 260
 ----
 
-* You won’t receive 503`s anymore. But the requests from catalog `v2 are still taking more time to get a response::
+* You won’t receive 503's anymore. But the requests from catalog `v2` are still taking more time to get a response::
 
 NOTE: You may need to wait up to 30 seconds for the retry rule to take effect. Just run the above command again if you see any 503's. You should eventually not see any.
 
