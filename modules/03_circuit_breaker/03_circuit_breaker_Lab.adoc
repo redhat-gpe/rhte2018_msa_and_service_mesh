@@ -37,9 +37,9 @@ scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
 ====
 
-== Update Application Code
+== Handling Timeouts
 
-In this section, you will update the CatalogVerticle to expose additional endpoints for testing
+In this section, you will induce timeout for the catalog service as part of Istio Service Mesh. With timeout set the service mesh will return failure if it does not get response within *N* seconds.
 
 . Edit the file the CatalogVerticle:
 +
@@ -88,6 +88,17 @@ catalog-v2-7764964564-8h2zt   2/2       Running   0          34s
 
 * To exit, press Ctrl+C.
 
+. Test that the 3 second delay works as expected:
++
+----
+while true ; do time curl $GATEWAY_URL ; sleep .1 ; done
+----
+
+* The output should show access to catalog:v1 is immediate (real 0m0.042s) and the access to catalog:v2 takes about 3 seconds (real 0m3.038s):
++
+----
+
+----
 
 == Pool Ejection
 Pool ejection or outlier detection is a resilience strategy that takes place whenever we have a pool of instances/pods to serve a client request. If the request is forwarded to a certain instance and it fails (e.g. returns a 50x error code), then Istio will eject this instance from the pool for a certain sleep window. In our example the sleep window is configured to be 15s. This increases the overall availability by making sure that only healthy pods participate in the pool of instances.
