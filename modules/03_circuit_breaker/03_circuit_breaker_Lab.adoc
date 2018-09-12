@@ -272,7 +272,8 @@ gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 13
 gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 106
 gateway => partner => catalog v2 from '7d66bdd7d7-g6zpp': 3
 gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 107
-gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 108-----
+gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 108
+----
 * Notice that *double* the number of requests are sent to `v2` than for `v1`:
 * Within version v2, you will also see that some requests are handled by one pod and some requests are handled by the other pod.
 
