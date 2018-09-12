@@ -512,7 +512,7 @@ curl -A Safari $GATEWAY_URL
 * You should see this request being handled by `catalog:v2`
 +
 ----
-
+gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 56
 ----
 
 . Now test the app using a Firefox user agent.
@@ -524,7 +524,7 @@ curl -A Firefox $GATEWAY_URL
 * You should see this request being handled by `catalog:v1`
 +
 ----
-
+gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 174
 ----
 
 == Clean Up
