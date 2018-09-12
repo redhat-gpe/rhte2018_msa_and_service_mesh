@@ -417,6 +417,42 @@ scripts/run.sh
 * Now you should see 7 requests, 70% going to `v1`. You should see 3 requests, 30% going to `v2`. This process can be continued (and automated), slowly migrating
 traffic over to the new version as it proves its worth in production over time.
 
+. Now let's shift the traffic to 40% to v1 and 60% to v2.
++
+----
+oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+----
+
+. Issue 10 requests:
++
+----
+scripts/run.sh
+----
+
+. And shift the traffic to 10% to v1 and 90% to v2.
++
+----
+oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+----
+
+. Issue 10 requests:
++
+----
+scripts/run.sh
+----
+
+. Finally, let's move everything over to v2.
++
+----
+oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+----
+
+. Issue 10 requests:
++
+----
+scripts/run.sh
+----
+
 == Clean Up
 
 . Remove the route rules before moving on:
