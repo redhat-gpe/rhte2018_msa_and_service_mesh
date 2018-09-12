@@ -467,12 +467,6 @@ The "user-agent" header is added to OpenTracing baggage in the Gateway service. 
 
 From there the user-agent header is automatically propagated to all downstream services. To enable automatic baggage propagation all intermediate services have to be instrumented with OpenTracing. The baggage header for user agent has following form `baggage-user-agent: <value>`.
 
-. Set all requests to go to `catalog:v1`.
-+
-----
-oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
-----
-
 . We can configure Istio to send Safari users to `catalog:v2`. Below is the configuration file.
 
 * File name: `virtual-service-safari-catalog-v2.yml`
@@ -506,7 +500,7 @@ spec:
 . Set Safari users to use `catalog:v2`
 +
 ----
-istioctl replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+oc replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
 . Test the app using a Safari user agent.
