@@ -443,6 +443,96 @@ oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT
 
 . Issue 10 more requests.
 
+== Smart Routing based on User-Agent
+
+The "user-agent" header is added to OpenTracing baggage in the Gateway service. This is accomplished with the following code:
+
+* File: src/com/redhat/developer/demos/gateway/GatewayController.java
++
+----
+    @RequestMapping("/")
+    public ResponseEntity<String> getGateway(@RequestHeader("User-Agent") String userAgent) {
+
+            /**
+             * Set baggage
+             */
+            tracer.activeSpan().setBaggageItem("user-agent", userAgent);
+
+            ResponseEntity<String> responseEntity = restTemplate.getForEntity(remoteURL, String.class);
+            String response = responseEntity.getBody();
+            return ResponseEntity.ok(String.format(RESPONSE_STRING_FORMAT, response.trim()));
+            ...
+    }
+----
+
+From there the user-agent header is automatically propagated to all downstream services. To enable automatic baggage propagation all intermediate services have to be instrumented with OpenTracing. The baggage header for user agent has following form `baggage-user-agent: <value>`.
+
+. Set all requests to go to `catalog:v1`.
++
+----
+istioctl replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+----
+
+. We can configure Istio to send Safari users to `catalog:v2`. Below is the configuration file.
+
+* File: `virtual-service-safari-catalog-v2.yml`
++
+----
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  creationTimestamp: null
+  name: catalog
+spec:
+  hosts:
+  - catalog
+  http:
+  - match:
+    - headers:
+        baggage-user-agent:
+          regex: .*Safari.*
+    route:
+    - destination:
+        host: catalog
+        subset: version-v2
+  - route:
+    - destination:
+        host: catalog
+        subset: version-v1
+---
+----
+* This definition performs a match on http headers for `baggage-user-agent`. It makes use of a regular expression to match on the the string `Safari`. If there is a match then the traffic is routed to `catalog:v2`. Else, all other traffic is routed to `catalog:v1`.
+
+. Set Safari users to use `catalog:v2`
++
+----
+istioctl replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+----
+
+. Test the app using a Safari user agent.
++
+----
+curl -A Safari $GATEWAY_URL
+----
+
+* You should see this request being handled by `catalog:v2`
++
+----
+
+----
+
+. Now test the app using a Firefox user agent.
++
+----
+curl -A Firefox $GATEWAY_URL
+----
+
+* You should see this request being handled by `catalog:v1`
++
+----
+
+----
+
 == Clean Up
 
 . Remove the route rules before moving on:
