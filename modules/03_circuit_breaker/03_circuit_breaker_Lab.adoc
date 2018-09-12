@@ -94,7 +94,7 @@ catalog-v2-7764964564-8h2zt   2/2       Running   0          34s
 while true ; do time curl $GATEWAY_URL ; sleep .1 ; done
 ----
 
-* The output should show access to catalog:v1 is immediate (`real 0m0.020s`) and the access to catalog:v2 takes about 3 seconds (`real 0m3.024s`):
+* The output should show access to `catalog:v1` is immediate (`real 0m0.020s`) and the access to `catalog:v2` takes about 3 seconds (`real 0m3.024s`):
 +
 ----
 gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 70
