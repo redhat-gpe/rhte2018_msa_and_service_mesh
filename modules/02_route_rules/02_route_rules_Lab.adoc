@@ -423,11 +423,7 @@ traffic over to the new version as it proves its worth in production over time.
 oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Issue 10 requests:
-+
-----
-scripts/run.sh
-----
+. Issue 10 more requests.
 
 . And shift the traffic to 10% to v1 and 90% to v2.
 +
@@ -435,11 +431,7 @@ scripts/run.sh
 oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Issue 10 requests:
-+
-----
-scripts/run.sh
-----
+. Issue 10 requests.
 
 . Finally, let's move everything over to v2.
 +
@@ -447,11 +439,7 @@ scripts/run.sh
 oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Issue 10 requests:
-+
-----
-scripts/run.sh
-----
+. Issue 10 requests.
 
 == Clean Up
 
