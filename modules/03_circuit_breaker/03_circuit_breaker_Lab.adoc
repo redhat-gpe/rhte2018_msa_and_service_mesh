@@ -131,7 +131,7 @@ spec:
     timeout: 1.000s
 ----
 
-* This will cause istio to only wait 1 second for a response from the catalog service before timing out and returning HTTP 503. Since the `catalog:v2` service now has a 3 second delay (thanks to our code update), this will cause Istio to immediately timeout after 1 second and return a 503 error for access to `catalog:v2`.
+* This will cause istio to only wait 1 second for a response from the catalog service before timing out and returning HTTP error. Since the `catalog:v2` service now has a 3 second delay (thanks to our code update), this will cause Istio to immediately timeout after 1 second and return an HTTP error for access to `catalog:v2`.
 
 . Apply the istio timeout rule:
 +
