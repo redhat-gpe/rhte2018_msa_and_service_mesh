@@ -112,7 +112,7 @@ echo $KIALI_URL
 +
 image::images/kiali-login.png[]
 
-. At the login screen, enter the default credentials are "admin/admin"
+. At the login screen, enter the default credentials: "admin/admin"
 
 == Service Graph
 
