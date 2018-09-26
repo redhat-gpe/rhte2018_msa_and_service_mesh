@@ -28,7 +28,14 @@ Kiali runs as a service together with Istio, and does not require any changes
 to Istio or Openshift configuration (besides the ones required to install
 Istio).
 
-== How to install Kiali?
+== Goals
+
+In this lab, you will learn how to:
+
+* Install Kiali
+* Monitor your Istio Service with Kiali
+
+== Install Kiali
 
 . Set up environment variables for Jaeger and Grafana. This will be used by Kiali during the installation process. We'll talk more about Jaeger and Grafana in later labs.
 +
