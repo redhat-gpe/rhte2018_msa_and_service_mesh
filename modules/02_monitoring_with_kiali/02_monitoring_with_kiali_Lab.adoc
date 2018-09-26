@@ -152,21 +152,21 @@ you'll see a list of only the services on the tutorial:
 image::images/kiali-service-list-2.png[]
 
 . Click on the "preference" to see its details:
-
++
 image::images/kiali-service-details.png[]
 
 . By hovering the icon on the Health section, you can see the health of a service
 (a service is considered healthy) when it's online and responding to requests
 without errors:
-
++
 image::images/kiali-service-health.png[]
 
 . You can also see the deployments:
-
++
 image::images/kiali-deployments.png[]
 
 . You can also the source services:
-
++
 image::images/kiali-source-services.png[]
 
 == Istio Config
