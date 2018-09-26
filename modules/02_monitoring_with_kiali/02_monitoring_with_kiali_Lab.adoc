@@ -114,18 +114,6 @@ image::images/kiali-login.png[]
 
 . At the login screen, enter the default credentials are "admin/admin"
 
-== Generating Sample Data
-
-To show the capabilities of Kiali, you'll need an Istio-enabled application to
-be running. For this, we can use the `customer-tutorial` application we created
-earlier.
-
-. To generate data for it, we can `curl` it with this command:
-+
-----
-curl customer-tutorial.$(minishift ip).nip.io
-----
-
 == Service Graph
 
 After you login, you should see the Service Graph page:
@@ -136,17 +124,31 @@ It shows a graph with all the microservices, connected by the requests going
 through then. On this page, you can see how the services interact with each
 other.
 
+== Generating Sample Data
+
+To show the capabilities of Kiali, you'll need an Istio-enabled application to
+be running. For this, we can use our `gateway` application that we deployed
+earlier.
+
+. To generate data for it, we can use this command:
++
+----
+TODO
+----
+
 == Service Listing
+
+. Move back to the Kiali web console
 
 . Click the Services link in the left navigation. On the Services page you can
 view a listing of all the services that are running in the cluster, and
 additional information about them, such as health status.
-
++
 image::images/kiali-service-list.png[]
 
 . Click on the "Filter by Namespace" dropdown, and select "tutorial". Then,
 you'll see a list of only the services on the tutorial:
-
++
 image::images/kiali-service-list-2.png[]
 
 . Click on the "preference" to see its details:
