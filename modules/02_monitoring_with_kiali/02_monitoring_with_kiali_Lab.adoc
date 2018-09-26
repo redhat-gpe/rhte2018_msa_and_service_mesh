@@ -16,7 +16,7 @@ Those are the kinds of question that https://www.kiali.io/[Kiali] has the abilit
 you a big picture of the mesh, and showing the whole flow of your requests and
 data.
 
-image::images/graph_overview.png[]
+image::images/graph-overview.png[]
 
 == How does Kiali work?
 
@@ -56,6 +56,7 @@ curl https://raw.githubusercontent.com/kiali/kiali/master/deploy/openshift/kiali
    NAMESPACE=istio-system \
    VERSION_LABEL=master \
    VERBOSE_MODE=4 envsubst | oc create -n istio-system -f - --as=system:admin
+----
 
 NOTE: Installing Kiali may take a minute or two. 
 
