@@ -57,9 +57,9 @@ curl https://raw.githubusercontent.com/kiali/kiali/master/deploy/openshift/kiali
    VERSION_LABEL=master \
    VERBOSE_MODE=4 envsubst | oc create -n istio-system -f - --as=system:admin
 ----
-
-NOTE: Installing Kiali may take a minute or two. 
 +
+NOTE: Installing Kiali may take a minute or two. 
+
 . You can use the following commands to see if the service is running:
 +
 ----
