@@ -171,9 +171,7 @@ image::images/kiali-source-services.png[]
 
 == Istio Config
 
-The Istio configuration view allow you to browse and validate Istio configuration. The view also provides advanced filtering on navigation through Istio objects.
-
-Kiali provides inline config validation for networking objects such as VirtualServices and DestinationRules.
+The Istio configuration view allow you to browse and validate Istio configuration. The view also provides advanced filtering on navigation through Istio objects. Kiali provides inline config validation for networking objects such as VirtualServices and DestinationRules.
 
 . Click the Istio Config link on the left navigation. On this page, you can see
 all currently running config rules, such as Virtual Services, Route Rules,
