@@ -59,7 +59,7 @@ curl https://raw.githubusercontent.com/kiali/kiali/master/deploy/openshift/kiali
 ----
 
 NOTE: Installing Kiali may take a minute or two. 
-
++
 . You can use the following commands to see if the service is running:
 +
 ----
