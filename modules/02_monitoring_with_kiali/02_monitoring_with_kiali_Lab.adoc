@@ -171,16 +171,16 @@ image::images/kiali-source-services.png[]
 
 == Istio Config
 
-Click the Istio Config link on the left navigation. On this page, you can see
+. Click the Istio Config link on the left navigation. On this page, you can see
 all currently running config rules, such as Virtual Services, Route Rules,
 Routes, Circuit Breakers, Fault Injection and so on.
-
++
 image::images/kiali-istio-config.png[]
 
 
 == Congratulations!
 
-In this lab you learned how to use Kiali for monitoring your Istio service mesh.
+In this lab you learned how to install Kiali. You also learned how to use Kiali for monitoring your Istio service mesh.
 
 Proceed to the next lab: link:03_distributed_tracing_Lab.html[*03 - Distributed Tracing*]
 
