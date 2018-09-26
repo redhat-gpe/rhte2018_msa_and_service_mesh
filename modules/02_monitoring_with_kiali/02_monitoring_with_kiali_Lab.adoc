@@ -39,7 +39,7 @@ export GRAFANA_URL=http://$(oc get route grafana -n istio-system -o template --t
 ----
 
 . Install Kiali with the following commands:
-
++
 ----
 # This command installs Kiali's configmaps
 curl https://raw.githubusercontent.com/kiali/kiali/master/deploy/openshift/kiali-configmap.yaml | \
@@ -68,12 +68,18 @@ oc get pods -w
 ----
 
 * Wait until the status for Kiali is `Running` and there are `1/1` pods in the
-`Ready` column. To exit, press `Ctrl+C`.
+`Ready` column. 
 
-. View the status
++
+----
+TODO
+----
+
+. To exit, press `Ctrl+C`.
+
+. View the routes for the project
 + 
 ----
-oc project istio-system
 oc get routes
 ----
 
@@ -103,7 +109,7 @@ echo $KIALI_URL
 ----
 
 . Start a web browser on your computer and enter the value for $KIALI_URL
-
++
 image::images/kiali-login.png[]
 
 . At the login screen, enter the default credentials are "admin/admin"
