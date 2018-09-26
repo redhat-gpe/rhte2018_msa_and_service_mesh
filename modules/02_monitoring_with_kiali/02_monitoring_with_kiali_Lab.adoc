@@ -30,7 +30,7 @@ Istio).
 
 == How to install Kiali?
 
-. Set up environment variables for Jaeger and Grafana. This will be used by kiali during creation of config maps
+. Set up environment variables for Jaeger and Grafana. This will be used by Kiali during the installation process. We'll talk more about Jaeger and Grafana in later labs.
 +
 ----
 export JAEGER_URL=http://$(oc get route tracing -n istio-system -o template --template='{{.spec.host}}’)
