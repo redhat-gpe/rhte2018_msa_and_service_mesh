@@ -547,7 +547,7 @@ In this lab you learned how to deploy microservices to form a _service mesh_ usi
 You also learned how to do traffic shaping and routing using _Route Rules_ which instruct
 the Istio sidecar proxies to distribute traffic according to specified policy.
 
-Proceed to the next lab: link:03_circuit_breaker_Lab.html[*03 - Circuit Breaker*]
+Proceed to the next lab: link:05_circuit_breaker_Lab.html[*05 - Circuit Breaker*]
 
 == References
 
