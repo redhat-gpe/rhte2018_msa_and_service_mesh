@@ -150,39 +150,6 @@ oc delete all --all -n developer-coolstore-gateway
 oc delete project developer-coolstore-gateway
 -----
 
-== Update Maven 
-
-On the VMs, it has an older version of Maven 3.0.5.  The labs require Maven 3.5.x. Here are quick steps to update Maven for your VM.  
-
-. Download Maven 
-* _The `curl` command below should be entered all on one line_
-+
-----
-curl http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz | tar -xzf - -C ~/
-----
-
-. Update your Linux path
-+
-----
-echo "PATH=$HOME/apache-maven-3.5.4/bin:$PATH" >> ~/.bashrc
-
-source ~/.bashrc
-----
-
-. Verify Maven version
-+
-----
-mvn -v
-----
-
-* You should see the updated Apache Maven version *3.5.4*:
-+
-----
-Apache Maven 3.5.4 (1edded0938998edf8bf061f1ceb3cfdeccf443fe; 2018-06-17T18:33:14Z)
-Maven home: /home/lab-user/apache-maven-3.5.4
-...
-----
-
 == View OpenShift Web Console
 
 . Log into OpenShift Web Console
