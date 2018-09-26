@@ -116,27 +116,6 @@ Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com systemd[1]: Started OpenShift oc 
 oc login https://$HOSTNAME:8443 -u $OCP_USERNAME -p $OCP_PASSWD
 -----
 
-. Ensure that your `oc` client is the same minor release version as the server:
-+
------
-oc version
------
-
-* You should see:
-+
------
-oc v3.10.14
-kubernetes v1.10.0+b81c8f8
-features: Basic-Auth GSSAPI Kerberos SPNEGO
-
-Server https://master.8091.openshift.opentlc.com:443
-openshift v3.10.14
-kubernetes v1.10.0+b81c8f8
------
-
-.. In the above example, notice that version of the `oc` client is of the same release as the remote OCP master API.
-.. There a known subtle problems with using a version of the `oc` client that is different from your target OpenShift server.
-
 . View existing projects:
 +
 -----
