@@ -6,551 +6,178 @@
 
 = Monitoring with Kiali
 
-== What is a Service Mesh?
+At some point when you are developing your microservice architecture, you will
+need to visualize what is happening in your service mesh. You will have
+questions like “Which service is connected to which other service?” and “How
+much traffic goes to each microservice?” But because of the loosely tied nature
+of microservice architectures , these questions can be difficult to answer.
 
-As microservices-based applications become more prevalent, both the number of
-and complexity of their interactions increases. Up until now much of the burden
-of managing these complex microservices interactions has been placed on the
-application developer, with different or non-existent support for microservice
-concepts depending on language and framework.
+Those are the kinds of question that https://www.kiali.io/[Kiali] has the ability to answer, by giving
+you a big picture of the mesh, and showing the whole flow of your requests and
+data.
 
-The service mesh concept pushes this responsibility to the infrastructure, with
-features for traffic management, distributed tracing and observability, policy
-enforcement, and service/identity security, freeing the developer to focus on
-business value. In this hands-on session you will learn how to apply some of
-these features to a simple polyglot microservices application running on top of
-OpenShift using Istio, an open platform to connect, manage, and secure
-microservices.
+image::images/graph_overview.png[]
 
-== What is Istio?
+== How does Kiali work?
 
-https://istio.io/[Istio] is an open platform to connect, manage, and secure microservices. Istio
-provides an easy way to create a network of deployed services with load
-balancing, service-to-service authentication, monitoring, and more, without
-requiring any changes in application code. OpenShift can automatically inject a
-special sidecar proxy throughout your environment to enable Istio management for
-your application. This proxy intercepts all network communication between your
-microservices microservices, and is configured and managed using Istio’s control
-plane functionality -- not your application code!
+Kiali taps into the data provided by Istio and OpenShift to generate its
+visualizations. It fetches ingress data (such as request tracing with Jaeger),
+the listing and data of the services, health indexes, and so on.
 
-image::images/02_service_mesh_architecture.png[Service Mesh Architecture]
+Kiali runs as a service together with Istio, and does not require any changes
+to Istio or Openshift configuration (besides the ones required to install
+Istio).
 
-== Lab Overview
+== How to install Kiali?
 
-There are three microservices in this lab and they are chained together in the following sequence:
-
-`gateway -> partner -> catalog`
-
-In this lab you'll dynamically alter routing between the services using Istio.
-
-== Goals
-
-In this lab, you will learn how to:
-
-* Inject sidecar proxies into applications which form a service mesh
-* Configure a service mesh to dynamically route and shape traffic to and from services
-
-== Deploy Catalog service version 2 (`v2`)
-
-We can experiment with Istio routing rules by deploying a second version of the catalog
-service.
-
-. Edit Java source code to show v2 message
+. Set up environment variables for Jaeger and Grafana. This will be used by kiali during creation of config maps
 +
 ----
-cd ~/lab/rhte-msa-and-service-mesh/catalog/java/vertx
+export JAEGER_URL=http://$(oc get route tracing -n istio-system -o template --template='{{.spec.host}}’)
 
-vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
+export GRAFANA_URL=http://$(oc get route grafana -n istio-system -o template --template='{{.spec.host}}')
 ----
 
-. In the file `CatalogVerticle.java`, update this line to say `v2`
+. Install Kiali with the following commands:
+
+----
+# This command installs Kiali's configmaps
+curl https://raw.githubusercontent.com/kiali/kiali/master/deploy/openshift/kiali-configmap.yaml | \
+   VERSION_LABEL=master envsubst | oc create -n istio-system -f - --as=system:admin
+
+# This command installs Kiali's secrets
+curl https://raw.githubusercontent.com/kiali/kiali/master/deploy/openshift/kiali-secrets.yaml | \
+   VERSION_LABEL=master envsubst | oc create -n istio-system -f - --as=system:admin
+
+# And this command installs the Kiali service
+curl https://raw.githubusercontent.com/kiali/kiali/master/deploy/openshift/kiali.yaml | \
+   IMAGE_NAME=kiali/kiali \
+   IMAGE_VERSION=latest \
+   NAMESPACE=istio-system \
+   VERSION_LABEL=master \
+   VERBOSE_MODE=4 envsubst | oc create -n istio-system -f - --as=system:admin
+
+NOTE: Installing Kiali may take a minute or two. 
+
+. You can use the following commands to see if the service is running:
 +
 ----
-private static final String RESPONSE_STRING_FORMAT = "catalog v2 from '%s': %d\n";
+oc project istio-system
+oc get pods -w
 ----
 
-. Save the file and exit vi.
+* Wait until the status for Kiali is `Running` and there are `1/1` pods in the
+`Ready` column. To exit, press `Ctrl+C`.
 
-. Build the service with the following commands:
-+
-----
-mvn clean package
-
-sudo docker build -t example/catalog:v2 .
-----
-+
-NOTE: The "v2" tag during the Docker build is significant.
-
-. Deploy Catalog service version 2 
-+
-----
-oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment-v2.yml) -n $OCP_TUTORIAL_PROJECT
-----
-+
-* This second deployment file `Deployment-v2.yml` will label the service correctly.
-
-. You can see both versions of the `catalog` pods running with the following command:
-+
-----
-oc get pods -l app=catalog -w
-----
-+
-* For the `catalog-v2` service, wait until the Ready column has `2/2` pods and the Status column has `Running`. 
-
-* You should see:
-+
-----
-NAME                          READY     STATUS    RESTARTS   AGE
-catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          31m
-catalog-v2-7764964564-hj8xl   2/2       Running   0          49s
-----
-+
-
-* To exit, press Ctrl+C.
-
-* By default, Istio will round-robin incoming requests to the `catalog` Service
-so that both `v1` and `v2` pods get equal amounts of traffic.
-
-. Make sure your environment variable for $GATEWAY_URL is still set.
-+
-----
-echo $GATEWAY_URL
-----
-
-. Test the gateway service
-+
-----
-curl $GATEWAY_URL
-----
-
-* You will likely see:
-+
-----
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 2
-----
-+
-* Where `6b576ffcf8-g6b48` is the pod running `v1` and the `2` is the number of times you hit the endpoint.
-
-. Make another request to the gateway service
-+
-----
-curl $GATEWAY_URL
-----
-
-* You will likely see:
-+
-----
-gateway => partner => catalog v2 from '7764964564-hj8xl': 1
-----
-+
-* Where `7764964564-hj8xl` is the pod running `v2` and the `1` is basically the number of times you hit the endpoint.
-
-* By default you get round-robin load-balancing when there is more than one Pod behind a Service
-
-. Send severals to the gateway service. 
-+
-----
-~/lab/rhte-msa-and-service-mesh/scripts/run.sh
-----
-+
-* The `run.sh` script will loop and send 10 requests to the `gateway` service.
-
-* You should see:
-+
-----
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 4
-gateway => partner => catalog v2 from '7764964564-hj8xl': 3
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 5
-gateway => partner => catalog v2 from '7764964564-hj8xl': 4
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 6
-gateway => partner => catalog v2 from '7764964564-hj8xl': 5
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 7
-gateway => partner => catalog v2 from '7764964564-hj8xl': 6
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 8
-gateway => partner => catalog v2 from '7764964564-hj8xl': 7
-----
-+
-* Approximately half of the requests above go to `v1` and the other half to `v2`.
-
-* The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
-available pods behind a single Service. 
-
-. Scale up the number of pods for the `catalog-v2` pod:
-+
-----
-oc scale --replicas=2 deployment/catalog-v2
-----
-
-. Monitor the scaling up of the new pod
-+
-----
-oc get pods -l app=catalog -w
-----
-+
-* Wait until you see two entries for the `catalog-v2` service. Also wait until the Ready column has `2/2` pods and the Status column has `Running`. 
-
-* You should see:
-+
-----
-NAME                          READY     STATUS    RESTARTS   AGE
-catalog-v1-6b576ffcf8-g6b48   2/2       Running   0          31m
-catalog-v2-7764964564-hj8xl   2/2       Running   0          10m
-catalog-v2-7764964564-d8qwp   2/2       Running   0          49s
-----
-+
-
-* To exit, press Ctrl+C.
-
-. Now let's send in 10 requests
-+
-----
-~/lab/rhte-msa-and-service-mesh/scripts/run.sh
-----
-
-* You should see:
-+
-----
-gateway => partner => catalog v2 from '7764964564-hj8xl': 8
-gateway => partner => catalog v2 from '7764964564-d8qwp': 1
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 9
-gateway => partner => catalog v2 from '7764964564-hj8xl': 9
-gateway => partner => catalog v2 from '7764964564-d8qwp': 2
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 10
-gateway => partner => catalog v2 from '7764964564-hj8xl': 10
-gateway => partner => catalog v2 from '7764964564-d8qwp': 3
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 11
-gateway => partner => catalog v2 from '7764964564-hj8xl': 11
-----
-+
-* Notice that *double* the number of requests are sent to `v2` than for `v1`:
-
-. Scale back to a single pod for the `catalog-v2` deployment:
-+
-----
-oc scale --replicas=1 deployment/catalog-v2
-----
-
-. Run the test again and confirm that the requests are split evenly between `v1` and `v2`.
-
-== Send all traffic to `catalog:v2`
-
-_Route rules_ control how requests are routed within an Istio service mesh.
-
-Requests can be routed based on the source and destination, HTTP header fields, and weights associated with individual service versions. For example, a route rule could route requests to different versions of a service.
-
-In addition to the usual OpenShift object types like `BuildConfig`, `DeploymentConfig`,
-`Service` and `Route`, you also have new object types installed as part of Istio like `RouteRule`. Adding these objects to the running OpenShift cluster is how you configure routing rules for Istio.
-
-`DestinationRule` defines policies that apply to traffic intended for a service after routing has occurred. These rules specify configuration for load balancing, connection pool size from the sidecar, and outlier detection settings to detect and evict unhealthy hosts from the load balancing pool.
-
-
-A `VirtualService` defines a set of traffic routing rules to apply when a host is addressed. Each routing rule defines matching criteria for traffic of a specific protocol. If the traffic is matched, then it is sent to a named destination service (or subset/version of it) defined in the registry. The source of traffic can also be matched in a routing rule. This allows routing to be customized for specific client contexts.
-
-. Below is an istio configuration file to route all traffic to `v2`. 
-
-* File name: `istiofiles/virtual-service-catalog-v2.yml`
-+
-----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: catalog
-spec:
-  hosts:
-  - catalog
-  http:
-  - route:
-    - destination:
-        host: catalog 
-        subset: version-v2 
-      weight: 100 
----
-----
-
-** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 100% of traffic _(weight)_ for the catalog service will always go to pods matching the labels version: `v2`. The selection of pods here is very similar to the Kubernetes selector model for matching based on labels. So, any service within the service mesh that tries to communicate with the `catalog` service will always be routed to `v2` of the `catalog` service.
-
-. Route all traffic to `v2` using the configuration file:
-+
-----
-cd ~/lab/rhte-msa-and-service-mesh
-
-oc create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
-oc create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
-----
-+
-NOTE: Your OCP user has been provided with the ability to impersonate the system:admin user so as to execute this command. Please use this capability with caution. In a real-world setting, you would have coordinated with a team-member who does with cluster admin rights to execute this command for you. 
-
-. Test the `gateway` service again - all requests should end up talking to
-`catalog:v2`:
-+
-----
-scripts/run.sh
-----
-+
-* You should only see `v2` being returned.
-+
-----
-gateway => partner => catalog v2 from '7764964564-hj8xl': 17
-gateway => partner => catalog v2 from '7764964564-hj8xl': 18
-gateway => partner => catalog v2 from '7764964564-hj8xl': 19
-gateway => partner => catalog v2 from '7764964564-hj8xl': 20
-gateway => partner => catalog v2 from '7764964564-hj8xl': 21
-gateway => partner => catalog v2 from '7764964564-hj8xl': 22
-gateway => partner => catalog v2 from '7764964564-hj8xl': 23
-gateway => partner => catalog v2 from '7764964564-hj8xl': 24
-gateway => partner => catalog v2 from '7764964564-hj8xl': 25
-gateway => partner => catalog v2 from '7764964564-hj8xl': 26
-----
-
-== Send all traffic to `catalog:v1`
-
-. Now let's switch this over to v1. We'll use the following configuration. 
-
-* File name: `istiofiles/virtual-service-catalog-v1.yml`
-+
-----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: catalog
-spec:
-  hosts:
-  - catalog
-  http:
-  - route:
-    - destination:
-        host: catalog 
-        subset: version-v1 
-      weight: 100 
----
-----
-* Make note of the weight set to 100 for catalog v1.
-
-. Now let's move everyone to catalog service `v1`:
-+
-----
-oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
-----
-+
-NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
-
-. Now let's send in 10 requests:
-+
-----
-scripts/run.sh
-----
-+
-* You should see all requests now to go `v1`:
-+
-----
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 17
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 18
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 19
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 20
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 21
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 22
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 23
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 24
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 25
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 26
-----
-
-. Remove the route rules to get back to default round-robin distribution
-of requests.
-+
-----
-oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
-----
-
-. Now let's send in 10 requests:
-+
-----
-scripts/run.sh
-----
-+
-* Traffic should be equally split once again between `v1` and `v2`.
-
-== Use a Canary Deployment to slowly rollout `v2`
-
-Canary Deployment scenario: push v2 into the cluster but slowly send end-user traffic to it, if you continue to see success, continue shifting more traffic over time.
-
-. Below is an istio configuration file for use in a canary deployment. 
-
-* File name: `istiofiles/virtual-service-catalog-v1_and_v2_70_30.yml`
-+
-----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  creationTimestamp: null
-  name: catalog
-spec:
-  hosts:
-  - catalog
-  http:
-  - route:
-    - destination:
-        host: catalog
-        subset: version-v1
-      weight: 70
-    - destination:
-        host: catalog
-        subset: version-v2
-      weight: 30
----
-----
-
-** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 70% of traffic _(weight)_ for the catalog service will go to pods matching the labels version: `v1`. The remaining 30% of traffic will be routed to `v2` of the `catalog` service.
-
-. Create the virtualservice that will send 70% of requests to v1 and 30% to v2:
-+
-----
-oc create -f istiofiles/virtual-service-catalog-v1_and_v2_70_30.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
-----
-
-. And issue 10 requests:
-+
-----
-scripts/run.sh
-----
+. View the status
 + 
-* Now you should see 7 requests, 70% going to `v1`. You should see 3 requests, 30% going to `v2`. This process can be continued (and automated), slowly migrating
-traffic over to the new version as it proves its worth in production over time.
-+
-NOTE: You will not see the EXACT percentage of requests. This is just an approximation.
-+
-. Now let's shift the traffic to 40% to v1 and 60% to v2.
-+
 ----
-oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+oc project istio-system
+oc get routes
 ----
 
-. Issue 10 more requests.
-
-. And shift the traffic to 10% to v1 and 90% to v2.
+* You'll see a result that's something like this:
 +
 ----
-oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+NAME                   HOST/PORT                                                PATH      SERVICES               PORT              TERMINATION   WILDCARD
+grafana                grafana-istio-system.127.0.0.1.nip.io                          grafana                http                            None
+istio-ingress          istio-ingress-istio-system.127.0.0.1.nip.io                    istio-ingress          http                            None
+istio-ingressgateway   istio-ingressgateway-istio-system.127.0.0.1.nip.io             istio-ingressgateway   http                            None
+jaeger-query           jaeger-query-istio-system.127.0.0.1.nip.io                     jaeger-query           jaeger-query      edge          None
+kiali                  kiali-istio-system.127.0.0.1.nip.io                            kiali                  <all>                           None
+prometheus             prometheus-istio-system.127.0.0.1.nip.io                       prometheus             http-prometheus                 None
+tracing                tracing-istio-system.127.0.0.1.nip.io                          tracing                tracing           edge          None
 ----
 
-. Issue 10 more requests.
-
-. Finally, let's move everything over to v2.
+. Enter this command to get the URL of the Kiali web console
 +
 ----
-oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+export KIALI_URL=https://$(oc get route kiali -n istio-system -o template --template='{{.spec.host}}')
 ----
 
-. Issue 10 more requests.
-
-== Smart Routing based on User-Agent
-
-You’ve seen how you can use Istio to do fine-grained routing based on service metadata. You also can use Istio to do routing based on request-level metadata.
-
-For example, you can use matching predicates to set up specific route rules based on requests that match a specified set of criteria. For example, you might want to split traffic to a particular service based on geography, mobile device, or browser. Let’s see how to do that with Istio.
-
-In this example, we'll split traffic based on the browser user-agent.
-
-The "user-agent" header is added to OpenTracing baggage in the Gateway service. This is accomplished with the following code:
-
-* File name: `src/com/redhat/developer/demos/gateway/GatewayController.java`
+. Display the KIALI_URL
 +
 ----
-    @RequestMapping("/")
-    public ResponseEntity<String> getGateway(@RequestHeader("User-Agent") String userAgent) {
-
-            /**
-             * Set baggage
-             */
-            tracer.activeSpan().setBaggageItem("user-agent", userAgent);
-
-            ResponseEntity<String> responseEntity = restTemplate.getForEntity(remoteURL, String.class);
-            String response = responseEntity.getBody();
-            return ResponseEntity.ok(String.format(RESPONSE_STRING_FORMAT, response.trim()));
-            ...
-    }
+echo $KIALI_URL
 ----
 
-From there the user-agent header is automatically propagated to all downstream services. To enable automatic baggage propagation all intermediate services have to be instrumented with OpenTracing. The baggage header for user agent has following form `baggage-user-agent: <value>`.
+. Start a web browser on your computer and enter the value for $KIALI_URL
 
-. We can configure Istio to send Safari users to `catalog:v2`. Below is the configuration file.
+image::images/kiali-login.png[]
 
-* File name: `virtual-service-safari-catalog-v2.yml`
+. At the login screen, enter the default credentials are "admin/admin"
+
+== Generating Sample Data
+
+To show the capabilities of Kiali, you'll need an Istio-enabled application to
+be running. For this, we can use the `customer-tutorial` application we created
+earlier.
+
+. To generate data for it, we can `curl` it with this command:
 +
 ----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  creationTimestamp: null
-  name: catalog
-spec:
-  hosts:
-  - catalog
-  http:
-  - match:
-    - headers:
-        baggage-user-agent:
-          regex: .*Safari.*
-    route:
-    - destination:
-        host: catalog
-        subset: version-v2
-  - route:
-    - destination:
-        host: catalog
-        subset: version-v1
----
-----
-* This definition performs a match on http headers for `baggage-user-agent`. It makes use of a regular expression to match on the string `Safari`. If there is a match then the traffic is routed to `catalog:v2`. Else, all other traffic is routed to `catalog:v1`.
-
-. Set Safari users to use `catalog:v2`
-+
-----
-oc replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+curl customer-tutorial.$(minishift ip).nip.io
 ----
 
-. Test the app using a Safari user agent.
-+
-----
-curl -A Safari $GATEWAY_URL
-----
+== Service Graph
 
-* You should see this request being handled by `catalog:v2`
-+
-----
-gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 56
-----
+After you login, you should see the Service Graph page:
 
-. Now test the app using a Firefox user agent.
-+
-----
-curl -A Firefox $GATEWAY_URL
-----
+image::images/kiali-service-graph.png[]
 
-* You should see this request being handled by `catalog:v1`
-+
-----
-gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 174
-----
+It shows a graph with all the microservices, connected by the requests going
+through then. On this page, you can see how the services interact with each
+other.
 
-== Clean Up
+== Service Listing
 
-. Remove the route rules before moving on:
-+
-----
-scripts/clean.sh $OCP_TUTORIAL_PROJECT
-----
+. Click the Services link in the left navigation. On the Services page you can
+view a listing of all the services that are running in the cluster, and
+additional information about them, such as health status.
+
+image::images/kiali-service-list.png[]
+
+. Click on the "Filter by Namespace" dropdown, and select "tutorial". Then,
+you'll see a list of only the services on the tutorial:
+
+image::images/kiali-service-list-2.png[]
+
+. Click on the "preference" to see its details:
+
+image::images/kiali-service-details.png[]
+
+. By hovering the icon on the Health section, you can see the health of a service
+(a service is considered healthy) when it's online and responding to requests
+without errors:
+
+image::images/kiali-service-health.png[]
+
+. You can also see the deployments:
+
+image::images/kiali-deployments.png[]
+
+. You can also the source services:
+
+image::images/kiali-source-services.png[]
+
+== Istio Config
+
+Click the Istio Config link on the left navigation. On this page, you can see
+all currently running config rules, such as Virtual Services, Route Rules,
+Routes, Circuit Breakers, Fault Injection and so on.
+
+image::images/kiali-istio-config.png[]
+
 
 == Congratulations!
 
-In this lab you learned how to deploy microservices to form a _service mesh_ using Istio.
-You also learned how to do traffic shaping and routing using _Route Rules_ which instruct
-the Istio sidecar proxies to distribute traffic according to specified policy.
+In this lab you learned how to use Kiali for monitoring your Istio service mesh.
 
-Proceed to the next lab: link:05_circuit_breaker_Lab.html[*05 - Circuit Breaker*]
+Proceed to the next lab: link:03_distributed_tracing_Lab.html[*03 - Distributed Tracing*]
 
 == References
 
+* https://www.kiali.io/[Kiali]
 * https://openshift.com[Red Hat OpenShift]
 * https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
 * https://istio.io[Istio Homepage]
