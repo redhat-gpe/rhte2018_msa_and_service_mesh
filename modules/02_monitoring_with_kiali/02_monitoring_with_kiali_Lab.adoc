@@ -79,7 +79,23 @@ oc get pods -w
 
 +
 ----
-TODO
+NAME                                        READY     STATUS      RESTARTS   AGE
+grafana-66469c4d95-9n5r4                    1/1       Running     0          10m
+istio-citadel-5799b76c66-mw89b              1/1       Running     0          10m
+istio-cleanup-secrets-z6clh                 0/1       Completed   0          10m
+istio-egressgateway-6578f84b68-hkrwk        1/1       Running     0          10m
+istio-galley-5bf4d6b8f7-6ccml               1/1       Running     0          10m
+istio-grafana-post-install-xp8rw            0/1       Completed   0          10m
+istio-ingressgateway-67995c486c-n7467       1/1       Running     0          10m
+istio-pilot-5c778f6dfd-d7lbv                2/2       Running     0          10m
+istio-policy-8667975f76-hfthm               2/2       Running     0          10m
+istio-sidecar-injector-5b5fcf4df6-rhqp9     1/1       Running     0          10m
+istio-statsd-prom-bridge-7f44bb5ddb-9mhb6   1/1       Running     0          10m
+istio-telemetry-7d87746bbf-gh8lq            2/2       Running     0          10m
+istio-tracing-ff94688bb-pf768               1/1       Running     0          10m
+kiali-79f8f8fd5-z4xw8                       1/1       Running     0          14s
+prometheus-84bd4b9796-8bbgp                 1/1       Running     0          10m
+servicegraph-7875b75b4f-f8s6j               1/1       Running     0          10m
 ----
 
 . To exit, press `Ctrl+C`.
