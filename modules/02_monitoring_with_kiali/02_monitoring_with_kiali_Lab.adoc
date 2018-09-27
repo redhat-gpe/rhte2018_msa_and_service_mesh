@@ -64,8 +64,6 @@ curl https://raw.githubusercontent.com/kiali/kiali/master/deploy/openshift/kiali
    VERSION_LABEL=master \
    VERBOSE_MODE=4 envsubst | oc create -n istio-system -f - --as=system:admin
 ----
-+
-NOTE: Installing Kiali may take a minute or two. 
 
 . You can use the following commands to see if the service is running:
 +
@@ -73,6 +71,8 @@ NOTE: Installing Kiali may take a minute or two.
 oc project istio-system
 oc get pods -w
 ----
++
+NOTE: Installing Kiali may take a minute or two. 
 
 * Wait until the status for *kiali-xx-yy* is `Running` and there are `1/1` pods in the
 `Ready` column. 
