@@ -146,10 +146,12 @@ To show the capabilities of Kiali, we need to generate some sample data. For thi
 
 . Move back to your terminal window
 
+cd ~/lab/rhte-msa-and-service-mesh
+
 . Generate data using the following command:
 +
 ----
-TODO
+scripts/run-all.sh
 ----
 
 * Let this script continue to run.
