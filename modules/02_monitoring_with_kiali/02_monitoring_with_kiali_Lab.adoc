@@ -142,9 +142,7 @@ other.
 
 == Generating Sample Data
 
-To show the capabilities of Kiali, you'll need an Istio-enabled application to
-be running. For this, we can use our `gateway` application that we deployed
-earlier.
+To show the capabilities of Kiali, we need to generate some sample data. For this, we can use our `gateway` application that we deployed earlier.
 
 . Move back to your terminal window
 

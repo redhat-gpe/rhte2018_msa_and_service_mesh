@@ -200,7 +200,7 @@ oc delete virtualservice catalog --as=system:admin
 . Test the app again.
 +
 ----
-~/lab/rhte-msa-and-service-mesh/scripts/run.sh
+~/lab/rhte-msa-and-service-mesh/scripts/run.sh 10
 ----
 * Make sure it alternates between `catalog:v1` and `catalog:v2`. The app should not have any delay.
 +
@@ -257,7 +257,7 @@ catalog-v2-7764964564-hrjq5   2/2       Running   0          56s
 . Send some requests to the gateway service:
 +
 ----
-scripts/run.sh
+scripts/run.sh 10
 ----
 
 * You should see:
@@ -320,7 +320,7 @@ exit
 . Now let's send in 10 requests:
 +
 ----
-scripts/run.sh
+scripts/run.sh 10
 ----
 
 * You should see:
@@ -398,7 +398,7 @@ oc replace -f istiofiles/destination-rule-catalog_cb_policy_pool_ejection.yml -n
 . Now let's send in 10 requests:
 +
 ----
-scripts/run.sh
+scripts/run.sh 10
 ----
 
 * You should see: 
@@ -469,7 +469,7 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_retry.yml -n $OCP_TUT
 . Now let's send in 10 requests:
 +
 ----
-scripts/run.sh
+scripts/run.sh 10
 ----
 
 * You should see:
