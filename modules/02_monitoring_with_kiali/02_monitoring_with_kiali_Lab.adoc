@@ -74,7 +74,7 @@ oc project istio-system
 oc get pods -w
 ----
 
-* Wait until the status for Kiali is `Running` and there are `1/1` pods in the
+* Wait until the status for *kiali-xx-yy* is `Running` and there are `1/1` pods in the
 `Ready` column. 
 
 +
