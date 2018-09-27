@@ -146,11 +146,23 @@ To show the capabilities of Kiali, you'll need an Istio-enabled application to
 be running. For this, we can use our `gateway` application that we deployed
 earlier.
 
-. To generate data for it, we can use this command:
+. Move back to your terminal window
+
+. Generate data using the following command:
 +
 ----
 TODO
 ----
+
+* Let this script continue to run.
+
+== View Animations in the Service Graph
+
+. Move back to the Kiali web console
+
+TODO: show steps to animate the service graph
+
+Add an animated gif of the traffic flow (booyah)
 
 == Service Listing
 
