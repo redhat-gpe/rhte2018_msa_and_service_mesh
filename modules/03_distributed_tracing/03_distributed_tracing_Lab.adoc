@@ -12,7 +12,7 @@ https://www.jaegertracing.io/[Jaeger] is an implementation of the OpenTracing sp
 
 == How does Distributed Tracking work?
 
-As OpenTracing is "just" an instrumentation library, a concrete tracer is required in order to actually capture the tracing data and report it to a remote server. Our `gateway` and `partner` services ship with http://jaegertracing.io/[Jaeger] as the concrete tracer. the Istio platform automatically sends collected tracing data to Jaeger, so that we are able to see a trace involving all three services, even if our `catalog` service is not aware of OpenTracing or Jaeger at all.
+As OpenTracing is "just" an instrumentation library, a concrete tracer is required in order to actually capture the tracing data and report it to a remote server. Our `gateway` and `partner` services ship with Jaeger as the concrete tracer. the Istio platform automatically sends collected tracing data to Jaeger, so that we are able to see a trace involving all three services, even if our `catalog` service is not aware of OpenTracing or Jaeger at all.
 
 Our `gateway` and `partner` services are using the https://github.com/jaegertracing/jaeger-client-java/tree/master/jaeger-tracerresolver[`TracerResolver`] facility from OpenTracing, so that the concrete tracer can be loaded automatically without our code having a hard dependency on Jaeger. Given that the Jaeger tracer can be configured via environment variables, we don't need to do anything in order to get a properly configured Jaeger tracer ready and registered with OpenTracing. That said, there are cases where it's appropriate to manually configure a tracer. Refer to the Jaeger documentation for more information on how to do that.
 
