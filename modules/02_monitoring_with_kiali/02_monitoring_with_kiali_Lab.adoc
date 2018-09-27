@@ -72,7 +72,7 @@ oc project istio-system
 oc get pods -w
 ----
 +
-NOTE: Installing Kiali may take a minute or two. 
+NOTE: Installing Kiali may take 2 - 5 minutes. 
 
 * Wait until the status for *kiali-xx-yy* is `Running` and there are `1/1` pods in the
 `Ready` column. 
