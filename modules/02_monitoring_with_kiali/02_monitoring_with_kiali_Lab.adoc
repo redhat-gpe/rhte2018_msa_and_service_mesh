@@ -109,14 +109,7 @@ oc get routes
 * You'll see a result that's something like this:
 +
 ----
-NAME                   HOST/PORT                                                PATH      SERVICES               PORT              TERMINATION   WILDCARD
-grafana                grafana-istio-system.127.0.0.1.nip.io                          grafana                http                            None
-istio-ingress          istio-ingress-istio-system.127.0.0.1.nip.io                    istio-ingress          http                            None
-istio-ingressgateway   istio-ingressgateway-istio-system.127.0.0.1.nip.io             istio-ingressgateway   http                            None
-jaeger-query           jaeger-query-istio-system.127.0.0.1.nip.io                     jaeger-query           jaeger-query      edge          None
-kiali                  kiali-istio-system.127.0.0.1.nip.io                            kiali                  <all>                           None
-prometheus             prometheus-istio-system.127.0.0.1.nip.io                       prometheus             http-prometheus                 None
-tracing                tracing-istio-system.127.0.0.1.nip.io                          tracing                tracing           edge          None
+TODO
 ----
 
 . Enter this command to get the URL of the Kiali web console
@@ -131,7 +124,7 @@ export KIALI_URL=https://$(oc get route kiali -n istio-system -o template --temp
 echo $KIALI_URL
 ----
 
-. Start a web browser on your computer and enter the value for $KIALI_URL
+. Start a web browser on your computer and vist the URL for $KIALI_URL
 +
 image::images/kiali-login.png[]
 
