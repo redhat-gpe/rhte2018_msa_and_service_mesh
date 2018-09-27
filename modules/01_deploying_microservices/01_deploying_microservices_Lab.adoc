@@ -319,7 +319,7 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 1
 
 In this lab you deployed microservices to OpenShift. In the next lab, you will learn how to leverage these microservices in a service mesh with Istio.
 
-Proceed to the next lab: link:02_route_rules_Lab.html[*02 - Dynamic Routing with Istio*]
+Proceed to the next lab: link:02_monitoring_with_kiali_Lab.html[*02 - Service Mesh Monitoring with Kiali*]
 
 == References
 
