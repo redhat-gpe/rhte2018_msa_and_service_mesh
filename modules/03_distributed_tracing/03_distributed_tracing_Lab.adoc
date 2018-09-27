@@ -6,21 +6,24 @@
 
 = Distributed Tracing
 
-
-[#tracing]
-== Distrubted Tracing
-
 Distributed Tracing involves propagating the tracing context from service to service, usually done by sending certain incoming HTTP headers downstream to outbound requests. For services embedding a http://opentracing.io/[OpenTracing] framework instrumentations such as https://github.com/opentracing-contrib/java-spring-cloud[opentracing-spring-cloud], this might be transparent. For services that are not embedding OpenTracing libraries, this context propagation needs to be done manually.
+
+https://www.jaegertracing.io/[Jaeger] is an implementation of the OpenTracing specification. Originally from Uber, Red Hat actively contributes to the project.
+
+== How does Distributed Tracking work?
 
 As OpenTracing is "just" an instrumentation library, a concrete tracer is required in order to actually capture the tracing data and report it to a remote server. Our `gateway` and `partner` services ship with http://jaegertracing.io/[Jaeger] as the concrete tracer. the Istio platform automatically sends collected tracing data to Jaeger, so that we are able to see a trace involving all three services, even if our `catalog` service is not aware of OpenTracing or Jaeger at all.
 
 Our `gateway` and `partner` services are using the https://github.com/jaegertracing/jaeger-client-java/tree/master/jaeger-tracerresolver[`TracerResolver`] facility from OpenTracing, so that the concrete tracer can be loaded automatically without our code having a hard dependency on Jaeger. Given that the Jaeger tracer can be configured via environment variables, we don't need to do anything in order to get a properly configured Jaeger tracer ready and registered with OpenTracing. That said, there are cases where it's appropriate to manually configure a tracer. Refer to the Jaeger documentation for more information on how to do that.
 
-In this lab, you use Jaeger to trace calls for our microservices. Jaeger is an implementation of the OpenTracing specification. Originally from Uber, Red Hat actively contributes to the project.
-
 The Jaeger agent is deployed as a sidecar container next to the application component containers. The agent collects tracing data from the applications and transmits them to the Jaeger collector through port 14267.
 
 The Jaeger sidecar runs the Jaeger agent, which acts as a proxy to the Jaeger collector. The agent is a daemon program that runs on every host and receives tracing information submitted by applications via Jaeger client libraries. The agent transmits this information to the Jaeger collector. The Jaeger tracer instance in the application transmits the tracing information to the agent using UDP.
+
+== Goals
+
+In this lab, you use Jaeger to trace calls for our microservices. 
+
 
 === Demo
 
@@ -35,13 +38,13 @@ image:jaegerUI.png[Trace as seen in Jaeger]
 
 == Congratulations!
 
-In this lab you learned how to install Kiali. You also learned how to use Kiali for monitoring your Istio service mesh.
+In this lab you learned how to use Jaeger to trace calls for our microservices.
 
-Proceed to the next lab: link:03_distributed_tracing_Lab.html[*03 - Distributed Tracing*]
+Proceed to the next lab: link:04_route_rules_Lab.html[*04 - Dynamic Routing*]
 
 == References
 
-* https://www.kiali.io/[Kiali]
+* https://www.jaegertracing.io/[Jaeger]
 * https://openshift.com[Red Hat OpenShift]
 * https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
 * https://istio.io[Istio Homepage]
