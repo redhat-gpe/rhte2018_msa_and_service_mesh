@@ -92,7 +92,8 @@ public class GatewayController {
         </dependency>
 ----
 
-. In the Docker build configuration file (Dockerfile), the environment variables are set. Docker file location: `~/lab/rhte-msa-service-mesh/gateway/java/springboot/Docker`
+. In the Docker build configuration file (Dockerfile), the environment variables are set. 
+* Docker file location: `~/lab/rhte-msa-service-mesh/gateway/java/springboot/Docker`
 +
 ----
 FROM fabric8/java-jboss-openjdk8-jdk:1.3.1
