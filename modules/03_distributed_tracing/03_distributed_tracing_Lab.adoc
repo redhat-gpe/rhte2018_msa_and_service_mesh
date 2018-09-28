@@ -173,10 +173,11 @@ image::images/grafana-dashboard-new-data.png[]
 
 * The information available on the Grafana dashboard includes a Dashboard Row with high-level metrics (e.g. Global Request Volume, success rates, 4xx errors), a Server Mesh view with charts for each service, and a Services row with details about each container for each service.
 
-* From the list of services, select the `partner` service.
-
+. From the list of services, select the `partner` service.
++
 image::images/grafana-select-partner-service.png[]
 
+* This will show the detailed metrics for the `partner` service.
 
 image::images/grafana-partner-service-details.png[]
 
