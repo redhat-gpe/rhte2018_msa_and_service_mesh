@@ -6,6 +6,13 @@
 
 = Dynamic Routing with Istio
 
+== Goals
+
+In this lab, you will learn how to:
+
+* Inject sidecar proxies into applications which form a service mesh
+* Configure a service mesh to dynamically route and shape traffic to and from services
+
 == What is a Service Mesh?
 
 As microservices-based applications become more prevalent, both the number of
@@ -42,13 +49,6 @@ There are three microservices in this lab and they are chained together in the f
 `gateway -> partner -> catalog`
 
 In this lab you'll dynamically alter routing between the services using Istio.
-
-== Goals
-
-In this lab, you will learn how to:
-
-* Inject sidecar proxies into applications which form a service mesh
-* Configure a service mesh to dynamically route and shape traffic to and from services
 
 == Deploy Catalog service version 2 (`v2`)
 

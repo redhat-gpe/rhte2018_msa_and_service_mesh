@@ -6,6 +6,15 @@
 
 = Service Mesh Monitoring with Kiali
 
+== Goals
+
+In this lab, you will learn how to:
+
+* Install Kiali
+* Monitor your Istio Service Mesh with Kiali
+
+== Why Service Mesh Monitoring?
+
 At some point when you are developing your microservice architecture, you will
 need to visualize what is happening in your service mesh. You will have
 questions like “Which service is connected to which other service?” and “How
@@ -27,13 +36,6 @@ the listing and data of the services, health indexes, and so on.
 Kiali runs as a service together with Istio, and does not require any changes
 to Istio or Openshift configuration (besides the ones required to install
 Istio).
-
-== Goals
-
-In this lab, you will learn how to:
-
-* Install Kiali
-* Monitor your Istio Service Mesh with Kiali
 
 == Install Kiali
 

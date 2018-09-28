@@ -6,6 +6,16 @@
 
 = Distributed Tracing
 
+== Goals
+
+In this lab, you will learn how to:
+
+* Add tracing support with the OpenTracing API
+* View distributing tracing metrics in Grafana
+* Trace microservices calls with Jaeger 
+
+== What is Distributed Tracing?
+
 Distributed Tracing involves propagating the tracing context from service to service, usually done by sending certain incoming HTTP headers downstream to outbound requests. For services embedding a http://opentracing.io/[OpenTracing] framework instrumentations such as https://github.com/opentracing-contrib/java-spring-cloud[opentracing-spring-cloud], this might be transparent. For services that are not embedding OpenTracing libraries, this context propagation needs to be done manually.
 
 https://www.jaegertracing.io/[Jaeger] is an implementation of the OpenTracing specification. Originally from Uber, Red Hat actively contributes to the project.
@@ -30,13 +40,6 @@ The Jaeger sidecar runs the Jaeger agent, which acts as a proxy to the Jaeger co
 
 *Monitoring* is the act of watching your system, by a UI and/or automation. Tracing data drives monitoring. Monitoring in Istio is provided by Prometheus and includes a UI. Prometheus supports automated monitoring via Alerts and Alert Managers.
 
-== Goals
-
-In this lab, you will learn how to:
-
-* Add tracing support with the OpenTracing API
-* View distributing tracing metrics in Grafana
-* Trace microservices calls with Jaeger 
 
 
 == Add Tracing Support

@@ -6,6 +6,13 @@
 
 = Circuit Breaker Lab
 
+== Goals
+
+In this lab, you will learn how to:
+
+* Implement the pool ejection resilience strategy to increase the overall availability
+* Leverage the circuit breaker pattern to avoid multiple concurrent requests to an instance
+
 == Lab Overview
 
 This exercise shows how to inject faults and test the resiliency of your application. Istio provides a set of failure recovery features that can be taken advantage of by the services in an application. Features include:
@@ -17,13 +24,6 @@ This exercise shows how to inject faults and test the resiliency of your applica
 * Fine-grained circuit breakers (passive health checks) – applied per instance in the load balancing pool
 
 Together, these features enable the service mesh to tolerate failing nodes and prevent localized failures from cascading instability to other nodes.
-
-== Goals
-
-In this lab, you will learn how to:
-
-* Implement the pool ejection resilience strategy to increase the overall availability
-* Leverage the circuit breaker pattern to avoid multiple concurrent requests to an instance
 
 [NOTE]
 ._Before Start_

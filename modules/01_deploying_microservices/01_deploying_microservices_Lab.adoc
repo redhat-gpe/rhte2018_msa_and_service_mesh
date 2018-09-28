@@ -6,18 +6,18 @@
 
 = Deploying Microservices
 
-== Lab Overview
-
-There are three microservices in this lab. Here is the application architecture:
-
-image::images/app-architecture.png[]
-
 == Goals
 
 In this lab, you will:
 
 * Access the OpenShift environment
 * Deploy microservice applications to OpenShift
+
+== Lab Overview
+
+There are three microservices in this lab. Here is the application architecture:
+
+image::images/app-architecture.png[]
 
 === OpenShift access
 
