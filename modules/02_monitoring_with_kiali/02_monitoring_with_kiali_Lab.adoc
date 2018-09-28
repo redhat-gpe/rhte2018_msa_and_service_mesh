@@ -228,7 +228,6 @@ The Istio configuration view allow you to browse and validate Istio configuratio
 * On this page, you can see all currently running config rules, such as Virtual Services, Route Rules,
 Routes, Circuit Breakers, Fault Injection and so on.
 
-+
 image::images/kiali-istio-config.png[]
 
 
