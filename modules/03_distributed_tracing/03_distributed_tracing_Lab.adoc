@@ -143,7 +143,7 @@ echo $GRAFANA_SIMPLE_DASHBOARD_URL
 
 * The Grafana Istio dashboard gives you quick insight into how your system is doing. Here’s a screen capture of just a small part of the dashboard. At the moment, no requests are being generated.
 
-images::image/grafana-dashboard-start.png[]
+image::images/grafana-dashboard-start.png[]
 
 
 == Viewing Jaeger Console
@@ -155,7 +155,7 @@ Let's open the Jaeger console, select `gateway` from the list of services and cl
 minishift openshift service tracing --in-browser
 ----
 
-images::image/jaegerUI.png[]
+image::images/jaegerUI.png[]
 
 == Congratulations!
 
