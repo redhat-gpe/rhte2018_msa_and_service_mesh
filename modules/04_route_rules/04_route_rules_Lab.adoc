@@ -223,16 +223,18 @@ image::images/kiali-login.png[]
 
 * You should now see traffic animation on the graph.
 
-TODO: insert image
-
 * Approximately half of the requests above go to `v1` and the other half to `v2`.
+
+TODO: insert image
 
 * The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
 available pods behind a single Service. 
 
 == Scale up the pods for Catalog Service
 
-. Scale up the number of pods for the `catalog-v2` pod:
+Now let's see how traffic is routed if we add multiple pods for a given service version.
+
+. Move back to Terminal #1 and scale up the number of pods for the `catalog-v2` pod:
 +
 ----
 oc scale --replicas=2 deployment/catalog-v2
@@ -258,36 +260,19 @@ catalog-v2-7764964564-d8qwp   2/2       Running   0          49s
 
 * To exit, press Ctrl+C.
 
-. Now let's send in 10 requests
-+
-----
-~/lab/rhte-msa-and-service-mesh/scripts/run.sh 10
-----
+. Move back to the Kiali web console
 
-* You should see:
-+
-----
-gateway => partner => catalog v2 from '7764964564-hj8xl': 8
-gateway => partner => catalog v2 from '7764964564-d8qwp': 1
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 9
-gateway => partner => catalog v2 from '7764964564-hj8xl': 9
-gateway => partner => catalog v2 from '7764964564-d8qwp': 2
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 10
-gateway => partner => catalog v2 from '7764964564-hj8xl': 10
-gateway => partner => catalog v2 from '7764964564-d8qwp': 3
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 11
-gateway => partner => catalog v2 from '7764964564-hj8xl': 11
-----
-+
 * Notice that *double* the number of requests are sent to `v2` than for `v1`:
 
-. Scale back to a single pod for the `catalog-v2` deployment:
+TODO: add image
+
+. Move back to Terminal #1 and scale back to a single pod for the `catalog-v2` deployment:
 +
 ----
 oc scale --replicas=1 deployment/catalog-v2
 ----
 
-. Run the test again and confirm that the requests are split evenly between `v1` and `v2`.
+. View the Kiala web console and confirm that the requests are split evenly between `v1` and `v2`.
 
 == Send all traffic to `catalog:v2`
 
@@ -299,7 +284,6 @@ In addition to the usual OpenShift object types like `BuildConfig`, `DeploymentC
 `Service` and `Route`, you also have new object types installed as part of Istio like `RouteRule`. Adding these objects to the running OpenShift cluster is how you configure routing rules for Istio.
 
 `DestinationRule` defines policies that apply to traffic intended for a service after routing has occurred. These rules specify configuration for load balancing, connection pool size from the sidecar, and outlier detection settings to detect and evict unhealthy hosts from the load balancing pool.
-
 
 A `VirtualService` defines a set of traffic routing rules to apply when a host is addressed. Each routing rule defines matching criteria for traffic of a specific protocol. If the traffic is matched, then it is sent to a named destination service (or subset/version of it) defined in the registry. The source of traffic can also be matched in a routing rule. This allows routing to be customized for specific client contexts.
 
