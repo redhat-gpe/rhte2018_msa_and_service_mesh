@@ -513,6 +513,7 @@ In this lab you learned how to implement the pool ejection resilience strategy t
 
 == References
 
+* https://www.kiali.io/[Kiali]
 * https://istio.io[Istio Homepage]
 * https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
 * https://openshift.com[Red Hat OpenShift]
