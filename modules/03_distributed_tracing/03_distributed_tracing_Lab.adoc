@@ -213,7 +213,7 @@ image::images/jaeger-select-gateway-service.png[]
 
 . Then click the *Find Traces* button at the bottom left of the panel.
 
-* This will show you all of the traces for the `gateway` service. The trace data was collected earlier when we ran the script to access the `gateway` service.
+* This will show you all of the traces for the `gateway` service. The trace data was collected earlier when we ran the script to access the `gateway` service: `run-all.sh`.
 +
 image::images/jaeger-gateway-service-traces.png[]
 +
