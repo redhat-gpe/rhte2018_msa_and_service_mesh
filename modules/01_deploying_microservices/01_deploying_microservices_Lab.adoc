@@ -10,7 +10,7 @@
 
 There are three microservices in this lab. Here is the application architecture:
 
-image::images/graph-overview.png[]
+image::images/app-architecture.png[]
 
 == Goals
 
@@ -289,7 +289,12 @@ gateway-7b6bb9dcf7-zb8br      2/2       Running   0          1m
 
 === Expose Gateway Service
 
-. Since the `gateway` service is the one our users will interact with, let’s add an OpenShift Route that exposes that endpoint.
+. Since the `gateway` service is the one our users will interact with. Here is the application architecture:
++
+image::images/app-architecture.png[]
+
+
+. Let’s add an OpenShift Route that exposes that endpoint.
 +
 ----
 oc expose service gateway
