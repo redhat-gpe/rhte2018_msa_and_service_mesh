@@ -237,7 +237,7 @@ This is just scratching the surface.  Grafana and Jaeger have depths of informat
 
 == Congratulations!
 
-In this lab you learned how to use Jaeger to trace calls for our microservices.
+In this lab you learned how to use Grafana to view metrics for our microservics. You also used Jaeger to view traces and see how far and deep the microservice calls go.
 
 Proceed to the next lab: link:04_route_rules_Lab.html[*04 - Dynamic Routing*]
 
