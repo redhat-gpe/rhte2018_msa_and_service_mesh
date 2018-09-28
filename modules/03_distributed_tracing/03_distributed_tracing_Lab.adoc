@@ -181,7 +181,7 @@ image::images/grafana-select-partner-service.png[]
 
 image::images/grafana-partner-service-details.png[]
 
-== Clean up
+== Stop the Script
 
 . Move back to your terminal window that is running the script.
 
