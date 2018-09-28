@@ -21,9 +21,9 @@ In this workshop, you will learn how to:
 |Task	|   Status |     Notes
 | link:modules/01_deploying_microservices/00_setup_Lab.adoc[Lab 0: Setup]		|   100%     | 
 
-| link:modules/01_deploying_microservices/01_deploying_microservices_Lab.adoc[Lab 1: Deploying Microservices]		|   100%     | Need to test in opentlc environment
-| link:modules/02_monitoring_with_kiali/02_monitoring_with_kiali_Lab.adoc[Lab 2: Monitoring with Kiali]		|   100%     | Need to test in opentlc environment
-| link:modules/03_distributed_tracing/03_distributed_tracing_Lab.adoc[Lab 3: Distributed Tracing]		|   100%     | Need to test in opentlc environment
+| link:modules/01_deploying_microservices/01_deploying_microservices_Lab.adoc[Lab 1: Deploying Microservices]		|   100%     | 
+| link:modules/02_monitoring_with_kiali/02_monitoring_with_kiali_Lab.adoc[Lab 2: Monitoring with Kiali]		|   100%     | 
+| link:modules/03_distributed_tracing/03_distributed_tracing_Lab.adoc[Lab 3: Distributed Tracing]		|   100%     | 
 | link:modules/04_route_rules/04_route_rules_Lab.adoc[Lab 4: Route Rules]		|   100%     | 
 | link:modules/05_circuit_breaker/05_circuit_breaker_Lab.adoc[Lab 5: Circuit Breaker]	| 	  100%     | 
 | https://redhat.slides.com/jbride/03_msa_and_service_mesh[Slides]		|   100%     |
