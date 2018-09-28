@@ -250,6 +250,6 @@ Proceed to the next lab: link:03_distributed_tracing_Lab.html[*03 - Distributed 
 == References
 
 * https://www.kiali.io/[Kiali]
-* https://openshift.com[Red Hat OpenShift]
-* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
 * https://istio.io[Istio Homepage]
+* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
+* https://openshift.com[Red Hat OpenShift]

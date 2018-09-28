@@ -242,8 +242,9 @@ In this lab you learned how to use Grafana to view metrics for our microservics.
 Proceed to the next lab: link:04_route_rules_Lab.html[*04 - Dynamic Routing*]
 
 == References
-
+* http://opentracing.io/[OpenTracing Framework]
+* https://grafana.com/[Grafana]
 * https://www.jaegertracing.io/[Jaeger]
-* https://openshift.com[Red Hat OpenShift]
-* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
 * https://istio.io[Istio Homepage]
+* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
+* https://openshift.com[Red Hat OpenShift]

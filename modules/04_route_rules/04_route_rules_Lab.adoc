@@ -551,6 +551,6 @@ Proceed to the next lab: link:05_circuit_breaker_Lab.html[*05 - Circuit Breaker*
 
 == References
 
-* https://openshift.com[Red Hat OpenShift]
-* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
 * https://istio.io[Istio Homepage]
+* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
+* https://openshift.com[Red Hat OpenShift]

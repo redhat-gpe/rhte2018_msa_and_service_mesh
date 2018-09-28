@@ -323,6 +323,6 @@ Proceed to the next lab: link:02_monitoring_with_kiali_Lab.html[*02 - Service Me
 
 == References
 
-* https://openshift.com[Red Hat OpenShift]
-* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
 * https://istio.io[Istio Homepage]
+* https://learn.openshift.com/servicemesh[Learn Istio on OpenShift]
+* https://openshift.com[Red Hat OpenShift]
