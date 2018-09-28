@@ -171,6 +171,15 @@ scripts/run-all.sh
 
 image::images/grafana-dashboard-new-data.png[]
 
+* We can see that the “gateway” microservice is calling the “partner” version 1, and "partner" is calling “catalog” version 1. The information available on the Grafana dashboard includes a Dashboard Row with high-level metrics (e.g. Global Request Volume, success rates, 4xx errors), a Server Mesh view with charts for each service, and a Services row with details about each container for each service.
+
+* From the list of services, select the `partner` service.
+
+image::images/grafana-select-partner-service.png[]
+
+
+image::images/grafana-partner-service-details.png[]
+
 == Viewing Jaeger Console
 
 Let's open the Jaeger console, select `gateway` from the list of services and click `Find Traces`
