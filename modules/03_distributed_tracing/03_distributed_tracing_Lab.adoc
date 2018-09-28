@@ -32,7 +32,10 @@ The Jaeger sidecar runs the Jaeger agent, which acts as a proxy to the Jaeger co
 
 == Goals
 
-In this lab, you use Jaeger to trace calls for our microservices. 
+In this lab, you will learn how to:
+* Add tracing support with the OpenTracing API
+* View distributing tracing metrics in Grafana
+* Trace microservices calls with Jaeger 
 
 
 == Add Tracing Support
