@@ -215,10 +215,10 @@ without errors:
 image::images/kiali-service-health.png[]
 
 . You can also view the Workloads for the catalog service. Select *Workloads > catalog-v1*
-+
+* This page shows the pod(s) for the catalog service and associated service.
+
 image::images/kiali-workloads.png[]
 
-* This shows the pod(s) for the catalog service and associated service.
 
 
 == Istio Config
