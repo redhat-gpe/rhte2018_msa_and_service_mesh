@@ -234,73 +234,6 @@ Routes, Circuit Breakers, Fault Injection and so on.
 image::images/kiali-istio-config.png[]
 
 
-////
-
-== Monitoring with Prometheus and Grafana
-
-Out of the box, you also get additional monitoring via Prometheus and Grafana. 
-
-https://prometheus.io/[Prometheus] is an open-source systems monitoring and alerting toolkit. Prometheus works well for recording any purely numeric time series. It fits both machine-centric monitoring as well as monitoring of highly dynamic service-oriented architectures. In a world of microservices, its support for multi-dimensional data collection and querying is a particular strength.
-
-https://grafana.com/[Grafana] is an open platform for data analysis and visualization. Grafana lets you create graphs and dashboards based on data from various monitoring systems, and it specializes in the display and analysis of this data. It is lightweight, easy to install, and it looks beautiful. In particular, Grafana supports querying Prometheus.
-
-=== Grafana Demo
-
-[source,bash]
-----
-open "$(minishift openshift service grafana -u)/d/1/istio-dashboard?refresh=5s&orgId=1"
-----
-
-image:grafana1.png[alt text]
-
-[source,bash]
-----
-open "$(minishift openshift service grafana -u)/d/UbsSZTDik/istio-workload-dashboard?refresh=5s&orgId=1"
-----
-
-to check the "Workload of the services"
-
-image:grafana2.png[alt text]
-
-[#custommetrics]
-=== Prometheus Demo - Custom Metrics
-
-Istio also allows you to specify custom metrics which can be seen inside of the Prometheus dashboard
-
-[source,bash]
-----
-open "$(minishift openshift service prometheus -u)/graph?g0.range_input=5m&g0.expr=&g0.tab=0"
-----
-
-Add the custom metric and rule. First make sure you are in the "istio-tutorial" directory and then
-
-[source,bash]
-----
-istioctl create -f istiofiles/recommendation_requestcount.yml -n istio-system
-----
-
-In the Prometheus dashboard, add the following
-
-[source,bash]
-----
-istio_requests_total{destination_service="recommendation.tutorial.svc.cluster.local"}
-----
-
-and select `Execute`
-
-image:prometheus_custom_metric.png[alt text]
-
-Then run several requests through the system
-
-[source,bash]
-----
-while true; do curl customer-tutorial.$(minishift ip).nip.io; sleep .5;  done
-----
-
-NOTE: You may have to refresh the browser for the Prometheus graph to update. And you may wish to make the interval 5m (5 minutes) as seen in the screenshot above.
-
-////
-
 == Clean Up
 
 . Move back to your terminal window that is running the script.
@@ -310,7 +243,7 @@ NOTE: You may have to refresh the browser for the Prometheus graph to update. An
 
 == Congratulations!
 
-In this lab you learned how to install Kiali. You also learned how to use Kiali for monitoring your Istio service mesh.
+In this lab you learned how to install Kiali. You also learned how to use Kiali for monitoring your Istio service mesh. We'll use Kiali again in some of the later labs.
 
 Proceed to the next lab: link:03_distributed_tracing_Lab.html[*03 - Distributed Tracing*]
 
