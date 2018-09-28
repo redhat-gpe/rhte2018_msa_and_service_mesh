@@ -214,7 +214,7 @@ image::images/jaeger-select-gateway-service.png[]
 . Then click the *Find Traces* button at the bottom left of the panel.
 
 * This will show you all of the traces for the `gateway` service.
-
++
 image::images/jaeger-gateway-service-traces.png[]
 +
 . For the `gateway` service, select the most recent trace in the list.
