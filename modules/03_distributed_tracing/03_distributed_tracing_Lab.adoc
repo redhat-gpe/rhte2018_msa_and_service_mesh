@@ -233,7 +233,7 @@ image::images/jaeger-gateway-service-trace-details.png[]
 
 * This type of graph gives you a visible understanding how just one underperforming service in a chain can hobble your entire system.
 
-This is just scratching the surface. Jaeger, Grafana, and Prometheus have depths of information that can fill books. This lab exercise was simply intended to get you headed in the right direction and to let you know what is possible using Istio.
+This is just scratching the surface.  Grafana and Jaeger have depths of information that can fill books. This lab exercise was simply intended to get you headed in the right direction and to let you know what is possible using Istio.
 
 == Congratulations!
 
