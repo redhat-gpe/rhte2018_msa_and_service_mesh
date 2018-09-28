@@ -194,29 +194,24 @@ echo $JAEGER_URL
 * If the Grafana URL is not set, you can use the following command
 +
 ----
-export GRAFANA_URL=http://$(oc get route grafana -n istio-system -o template --template='{{.spec.host}}')
+export JAEGER_URL=http://$(oc get route tracing -n istio-system -o template --template='{{.spec.host}}')
 ----
 
-. Add a simple dashboard URL
-+
-----
-export GRAFANA_SIMPLE_DASHBOARD_URL="$GRAFANA_URL/d/1/istio-dashboard"
+. Start a web browser on your computer and vist the URL for `JAEGER_URL`
 
-echo $GRAFANA_SIMPLE_DASHBOARD_URL
-----
+* The Jaeger console gives you quick insight into how your system is doing. 
 
-
-. Start a web browser on your computer and vist the URL for `GRAFANA_SIMPLE_DASHBOARD_URL`
-
-* The Grafana Istio dashboard gives you quick insight into how your system is doing. Here’s a 
-Let's open the Jaeger console, select `gateway` from the list of services and click `Find Traces`
-
-[source,bash]
-----
-minishift openshift service tracing --in-browser
-----
+. Let's open the Jaeger console, select `gateway` from the list of services and click `Find Traces`
 
 image::images/jaegerUI.png[]
+
+Examining this trace, we can see:
+
+    Seven spans.
+    A total elapsed time of 6.99ms.
+    The last service in the chain, “recommendation”, took .69ms.
+
+This type of graph gives you a visible understanding how just one underperforming service in a chain can hobble your entire system.
 
 == Congratulations!
 
