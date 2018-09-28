@@ -154,7 +154,7 @@ It shows a graph with all the microservices, connected by the requests going
 through then. On this page, you can see how the services interact with each
 other. You can zoom in/out on this page.
 
-Earlier we deployed microservices for gateway, partner and catalog. Notice how they are connected as `gateway -> partner -> catalog`. At the moment, we only have `v1` versions of the service. In later labs we'll add more versions of the services.
+Earlier we deployed microservices for gateway, partner and catalog. Notice how they are connected as `gateway -> partner -> catalog`. At the moment, we only have `v1` versions of the services. In later labs we'll add more versions of the services.
 
 
 == Generating Sample Data
@@ -162,8 +162,10 @@ Earlier we deployed microservices for gateway, partner and catalog. Notice how t
 To show the capabilities of Kiali, we need to generate some sample data. For this, we can use our `gateway` application that we deployed earlier.
 
 . Move back to your terminal window
-
++
+----
 cd ~/lab/rhte-msa-and-service-mesh
+----
 
 . Generate data using the following command:
 +
