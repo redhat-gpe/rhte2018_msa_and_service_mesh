@@ -109,7 +109,13 @@ oc get routes
 * You'll see a result that's something like this:
 +
 ----
-TODO
+NAME                   HOST/PORT                                                               PATH      SERVICES               PORT              TERMINATION   WILDCARD
+grafana                grafana-istio-system.apps.clientvm.61ea.rhte.opentlc.com                          grafana                http                            None
+istio-ingressgateway   istio-ingressgateway-istio-system.apps.clientvm.61ea.rhte.opentlc.com             istio-ingressgateway   http2                           None
+kiali                  kiali-istio-system.apps.clientvm.61ea.rhte.opentlc.com                            kiali                  <all>             reencrypt     None
+prometheus             prometheus-istio-system.apps.clientvm.61ea.rhte.opentlc.com                       prometheus             http-prometheus                 None
+servicegraph           servicegraph-istio-system.apps.clientvm.61ea.rhte.opentlc.com                     servicegraph           http                            None
+tracing                tracing-istio-system.apps.clientvm.61ea.rhte.opentlc.com                          tracing                http-query                      None
 ----
 
 . Enter this command to get the URL of the Kiali web console
