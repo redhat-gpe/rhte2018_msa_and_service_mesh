@@ -124,27 +124,38 @@ tracing                tracing-istio-system.apps.clientvm.61ea.rhte.opentlc.com 
 export KIALI_URL=https://$(oc get route kiali -n istio-system -o template --template='{{.spec.host}}')
 ----
 
-. Display the KIALI_URL
+. Display the `KIALI_URL`
 +
 ----
 echo $KIALI_URL
 ----
 
-. Start a web browser on your computer and vist the URL for $KIALI_URL
+. Start a web browser on your computer and vist the URL for `$KIALI_URL`
 +
 image::images/kiali-login.png[]
 
 . At the login screen, enter the default credentials: "admin/admin"
 
+== Overview Page
+
+After you login, you should see the Overview page:
+
+image::images/kiali-overview.png[]
+
+It shows the OpenShift namespaces / projects that are currently being monitored. 
+
 == Service Graph
 
-After you login, you should see the Service Graph page:
+. On the left hand menu, click *Graph*.
 
 image::images/kiali-service-graph.png[]
 
 It shows a graph with all the microservices, connected by the requests going
 through then. On this page, you can see how the services interact with each
-other.
+other. You can zoom in/out on this page.
+
+Earlier we deployed microservices for gateway, partner and catalog. Notice how they are connected as `gateway -> partner -> catalog`. At the moment, we only have `v1` versions of the service. In later labs we'll add more versions of the services.
+
 
 == Generating Sample Data
 
