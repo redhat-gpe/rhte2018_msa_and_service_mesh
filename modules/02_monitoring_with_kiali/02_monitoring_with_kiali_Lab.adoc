@@ -198,12 +198,12 @@ additional information about them, such as health status.
 +
 image::images/kiali-service-list.png[]
 
-. Click on the "Filter by Namespace" dropdown, and select "tutorial". Then,
+. Click on the *Filter by Namespace* dropdown, and select *developer-istio-tutorial*. Then,
 you'll see a list of only the services on the tutorial:
 +
 image::images/kiali-service-list-2.png[]
 
-. Click on the "TODO" to see its details:
+. Click on the *catalog* service to see its details:
 +
 image::images/kiali-service-details.png[]
 
@@ -213,13 +213,12 @@ without errors:
 +
 image::images/kiali-service-health.png[]
 
-. You can also see the deployments:
+. You can also view the Workloads for the catalog service. Select *Workloads > catalog-v1*
 +
-image::images/kiali-deployments.png[]
+image::images/kiali-workloads.png[]
 
-. You can also the source services:
-+
-image::images/kiali-source-services.png[]
+* This shows the pod(s) for the catalog service and associated service.
+
 
 == Istio Config
 
