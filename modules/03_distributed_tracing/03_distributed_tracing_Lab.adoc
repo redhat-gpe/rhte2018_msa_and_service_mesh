@@ -167,6 +167,9 @@ scripts/run-all.sh
 
 . Move back to the Grafana web console
 
+* You should now see new metrics in the Grafana dashboard.
+
+image::images/grafana-dashboard-new-data.png[]
 
 == Viewing Jaeger Console
 
