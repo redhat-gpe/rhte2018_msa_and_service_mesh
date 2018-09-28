@@ -181,6 +181,12 @@ image::images/grafana-select-partner-service.png[]
 
 image::images/grafana-partner-service-details.png[]
 
+== Clean up
+
+. Move back to your terminal window that is running the script.
+
+. Press CTRL+C to stop the script.
+
 == Viewing Jaeger Console
 
 With the proper tracing in place, Istio’s out-of-the-box experience allows us to dive deeper into our system’s performance. Using the Jaeger UI, we can view traces, see how far and deep they go, and get an idea of where performance might be lagging.
@@ -201,17 +207,33 @@ export JAEGER_URL=http://$(oc get route tracing -n istio-system -o template --te
 
 * The Jaeger console gives you quick insight into how your system is doing. 
 
-. Let's open the Jaeger console, select `gateway` from the list of services and click `Find Traces`
+. In the left hand panel, in the *Services* dropdown list, select `gateway`.
++
+image::images/jaeger-select-gateway-service.png[]
 
-image::images/jaegerUI.png[]
+. Then click the *Find Traces* button at the bottom left of the panel.
 
-Examining this trace, we can see:
+* This will show you all of the traces for the `gateway` service.
 
-    Seven spans.
-    A total elapsed time of 6.99ms.
-    The last service in the chain, “recommendation”, took .69ms.
+image::images/jaeger-gateway-service-traces.png[]
+
+. For the `gateway` service, select the most recent trace in the list.
++
+image::images/jaeger-gateway-service-select-recent-trace.png[]
+
+. Review the details of this trace.
++
+image::images/jaeger-gateway-service-trace-details.png[]
+
+* Examining this trace, we can see:
+** Nine spans.
+** A total elapsed time of 4.45ms _(your actual times may vary)_.
+** A total of three services.
+** The last service in the chain, `catalog`, took .69ms.
 
 This type of graph gives you a visible understanding how just one underperforming service in a chain can hobble your entire system.
+
+This is just scratching the surface. Jaeger, Grafana, and Prometheus have depths of information that can fill books. This lab exercise was simply intended to get you headed in the right direction and to let you know what is possible using Istio.
 
 == Congratulations!
 
