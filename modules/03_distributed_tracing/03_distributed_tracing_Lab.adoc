@@ -213,7 +213,7 @@ image::images/jaeger-select-gateway-service.png[]
 
 . Then click the *Find Traces* button at the bottom left of the panel.
 
-* This will show you all of the traces for the `gateway` service.
+* This will show you all of the traces for the `gateway` service. The trace data was collected earlier when we ran the script to access the `gateway` service.
 +
 image::images/jaeger-gateway-service-traces.png[]
 +
@@ -231,7 +231,7 @@ image::images/jaeger-gateway-service-trace-details.png[]
 ** A total of three services.
 ** The last service in the chain, `catalog`, took .69ms.
 
-This type of graph gives you a visible understanding how just one underperforming service in a chain can hobble your entire system.
+* This type of graph gives you a visible understanding how just one underperforming service in a chain can hobble your entire system.
 
 This is just scratching the surface. Jaeger, Grafana, and Prometheus have depths of information that can fill books. This lab exercise was simply intended to get you headed in the right direction and to let you know what is possible using Istio.
 
