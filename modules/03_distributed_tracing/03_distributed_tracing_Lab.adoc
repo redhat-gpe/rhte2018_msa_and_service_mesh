@@ -20,10 +20,123 @@ The Jaeger agent is deployed as a sidecar container next to the application comp
 
 The Jaeger sidecar runs the Jaeger agent, which acts as a proxy to the Jaeger collector. The agent is a daemon program that runs on every host and receives tracing information submitted by applications via Jaeger client libraries. The agent transmits this information to the Jaeger collector. The Jaeger tracer instance in the application transmits the tracing information to the agent using UDP.
 
+== Key Terms
+
+_*Tracing*_ refers to the logging of system activity. That sounds pretty broad, but in fact, one of the basic rules of tracing is that data are dumped into a tracing data store without regard to formatting. The consumer of the data is responsible for finding and parsing the relevant data. For Istio, Jaeger is the tracing system used; it follows the OpenTracing Data Model.
+
+_*Traces*_ are the end-to-end data that make up a request, or unit of work. For example, from the moment a user clicks the button on the web page until the data are returned, and all the microservices in between. One trace represents (or models) that round trip. In the Jaeger UI, traces are displayed with a time axis. An analogy might be an entire chain, made up of individual links. Traces are made up of one or more spans.
+
+_*Spans*_ are the slices of time represented by the beginning to the end of a unit of work. Using our chain analogy, each span represents a link in the chain. Spans can have zero, one, or many child spans. At the root level, the initial span’s elapsed time will equal the elapsed time of the trace that owns it.
+
+_*Monitoring*_ is the act of watching your system, by a UI and/or automation. Tracing data drives monitoring. Monitoring in Istio is provided by Prometheus and includes a UI. Prometheus supports automated monitoring via Alerts and Alert Managers.
+
 == Goals
 
 In this lab, you use Jaeger to trace calls for our microservices. 
 
+
+== Add Tracing Support
+
+To implement tracing, the application needs to create a collection of “Spans”. Those “Spans” will be exported to Jaeger, so it can create the visualization of the tracing. A “Span” marks, among other data, an operation name, a start timestamp, a finish timestamp. The propagation of the “Span” is done by forwarding Jaeger specific HTTP Request Headers from inbound requests to outbound requests. Depending on your development language and/or your approach, this may require a small modification to your source code. 
+
+. Using a text editor, view the code for the `GatewayController.java`
++
+----
+cd ~/lab/rhte-msa-service-mesh/gateway/java/springboot/src/main/java
+
+vi com/redhat/developer/demos/gateway/GatewayController.java
+----
+
+. The following Java code, using Spring Boot, gives an example of adding an OpenTracer to your application.
++
+----
+@RestController
+public class GatewayController {
+
+	...
+
+    @Autowired
+    private Tracer tracer;
+
+    ...
+}
+----
+
+* Our `GatewayController` service is using the https://github.com/jaegertracing/jaeger-client-java/tree/master/jaeger-tracerresolver[`TracerResolver`] facility from OpenTracing, so that the concrete tracer can be loaded automatically without our code having a hard dependency on Jaeger. Given that the Jaeger tracer can be configured via environment variables, we don't need to do anything in order to get a properly configured Jaeger tracer ready and registered with OpenTracing. 
+
+. Since we are using Java there is a no-code approach that simply requires a few lines added to your Maven POM file and setting some environment variables. These lines added to your POM.XML file will inject the Jaeger Tracer Resolver.
++
+----
+        <dependency>
+            <groupId>io.jaegertracing</groupId>
+            <artifactId>jaeger-tracerresolver</artifactId>
+            <version>0.29.0</version>
+        </dependency>
+----
+
+. In the Docker build configuration file (Dockerfile), the environment variables are set. Docker file location: `~/lab/rhte-msa-service-mesh/gateway/java/springboot/Docker`
++
+----
+FROM fabric8/java-jboss-openjdk8-jdk:1.3.1
+ENV JAVA_APP_DIR=/deployments
+ENV JAEGER_SERVICE_NAME=gateway\
+  JAEGER_ENDPOINT=http://jaeger-collector.istio-system.svc:14268/api/traces\
+  JAEGER_PROPAGATION=b3\
+  JAEGER_SAMPLER_TYPE=const\
+  JAEGER_SAMPLER_PARAM=1
+EXPOSE 8080 8778 9779
+COPY target/gateway.jar /deployments/
+----
+
+. In the request mapping for the REST controller, we get the active span and add the user agent to the payload. We'll use the user-agent in some of the later labs to direct traffic based on the header:
++
+----
+    @RequestMapping("/")
+    public ResponseEntity<String> getGateway(@RequestHeader("User-Agent") String userAgent) {
+        try {
+            /**
+             * Set baggage
+             */
+            tracer.activeSpan().setBaggageItem("user-agent", userAgent);
+
+            ...
+
+        }
+        ...
+     }
+----
+
+== Viewing Dashboards in Grafana
+
+Out of the box, you also get additional monitoring via Prometheus and Grafana. 
+
+https://prometheus.io/[Prometheus] is an open-source systems monitoring and alerting toolkit. Prometheus works well for recording any purely numeric time series. It fits both machine-centric monitoring as well as monitoring of highly dynamic service-oriented architectures. In a world of microservices, its support for multi-dimensional data collection and querying is a particular strength.
+
+https://grafana.com/[Grafana] is an open platform for data analysis and visualization. Grafana lets you create graphs and dashboards based on data from various monitoring systems, and it specializes in the display and analysis of this data. It is lightweight, easy to install, and it looks beautiful. In particular, Grafana supports querying Prometheus.
+
+A simple dashboard, built using Grafana, is included with your Istio installation.
+
+. Make sure the Grafana URL is still set as an environment variable
++
+----
+echo $GRAFANA_URL
+----
+
+* If the Grafana URL is not set, you can use the following command
++
+----
+export GRAFANA_URL=http://$(oc get route grafana -n istio-system -o template --template='{{.spec.host}}')
+----
+
+. Add a simple dashboard URL
++
+----
+export GRAFANA_SIMPLE_DASHBOARD_URL=$GRAFANA_URL/d/1/istio-dashboard?refresh=5&ordId=1
+----
+
+. Start a web browser on your computer and vist the URL for `GRAFANA_SIMPLE_DASHBOARD_URL`
+
+The Grafana Istio dashboard gives you quick insight into how your system is doing. Here’s a screen capture of just a small part of the dashboard:
 
 == Viewing Jaeger Console
 
