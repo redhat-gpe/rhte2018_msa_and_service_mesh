@@ -22,13 +22,13 @@ The Jaeger sidecar runs the Jaeger agent, which acts as a proxy to the Jaeger co
 
 == Key Terms
 
-_*Tracing*_ refers to the logging of system activity. That sounds pretty broad, but in fact, one of the basic rules of tracing is that data are dumped into a tracing data store without regard to formatting. The consumer of the data is responsible for finding and parsing the relevant data. For Istio, Jaeger is the tracing system used; it follows the OpenTracing Data Model.
+*Tracing* refers to the logging of system activity. That sounds pretty broad, but in fact, one of the basic rules of tracing is that data are dumped into a tracing data store without regard to formatting. The consumer of the data is responsible for finding and parsing the relevant data. For Istio, Jaeger is the tracing system used; it follows the OpenTracing Data Model.
 
-_*Traces*_ are the end-to-end data that make up a request, or unit of work. For example, from the moment a user clicks the button on the web page until the data are returned, and all the microservices in between. One trace represents (or models) that round trip. In the Jaeger UI, traces are displayed with a time axis. An analogy might be an entire chain, made up of individual links. Traces are made up of one or more spans.
+*Traces* are the end-to-end data that make up a request, or unit of work. For example, from the moment a user clicks the button on the web page until the data are returned, and all the microservices in between. One trace represents (or models) that round trip. In the Jaeger UI, traces are displayed with a time axis. An analogy might be an entire chain, made up of individual links. Traces are made up of one or more spans.
 
-_*Spans*_ are the slices of time represented by the beginning to the end of a unit of work. Using our chain analogy, each span represents a link in the chain. Spans can have zero, one, or many child spans. At the root level, the initial span’s elapsed time will equal the elapsed time of the trace that owns it.
+*Spans* are the slices of time represented by the beginning to the end of a unit of work. Using our chain analogy, each span represents a link in the chain. Spans can have zero, one, or many child spans. At the root level, the initial span’s elapsed time will equal the elapsed time of the trace that owns it.
 
-_*Monitoring*_ is the act of watching your system, by a UI and/or automation. Tracing data drives monitoring. Monitoring in Istio is provided by Prometheus and includes a UI. Prometheus supports automated monitoring via Alerts and Alert Managers.
+*Monitoring* is the act of watching your system, by a UI and/or automation. Tracing data drives monitoring. Monitoring in Istio is provided by Prometheus and includes a UI. Prometheus supports automated monitoring via Alerts and Alert Managers.
 
 == Goals
 
