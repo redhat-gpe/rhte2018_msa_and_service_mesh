@@ -305,7 +305,7 @@ NOTE: You may have to refresh the browser for the Prometheus graph to update. An
 
 . Move back to your terminal window that is running the script.
 
-. Press CTRL+C to stop script.
+. Press CTRL+C to stop the script.
 
 
 == Congratulations!
