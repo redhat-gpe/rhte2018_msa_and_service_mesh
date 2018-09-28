@@ -134,7 +134,9 @@ echo $KIALI_URL
 +
 image::images/kiali-login.png[]
 
-. At the login screen, enter the default credentials: "admin/admin"
+. At the login screen, enter the default credentials:
+* Username: *admin*
+* Password: *admin*
 
 == Overview Page
 
