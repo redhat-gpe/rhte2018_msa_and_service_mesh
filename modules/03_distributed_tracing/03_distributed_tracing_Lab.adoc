@@ -145,6 +145,28 @@ echo $GRAFANA_SIMPLE_DASHBOARD_URL
 
 image::images/grafana-dashboard-start.png[]
 
+== Generating Sample Data
+
+To show the capabilities of Grafana, we need to generate some sample data. For this, we can use our `gateway` application that we deployed earlier.
+
+. Move back to your terminal window
++
+----
+cd ~/lab/rhte-msa-and-service-mesh
+----
+
+. Generate data using the following command:
++
+----
+scripts/run-all.sh
+----
+
+* Let this script continue to run.
+
+== View Dashboard in Grafana
+
+. Move back to the Grafana web console
+
 
 == Viewing Jaeger Console
 
