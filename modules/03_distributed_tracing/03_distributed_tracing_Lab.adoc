@@ -163,7 +163,7 @@ scripts/run-all.sh
 
 * Let this script continue to run.
 
-== View Dashboard in Grafana
+== Drill-Down into the Grafana Dashboard
 
 . Move back to the Grafana web console
 
@@ -187,7 +187,7 @@ image::images/grafana-partner-service-details.png[]
 
 . Press CTRL+C to stop the script.
 
-== Viewing Jaeger Console
+== View Distributed Tracing in the Jaeger Console
 
 With the proper tracing in place, Istio’s out-of-the-box experience allows us to dive deeper into our system’s performance. Using the Jaeger UI, we can view traces, see how far and deep they go, and get an idea of where performance might be lagging.
 
