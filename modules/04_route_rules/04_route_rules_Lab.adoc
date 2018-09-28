@@ -274,6 +274,8 @@ oc scale --replicas=1 deployment/catalog-v2
 
 . View the Kiala web console and confirm that the requests are split evenly between `v1` and `v2`.
 
+TODO: add image
+
 == Send all traffic to `catalog:v2`
 
 _Route rules_ control how requests are routed within an Istio service mesh.
@@ -310,7 +312,9 @@ spec:
 
 ** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 100% of traffic _(weight)_ for the catalog service will always go to pods matching the labels version: `v2`. The selection of pods here is very similar to the Kubernetes selector model for matching based on labels. So, any service within the service mesh that tries to communicate with the `catalog` service will always be routed to `v2` of the `catalog` service.
 
-. Route all traffic to `v2` using the configuration file:
+Route all traffic to `v2` using the configuration file.
+
+. Move back to Terminal #1 and enter the following commands:
 +
 ----
 cd ~/lab/rhte-msa-and-service-mesh
@@ -321,27 +325,10 @@ oc create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT 
 +
 NOTE: Your OCP user has been provided with the ability to impersonate the system:admin user so as to execute this command. Please use this capability with caution. In a real-world setting, you would have coordinated with a team-member who does with cluster admin rights to execute this command for you. 
 
-. Test the `gateway` service again - all requests should end up talking to
-`catalog:v2`:
-+
-----
-scripts/run.sh 10
-----
-+
-* You should only see `v2` being returned.
-+
-----
-gateway => partner => catalog v2 from '7764964564-hj8xl': 17
-gateway => partner => catalog v2 from '7764964564-hj8xl': 18
-gateway => partner => catalog v2 from '7764964564-hj8xl': 19
-gateway => partner => catalog v2 from '7764964564-hj8xl': 20
-gateway => partner => catalog v2 from '7764964564-hj8xl': 21
-gateway => partner => catalog v2 from '7764964564-hj8xl': 22
-gateway => partner => catalog v2 from '7764964564-hj8xl': 23
-gateway => partner => catalog v2 from '7764964564-hj8xl': 24
-gateway => partner => catalog v2 from '7764964564-hj8xl': 25
-gateway => partner => catalog v2 from '7764964564-hj8xl': 26
-----
+. View the Kiala web console and confirm that all requests are being routed to
+`catalog:v2`.
+
+TODO: add image
 
 == Send all traffic to `catalog:v1`
 
@@ -367,7 +354,9 @@ spec:
 ----
 * Make note of the weight set to 100 for catalog v1.
 
-. Now let's move everyone to catalog service `v1`:
+* Now let's move everyone to catalog service `v1`.
+
+. In Terminal #1, enter the following commands:
 +
 ----
 oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
@@ -375,26 +364,10 @@ oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
 +
 NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
 
-. Now let's send in 10 requests:
-+
-----
-scripts/run.sh 10
-----
-+
-* You should see all requests now to go `v1`:
-+
-----
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 17
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 18
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 19
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 20
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 21
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 22
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 23
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 24
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 25
-gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 26
-----
+. View the Kiala web console and confirm that all requests are being routed to
+`catalog:v2`.
+
+TODO: add image
 
 . Remove the route rules to get back to default round-robin distribution
 of requests.
@@ -403,13 +376,9 @@ of requests.
 oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Now let's send in 10 requests:
-+
-----
-scripts/run.sh 10
-----
-+
-* Traffic should be equally split once again between `v1` and `v2`.
+* View the Kiala web console and confirm that traffic is equally split once again between `v1` and `v2`.
+
+TODO: add image
 
 == Use a Canary Deployment to slowly rollout `v2`
 
