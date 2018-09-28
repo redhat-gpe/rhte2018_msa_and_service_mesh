@@ -8,9 +8,9 @@
 
 == Lab Overview
 
-There are three microservices in this lab and they are chained together in the following sequence:
+There are three microservices in this lab. Here is the application architecture:
 
-`gateway -> partner -> catalog`
+image::images/graph-overview.png[]
 
 == Goals
 
