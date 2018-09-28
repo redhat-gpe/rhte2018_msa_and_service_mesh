@@ -207,7 +207,7 @@ image::images/kiali-service-list-2.png[]
 +
 image::images/kiali-service-details.png[]
 
-. By hovering the icon on the Health section, you can see the health of a service
+. Hover over the *Health* icon to view the health of a service
 (a service is considered healthy) when it's online and responding to requests
 without errors:
 +
@@ -224,11 +224,12 @@ image::images/kiali-workloads.png[]
 
 The Istio configuration view allow you to browse and validate Istio configuration. The view also provides advanced filtering on navigation through Istio objects. Kiali provides inline config validation for networking objects such as VirtualServices and DestinationRules.
 
-. Click the Istio Config link on the left navigation. On this page, you can see
-all currently running config rules, such as Virtual Services, Route Rules,
-Routes, Circuit Breakers, Fault Injection and so on.
+. On the left hand panel, click the *Istio Config* link.
 +
 image::images/kiali-istio-config.png[]
+
+* On this page, you can see all currently running config rules, such as Virtual Services, Route Rules,
+Routes, Circuit Breakers, Fault Injection and so on.
 
 ////
 
@@ -296,6 +297,12 @@ while true; do curl customer-tutorial.$(minishift ip).nip.io; sleep .5;  done
 NOTE: You may have to refresh the browser for the Prometheus graph to update. And you may wish to make the interval 5m (5 minutes) as seen in the screenshot above.
 
 ////
+
+== Clean Up
+
+. Move back to your terminal window that is running the script.
+
+. Press CTRL+C to stop script.
 
 
 == Congratulations!
