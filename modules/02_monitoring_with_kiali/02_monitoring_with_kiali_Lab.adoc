@@ -149,7 +149,7 @@ image::images/kiali-overview.png[]
 
 == Service Graph
 
-. On the left hand menu, click *Graph*.
+. On the left hand panel, click *Graph*.
 
 * This page shows a graph with all the microservices, connected by the requests going
 through then. On this page, you can see how the services interact with each
@@ -182,7 +182,7 @@ scripts/run-all.sh
 
 . Move back to the Kiali web console
 
-. In the Graph screen, select the *Display* drop-down list
+. In the *Graph* screen, select the *Display* drop-down list
 
 . Check the option for *Traffic Animation*
 +
@@ -194,7 +194,7 @@ image::images/kiali-traffic-animation-base.png[]
 
 == Service Listing
 
-. On left hand menu, click the *Services* link. 
+. On the left hand panel, click the *Services* link. 
 
 * On the Services page you can view a listing of all the services that are running in the cluster, and
 additional information about them, such as health status.
