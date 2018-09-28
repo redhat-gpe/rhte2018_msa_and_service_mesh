@@ -64,6 +64,24 @@ public class GatewayController {
 
 * Our `GatewayController` service is using the https://github.com/jaegertracing/jaeger-client-java/tree/master/jaeger-tracerresolver[`TracerResolver`] facility from OpenTracing, so that the concrete tracer can be loaded automatically without our code having a hard dependency on Jaeger. Given that the Jaeger tracer can be configured via environment variables, we don't need to do anything in order to get a properly configured Jaeger tracer ready and registered with OpenTracing. 
 
+. In the request mapping for the REST controller, we get the active span and add the user agent to the payload. We'll use the user-agent in some of the later labs to direct traffic based on the header:
++
+----
+    @RequestMapping("/")
+    public ResponseEntity<String> getGateway(@RequestHeader("User-Agent") String userAgent) {
+        try {
+            /**
+             * Set baggage
+             */
+            tracer.activeSpan().setBaggageItem("user-agent", userAgent);
+
+            ...
+
+        }
+        ...
+     }
+----
+
 . Since we are using Java there is a no-code approach that simply requires a few lines added to your Maven POM file and setting some environment variables. These lines added to your POM.XML file will inject the Jaeger Tracer Resolver.
 +
 ----
@@ -88,23 +106,6 @@ EXPOSE 8080 8778 9779
 COPY target/gateway.jar /deployments/
 ----
 
-. In the request mapping for the REST controller, we get the active span and add the user agent to the payload. We'll use the user-agent in some of the later labs to direct traffic based on the header:
-+
-----
-    @RequestMapping("/")
-    public ResponseEntity<String> getGateway(@RequestHeader("User-Agent") String userAgent) {
-        try {
-            /**
-             * Set baggage
-             */
-            tracer.activeSpan().setBaggageItem("user-agent", userAgent);
-
-            ...
-
-        }
-        ...
-     }
-----
 
 == Viewing Dashboards in Grafana
 
