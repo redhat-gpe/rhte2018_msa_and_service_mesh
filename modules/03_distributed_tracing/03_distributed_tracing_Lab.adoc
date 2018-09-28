@@ -133,12 +133,18 @@ export GRAFANA_URL=http://$(oc get route grafana -n istio-system -o template --t
 . Add a simple dashboard URL
 +
 ----
-export GRAFANA_SIMPLE_DASHBOARD_URL=$GRAFANA_URL/d/1/istio-dashboard?refresh=5&ordId=1
+export GRAFANA_SIMPLE_DASHBOARD_URL="$GRAFANA_URL/d/1/istio-dashboard"
+
+echo $GRAFANA_SIMPLE_DASHBOARD_URL
 ----
+
 
 . Start a web browser on your computer and vist the URL for `GRAFANA_SIMPLE_DASHBOARD_URL`
 
-The Grafana Istio dashboard gives you quick insight into how your system is doing. Here’s a screen capture of just a small part of the dashboard:
+* The Grafana Istio dashboard gives you quick insight into how your system is doing. Here’s a screen capture of just a small part of the dashboard. At the moment, no requests are being generated.
+
+images::image/grafana-dashboard-start.png[]
+
 
 == Viewing Jaeger Console
 
@@ -149,7 +155,7 @@ Let's open the Jaeger console, select `gateway` from the list of services and cl
 minishift openshift service tracing --in-browser
 ----
 
-image:jaegerUI.png[Trace as seen in Jaeger]
+images::image/jaegerUI.png[]
 
 == Congratulations!
 
