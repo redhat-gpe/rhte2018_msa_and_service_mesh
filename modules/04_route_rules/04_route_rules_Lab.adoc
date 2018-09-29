@@ -137,7 +137,7 @@ source ~/.bashrc
 
 . Open a *new* terminal window on your computer. 
 
-. ssh into your VM with the following command:
+.. ssh into your VM with the following command:
 +
 ----
 export OCP_REGION=<<YOUR-GUID-GRABBER-NUMBER>>
