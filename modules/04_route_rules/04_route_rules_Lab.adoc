@@ -271,7 +271,7 @@ catalog-v2-7764964564-d8qwp   2/2       Running   0          49s
 +
 
 * To exit, press Ctrl+C.
-
++
 . Move back to the Kiali web console
 
 * Notice that *double* the number of requests are sent to `catalog-v2` than for `catalog-v1`:
