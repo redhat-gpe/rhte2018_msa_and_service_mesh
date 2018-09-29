@@ -412,30 +412,30 @@ spec:
 
 ** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 70% of traffic _(weight)_ for the catalog service will go to pods matching the labels version: `v1`. The remaining 30% of traffic will be routed to `v2` of the `catalog` service.
 
-. Create the virtualservice that will send 70% of requests to v1 and 30% to v2:
+Create the virtualservice that will send 70% of requests to v1 and 30% to v2.
+
+. In Terminal #1, enter the following command:
 +
 ----
 oc create -f istiofiles/virtual-service-catalog-v1_and_v2_70_30.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. And issue 10 requests:
-+
-----
-scripts/run.sh 10
-----
-+ 
-* Now you should see 7 requests, 70% going to `v1`. You should see 3 requests, 30% going to `v2`. This process can be continued (and automated), slowly migrating
+. View the Kiala web console. Overtime you will see approximately 70% going to `v1`. You should see approximately 30% going to `v2`. This process can be continued (and automated), slowly migrating
 traffic over to the new version as it proves its worth in production over time.
 +
 NOTE: You will not see the EXACT percentage of requests. This is just an approximation.
-+
+
+TODO: add image
+
 . Now let's shift the traffic to 40% to v1 and 60% to v2.
 +
 ----
 oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Issue 10 more requests.
+. View the Kiala web console and confirm the traffic results: 40% to v1 and 60% to v2.
+
+TODO: add image
 
 . And shift the traffic to 10% to v1 and 90% to v2.
 +
@@ -443,7 +443,9 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUT
 oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Issue 10 more requests.
+. View the Kiala web console and confirm the traffic results: 10% to v1 and 90% to v2.
+
+TODO: add image
 
 . Finally, let's move everything over to v2.
 +
@@ -451,7 +453,9 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUT
 oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Issue 10 more requests.
+. View the Kiala web console and confirm the traffic results: 100% to v2.
+
+TODO: add image
 
 == Smart Routing based on User-Agent
 
@@ -513,13 +517,19 @@ spec:
 ----
 * This definition performs a match on http headers for `baggage-user-agent`. It makes use of a regular expression to match on the string `Safari`. If there is a match then the traffic is routed to `catalog:v2`. Else, all other traffic is routed to `catalog:v1`.
 
-. Set Safari users to use `catalog:v2`
+Set Safari users to use `catalog:v2`
+
+. In Terminal #1, enter the following command:
 +
 ----
 oc replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Test the app using a Safari user agent.
+. Move to Terminal #2 where your script is running.
+
+. Press CTRL+C to stop the script
+
+. In Terminal #2, test the app using a Safari user agent.
 +
 ----
 curl -A Safari $GATEWAY_URL
