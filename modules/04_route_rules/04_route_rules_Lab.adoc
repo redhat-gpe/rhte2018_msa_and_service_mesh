@@ -120,6 +120,8 @@ In order to help with testing our application and monitoring the service mesh, w
 * Terminal 1: Running our oc commands
 * Terminal 2: Generating requests with the our script
 
+image::images/two-terminals.png[]
+
 Let's do some prep work before setting up our terminals
 
 . Move to your original terminal window and enter the following commands.
