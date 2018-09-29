@@ -228,14 +228,16 @@ image::images/kiali-login.png[width="50%"]
 . In the left hand panel, click the *Graph* link
 
 . In the *Graph* screen, select the *Display* drop-down list
-
-. Check the option for *Traffic Animation*
+.. Check the option for *Traffic Animation*
 
 * You should now see traffic animation on the graph.
 
-* Approximately half of the requests above go to `v1` and the other half to `v2`.
+. Select the *Edge Labels* drop-down list
+.. Select the option for *Requests percent of total*
 
-TODO: insert image
+* Confirm that half of the requests above go to `v1` and the other half to `v2`.
+
+image::images/v1-50-and-v2-50.png[]
 
 * The default Kubernetes/OpenShift behavior is to round-robin load-balance across all
 available pods behind a single Service. 
