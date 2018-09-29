@@ -275,9 +275,9 @@ catalog-v2-7764964564-d8qwp   2/2       Running   0          49s
 . Move back to the Kiali web console
 
 * Notice that *double* the number of requests are sent to `catalog-v2` than for `catalog-v1`:
-
-image::images/v1-and-v2-2pods.png[width="70%"]
 +
+image::images/v1-and-v2-2pods.png[width="70%"]
+
 . Move back to Terminal #1 and scale back to a single pod for the `catalog-v2` deployment:
 +
 ----
