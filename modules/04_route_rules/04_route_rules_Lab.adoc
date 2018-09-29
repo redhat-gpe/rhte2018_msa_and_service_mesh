@@ -46,7 +46,7 @@ image::images/02_service_mesh_architecture.png[Service Mesh Architecture]
 
 There are three microservices in this lab and they are chained together in the following sequence:
 
-image::images/app-architecture.png[]
+image::images/app-architecture.png[width="60%"]
 
 In this lab you'll dynamically alter routing between the services using Istio.
 
