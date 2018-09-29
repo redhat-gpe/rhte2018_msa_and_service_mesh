@@ -94,6 +94,8 @@ oc apply -f <(istioctl kube-inject -f ../../kubernetes/Deployment-v2.yml) -n $OC
 . You can see both versions of the `catalog` pods running with the following command:
 +
 ----
+oc project $OCP_TUTORIAL_PROJECT
+
 oc get pods -l app=catalog -w
 ----
 +
