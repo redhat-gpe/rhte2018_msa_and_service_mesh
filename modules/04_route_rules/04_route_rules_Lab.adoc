@@ -55,7 +55,7 @@ In this lab you'll dynamically alter routing between the services using Istio.
 We can experiment with Istio routing rules by deploying a second version of the catalog
 service.
 
-image::images/app-architecture-v2.png[]
+image::images/app-architecture-v2.png[width="60%"]
 
 . Edit Java source code to show v2 message
 +
