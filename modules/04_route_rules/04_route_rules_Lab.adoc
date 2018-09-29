@@ -120,7 +120,7 @@ so that both `v1` and `v2` pods get equal amounts of traffic.
 In order to help with testing our application and monitoring the service mesh, we'll set up multiple terminal windows. We'll have two terminal windows:
 
 * Terminal 1: Running our oc commands
-* Terminal 2: Generating requests with the our script
+* Terminal 2: Running request scripts
 
 image::images/two-terminals.png[width="70%"]
 
