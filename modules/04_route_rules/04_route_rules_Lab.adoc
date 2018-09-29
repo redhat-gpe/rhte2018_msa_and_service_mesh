@@ -189,8 +189,6 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 1
 ~/lab/rhte-msa-and-service-mesh/scripts/run-all.sh
 ----
 +
-* Let this script continue to run.
-
 * You should see:
 +
 ----
@@ -206,6 +204,8 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 8
 gateway => partner => catalog v2 from '7764964564-hj8xl': 7
 ...
 ----
+
+* Let this script continue to run.
 
 == Observe Service Mesh Traffic with Kiali
 
