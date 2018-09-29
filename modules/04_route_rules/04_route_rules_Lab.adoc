@@ -439,6 +439,8 @@ traffic over to the new version as it proves its worth in production over time.
 +
 NOTE: You will not see the EXACT percentage of requests. This is just an approximation.
 
+image::images/v1-70-and-v2-30.png[]
+
 . Now let's shift the traffic to 40% to v1 and 60% to v2.
 +
 ----
@@ -446,6 +448,8 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUT
 ----
 
 . View the Kiala web console and confirm the traffic results: 40% to v1 and 60% to v2.
++
+image::images/v1-40-and-v2-60.png[]
 
 . And shift the traffic to 10% to v1 and 90% to v2.
 +
@@ -454,6 +458,8 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUT
 ----
 
 . View the Kiala web console and confirm the traffic results: 10% to v1 and 90% to v2.
++
+image::images/v1-10-and-v2-90.png[]
 
 . Finally, let's move everything over to v2.
 +
@@ -462,6 +468,8 @@ oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT
 ----
 
 . View the Kiala web console and confirm the traffic results: 100% to v2.
++
+image::images/v2-100.png[]
 
 
 == Smart Routing based on User-Agent
