@@ -133,11 +133,13 @@ echo "export GATEWAY_URL=http://$(oc get route gateway -n $OCP_TUTORIAL_PROJECT 
 source ~/.bashrc
 ----
 
-. Open a new terminal window on your computer. 
+. Open a *new* terminal window on your computer. 
 
 . ssh into your VM with the following command:
 +
 ----
+export OCP_REGION=<<YOUR-GUID-GRABBER-NUMBER>>
+
 ssh lab-user@bastion.${OCP_REGION}.rhte.opentlc.com
 ----
 * When prompted for password, enter: `r3dh4t1!`
