@@ -235,7 +235,7 @@ image::images/kiali-login.png[width="50%"]
 . Select the *Edge Labels* drop-down list
 .. Select the option for *Requests percent of total*
 
-* Confirm that half of the requests above go to `v1` and the other half to `v2`.
+* Confirm that half of the requests above go to `catalog-v1` and the other half to `catalog-v2`.
 
 image::images/v1-50-and-v2-50.png[]
 
@@ -274,7 +274,7 @@ catalog-v2-7764964564-d8qwp   2/2       Running   0          49s
 
 . Move back to the Kiali web console
 
-* Notice that *double* the number of requests are sent to `v2` than for `v1`:
+* Notice that *double* the number of requests are sent to `catalog-v2` than for `catalog-v1`:
 
 TODO: add image
 
