@@ -276,7 +276,7 @@ catalog-v2-7764964564-d8qwp   2/2       Running   0          49s
 
 * Notice that *double* the number of requests are sent to `catalog-v2` than for `catalog-v1`:
 
-TODO: add image
+image::images/v1-and-v2-2pods.png[]
 
 . Move back to Terminal #1 and scale back to a single pod for the `catalog-v2` deployment:
 +
@@ -286,7 +286,7 @@ oc scale --replicas=1 deployment/catalog-v2
 
 . View the Kiala web console and confirm that the requests are split evenly between `v1` and `v2`.
 
-TODO: add image
+NOTE: It will take a while for traffic to stabilize. You can change the refresh options to *Every 5 secs* for more frequent updates.
 
 == Send all traffic to `catalog:v2`
 
@@ -340,7 +340,9 @@ NOTE: Your OCP user has been provided with the ability to impersonate the system
 . View the Kiala web console and confirm that all requests are being routed to
 `catalog:v2`.
 
-TODO: add image
+image::images/v2-100.png[]
+
+NOTE: It will take a while for traffic to stabilize.
 
 == Send all traffic to `catalog:v1`
 
@@ -377,9 +379,9 @@ oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
 NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
 
 . View the Kiala web console and confirm that all requests are being routed to
-`catalog:v2`.
+`catalog:v1`.
 
-TODO: add image
+image::images/v1-100.png[]
 
 . Remove the route rules to get back to default round-robin distribution
 of requests.
@@ -390,7 +392,7 @@ oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT 
 
 * View the Kiala web console and confirm that traffic is equally split once again between `v1` and `v2`.
 
-TODO: add image
+image::images/v1-50-and-v2-50.png[]
 
 == Use a Canary Deployment to slowly rollout `v2`
 
@@ -437,8 +439,6 @@ traffic over to the new version as it proves its worth in production over time.
 +
 NOTE: You will not see the EXACT percentage of requests. This is just an approximation.
 
-TODO: add image
-
 . Now let's shift the traffic to 40% to v1 and 60% to v2.
 +
 ----
@@ -446,8 +446,6 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUT
 ----
 
 . View the Kiala web console and confirm the traffic results: 40% to v1 and 60% to v2.
-
-TODO: add image
 
 . And shift the traffic to 10% to v1 and 90% to v2.
 +
@@ -457,8 +455,6 @@ oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUT
 
 . View the Kiala web console and confirm the traffic results: 10% to v1 and 90% to v2.
 
-TODO: add image
-
 . Finally, let's move everything over to v2.
 +
 ----
@@ -467,7 +463,6 @@ oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT
 
 . View the Kiala web console and confirm the traffic results: 100% to v2.
 
-TODO: add image
 
 == Smart Routing based on User-Agent
 
