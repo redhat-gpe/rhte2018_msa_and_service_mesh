@@ -328,7 +328,7 @@ spec:
 
 . Route all traffic to `v2` using the configuration file.
 
-. Move back to Terminal #1 and enter the following commands:
+.. Move back to Terminal #1 and enter the following commands:
 +
 ----
 cd ~/lab/rhte-msa-and-service-mesh
@@ -430,7 +430,7 @@ spec:
 
 . Create the virtualservice that will send 70% of requests to v1 and 30% to v2.
 
-. In Terminal #1, enter the following command:
+.. In Terminal #1, enter the following command:
 +
 ----
 oc create -f istiofiles/virtual-service-catalog-v1_and_v2_70_30.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
@@ -536,7 +536,7 @@ spec:
 
 . Set Safari users to use `catalog:v2`
 
-. In Terminal #1, enter the following command:
+.. In Terminal #1, enter the following command:
 +
 ----
 oc replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
