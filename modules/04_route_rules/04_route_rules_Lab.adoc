@@ -324,7 +324,7 @@ spec:
 
 ** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 100% of traffic _(weight)_ for the catalog service will always go to pods matching the labels version: `v2`. The selection of pods here is very similar to the Kubernetes selector model for matching based on labels. So, any service within the service mesh that tries to communicate with the `catalog` service will always be routed to `v2` of the `catalog` service.
 
-Route all traffic to `v2` using the configuration file.
+. Route all traffic to `v2` using the configuration file.
 
 . Move back to Terminal #1 and enter the following commands:
 +
@@ -426,7 +426,7 @@ spec:
 
 ** This definition allows you to configure a percentage of traffic and direct it to a specific version of the `catalog` service. In this case, 70% of traffic _(weight)_ for the catalog service will go to pods matching the labels version: `v1`. The remaining 30% of traffic will be routed to `v2` of the `catalog` service.
 
-Create the virtualservice that will send 70% of requests to v1 and 30% to v2.
+. Create the virtualservice that will send 70% of requests to v1 and 30% to v2.
 
 . In Terminal #1, enter the following command:
 +
@@ -532,7 +532,7 @@ spec:
 ----
 * This definition performs a match on http headers for `baggage-user-agent`. It makes use of a regular expression to match on the string `Safari`. If there is a match then the traffic is routed to `catalog:v2`. Else, all other traffic is routed to `catalog:v1`.
 
-Set Safari users to use `catalog:v2`
+. Set Safari users to use `catalog:v2`
 
 . In Terminal #1, enter the following command:
 +
