@@ -219,7 +219,7 @@ echo $KIALI_URL
 
 . Start a web browser on your computer and vist the URL for `$KIALI_URL`
 +
-image::images/kiali-login.png[]
+image::images/kiali-login.png[width="50%"]
 
 . At the login screen, enter the default credentials:
 * Username: *admin*
