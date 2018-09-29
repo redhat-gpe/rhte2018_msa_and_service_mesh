@@ -570,7 +570,7 @@ gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 174
 
 == Clean Up
 
-. Remove the route rules before moving on:
+. In Terminal #1, remove the route rules before moving on:
 +
 ----
 scripts/clean.sh $OCP_TUTORIAL_PROJECT
