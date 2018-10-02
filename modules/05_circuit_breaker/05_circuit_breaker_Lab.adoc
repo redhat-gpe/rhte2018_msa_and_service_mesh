@@ -88,7 +88,8 @@ catalog-v2-7764964564-8h2zt   2/2       Running   0          34s
 
 * To exit, press Ctrl+C.
 
-. Test that the 3 second delay works as expected:
+. Test that the 3 second delay works as expected.
+.. Move to Terminal 2 and execute the following:
 +
 ----
 while true ; do time curl $GATEWAY_URL ; sleep .1 ; done

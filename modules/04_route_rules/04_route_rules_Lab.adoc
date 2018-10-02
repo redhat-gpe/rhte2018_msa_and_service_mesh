@@ -284,7 +284,7 @@ image::images/v1-and-v2-2pods.png[width="70%"]
 oc scale --replicas=1 deployment/catalog-v2
 ----
 
-. View the Kiala web console and confirm that the requests are split evenly between `v1` and `v2`.
+. View the Kiali web console and confirm that the requests are split evenly between `v1` and `v2`.
 
 NOTE: It will take a while for traffic to stabilize. You can change the refresh options to *Every 5 secs* for more frequent updates.
 
@@ -339,7 +339,7 @@ oc create -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT 
 +
 NOTE: Your OCP user has been provided with the ability to impersonate the system:admin user so as to execute this command. Please use this capability with caution. In a real-world setting, you would have coordinated with a team-member who does with cluster admin rights to execute this command for you. 
 
-. View the Kiala web console and confirm that all requests are being routed to
+. View the Kiali web console and confirm that all requests are being routed to
 `catalog:v2`.
 
 image::images/v2-100.png[width="70%"]
@@ -380,7 +380,7 @@ oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT
 +
 NOTE: We use `oc replace` instead of `oc create` since we are overlaying the previous rule
 
-. View the Kiala web console and confirm that all requests are being routed to
+. View the Kiali web console and confirm that all requests are being routed to
 `catalog:v1`.
 +
 image::images/v1-100.png[width="70%"]
@@ -392,7 +392,7 @@ of requests.
 oc delete -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-* View the Kiala web console and confirm that traffic is equally split once again between `v1` and `v2`.
+* View the Kiali web console and confirm that traffic is equally split once again between `v1` and `v2`.
 
 image::images/v1-50-and-v2-50.png[width="70%"]
 
@@ -436,7 +436,7 @@ spec:
 oc create -f istiofiles/virtual-service-catalog-v1_and_v2_70_30.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. View the Kiala web console. Overtime you will see approximately 70% going to `v1`. You should see approximately 30% going to `v2`. This process can be continued (and automated), slowly migrating
+. View the Kiali web console. Overtime you will see approximately 70% going to `v1`. You should see approximately 30% going to `v2`. This process can be continued (and automated), slowly migrating
 traffic over to the new version as it proves its worth in production over time.
 +
 NOTE: You will not see the EXACT percentage of requests. This is just an approximation.
@@ -449,7 +449,7 @@ image::images/v1-70-and-v2-30.png[width="70%"]
 oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_40_60.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. View the Kiala web console and confirm the traffic results: 40% to v1 and 60% to v2.
+. View the Kiali web console and confirm the traffic results: 40% to v1 and 60% to v2.
 +
 image::images/v1-40-and-v2-60.png[width="70%"]
 
@@ -459,7 +459,7 @@ image::images/v1-40-and-v2-60.png[width="70%"]
 oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_10_90.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. View the Kiala web console and confirm the traffic results: 10% to v1 and 90% to v2.
+. View the Kiali web console and confirm the traffic results: 10% to v1 and 90% to v2.
 +
 image::images/v1-10-and-v2-90.png[width="70%"]
 
@@ -469,7 +469,7 @@ image::images/v1-10-and-v2-90.png[width="70%"]
 oc replace -f istiofiles/virtual-service-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. View the Kiala web console and confirm the traffic results: 100% to v2.
+. View the Kiali web console and confirm the traffic results: 100% to v2.
 +
 image::images/v2-100.png[width="70%"]
 
