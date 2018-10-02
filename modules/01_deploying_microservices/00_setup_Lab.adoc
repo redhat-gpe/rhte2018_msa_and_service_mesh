@@ -34,7 +34,7 @@ This GUID will be used to access the lab environment.
 +
 image::images/00_setup_guid_grabber_landing_page.png[GUID Grabber Landing Page]
 
-. From this page select the *Lab Code* :  _*A1001*_
+. From this page select the *Lab Code* :  *_A1001_*
 
 . Enter the *Activation Key*: _*rhoar*_
 
