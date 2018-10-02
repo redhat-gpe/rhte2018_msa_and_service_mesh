@@ -578,6 +578,8 @@ gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 174
 scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
 
+. In Terminal #2, stop the running script.
+
 == Congratulations!
 
 In this lab you learned how to deploy microservices to form a _service mesh_ using Istio.
