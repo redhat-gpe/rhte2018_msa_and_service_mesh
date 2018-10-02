@@ -162,12 +162,14 @@ sys 0m0.006s
 ----
 * This confirms the 1 second timeout for `catalog:v2` is working as expected.
 
-. Press CTRL+C to exit the script.
+. Move back to the Kiali web console
+.. Observe the traffic being sent to `catalog:v2`
 
 === Clean up
 Let's now clean up the timeout istio rule and revert back to the non-delayed catalog-v2.
 
-. Edit the file the CatalogVerticle:
+. Move to Terminal #1,
+.. Edit the file the `CatalogVerticle.java`:
 +
 ----
 vi src/main/java/com/redhat/developer/demos/catalog/CatalogVerticle.java
@@ -198,25 +200,10 @@ oc delete pod -l app=catalog,version=v2
 oc delete virtualservice catalog --as=system:admin
 ----
 
-. Test the app again.
-+
-----
-~/lab/rhte-msa-and-service-mesh/scripts/run.sh 10
-----
-* Make sure it alternates between `catalog:v1` and `catalog:v2`. The app should not have any delay.
-+
-----
-gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 95
-gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 1
-gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 96
-gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 2
-gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 97
-gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 3
-gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 98
-gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 4
-gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 99
-gateway => partner => catalog v2 from '7d66bdd7d7-zl7ls': 5
-----
+* View the Kiali web console and confirm that traffic is equally split once again between `v1` and `v2`.
+
+image::images/v1-50-and-v2-50.png[width="70%"]
+
 
 == Pool Ejection
 Pool ejection or outlier detection is a resilience strategy that takes place whenever we have a pool of instances/pods to serve a client request. If the request is forwarded to a certain instance and it fails (e.g. returns a 50x error code), then Istio will eject this instance from the pool for a certain sleep window. In our example the sleep window is configured to be 15s. This increases the overall availability by making sure that only healthy pods participate in the pool of instances.
