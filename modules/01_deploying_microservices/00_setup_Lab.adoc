@@ -58,7 +58,9 @@ Clicking *Reset Workstation* will not stop or delete the lab environment.
 
 == Environment Variables
 
-Once you've ssh'd into your remote terminal window, you'll want to set the following environment variables:
+Once you've ssh'd into your remote terminal window, you'll want to set up environment variables.
+
+. In your terminal, execute the following commands:
 
 -----
 #  Using the above variables, copy & paste the following in the same terminal #
