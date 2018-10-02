@@ -22,8 +22,8 @@ Your lab environment consists of the following:
 
 . *Remote Virtual Machine*
 +
-Accessible via the ssh protocol.
-It is pre-installed with _OpenShift Container Platform_ and _Istio_.
+** Accessible via the ssh protocol.
+** It is pre-installed with _OpenShift Container Platform_ and _Istio_.
 
 == Access Course VM via `GUID Grabber`
 
@@ -34,9 +34,9 @@ This GUID will be used to access the lab environment.
 +
 image::images/00_setup_guid_grabber_landing_page.png[GUID Grabber Landing Page]
 
-. From this page select the *Lab Code* :  _A1001_
+. From this page select the *Lab Code* :  _*A1001*_
 
-. Enter the *Activation Key* provided by the lab instructor.
+. Enter the *Activation Key*: _*rhoar*_
 
 . Click *Next*.
 
