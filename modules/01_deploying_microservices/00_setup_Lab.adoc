@@ -36,7 +36,7 @@ image::images/00_setup_guid_grabber_landing_page.png[GUID Grabber Landing Page]
 
 . From this page select the *Lab Code* :  *_A1001_*
 
-. Enter the *Activation Key*: _*rhoar*_
+. Enter the *Activation Key*: *_rhoar_*
 
 . Click *Next*.
 
