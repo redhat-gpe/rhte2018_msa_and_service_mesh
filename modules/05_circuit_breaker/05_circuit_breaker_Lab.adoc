@@ -165,7 +165,7 @@ sys 0m0.006s
 * Let this script continue to run.
 
 . Move back to the Kiali web console
-.. Observe the traffic being sent to `catalog:v2`
+.. Observe the 5xx errors for the `catalog` service.
 
 === Clean up
 Let's now clean up the timeout istio rule and revert back to the non-delayed catalog-v2.
