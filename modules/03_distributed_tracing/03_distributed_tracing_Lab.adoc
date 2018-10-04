@@ -51,7 +51,7 @@ To implement tracing, the application needs to create a collection of â€œSpansâ€
 . Using a text editor, view the code for the `GatewayController.java`
 +
 ----
-cd ~/lab/rhte-msa-service-mesh/gateway/java/springboot/src/main/java
+cd ~/lab/rhte-msa-and-service-mesh/gateway/java/springboot/src/main/java
 
 vi com/redhat/developer/demos/gateway/GatewayController.java
 ----
