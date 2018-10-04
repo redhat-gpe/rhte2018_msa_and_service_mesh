@@ -320,7 +320,7 @@ gateway-7b6bb9dcf7-zb8br      2/2       Running   0          1m
 
 . Since the `gateway` service is the one our users will interact with. Here is the application architecture:
 +
-image::images/app-architecture.png[]
+image::images/app-architecture.png[width="60%"]
 
 
 . Let’s add an OpenShift Route that exposes that endpoint.
