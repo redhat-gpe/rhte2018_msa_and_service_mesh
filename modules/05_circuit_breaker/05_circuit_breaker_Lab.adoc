@@ -247,7 +247,7 @@ catalog-v2-7764964564-hrjq5   2/2       Running   0          56s
 === Test behavior without failing instances
 
 . View the Kiali web console.
-* You will notice that *double* the number of requests are sent to `v2` than for `v1`:
+* You will notice that more requests are sent to `v2` than for `v1`:
 
 . Move back to *Terminal #2* and view the logs
 * Within version v2, you will also see that some requests are handled by one pod and some requests are handled by the other pod.
@@ -313,7 +313,7 @@ gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 233
 
 === Test behavior with failing instance and with pool ejection
 
-If the request is forwarded to a certain instance and it fails (e.g. returns a 50x error code), then Istio will eject this instance from the pool for a certain sleep window. In our example the sleep window is configured to be 15s. This increases the overall availability by making sure that only healthy pods participate in the pool of instances.
+If the request is forwarded to a certain instance and it fails (e.g. returns a 5xx error code), then Istio will eject this instance from the pool for a certain sleep window. In our example the sleep window is configured to be 15s. This increases the overall availability by making sure that only healthy pods participate in the pool of instances.
 
 . Below is an istio configuration file pool ejection. 
 
