@@ -219,6 +219,7 @@ First, you need to insure you have a destinationrule and virtualservice in place
 cd ~/lab/rhte-msa-and-service-mesh/
 
 oc create -f istiofiles/destination-rule-catalog-v1-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
+
 oc create -f istiofiles/virtual-service-catalog-v1_and_v2_50_50.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
