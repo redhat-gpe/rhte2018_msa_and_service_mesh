@@ -73,8 +73,6 @@ curl https://raw.githubusercontent.com/kiali/kiali/master/deploy/openshift/kiali
 oc project istio-system
 oc get pods -w
 ----
-+
-NOTE: Installing Kiali may take 2 - 5 minutes. During this time, the pod for *kiali-xx-yy* may not initially appear in the list of pods.
 
 * Wait until the status for *kiali-xx-yy* is `Running` and there are `1/1` pods in the
 `Ready` column. 
