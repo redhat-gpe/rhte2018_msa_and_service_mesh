@@ -202,9 +202,9 @@ oc delete pod -l app=catalog,version=v2
 oc delete virtualservice catalog --as=system:admin
 ----
 
-. In *Terminal #2*, stop the running script with CTRL+C.
-
-. Start the following script:
+. In *Terminal #2*:
+.. Stop the running script with CTRL+C.
+.. Start the following script:
 +
 ----
 ~/lab/rhte-msa-and-service-mesh/scripts/run-all.sh
