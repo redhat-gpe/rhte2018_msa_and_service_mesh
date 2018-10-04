@@ -95,7 +95,7 @@ public class GatewayController {
 
 . Exit vi
 
-. Since we are using Java there is a no-code approach that simply requires a few lines added to your Maven POM file and setting some environment variables. These lines are in the `pom.xml' file. This will trigger the injection of the Jaeger Tracer Resolver.
+. Since we are using Java there is a no-code approach that simply requires a few lines added to your Maven POM file and setting some environment variables. These lines are in the `pom.xml` file. This will trigger the injection of the Jaeger Tracer Resolver.
 +
 ----
         <dependency>
