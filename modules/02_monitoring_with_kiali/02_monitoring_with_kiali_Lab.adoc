@@ -178,6 +178,8 @@ image::images/kiali-service-graph.png[]
 
 NOTE: Earlier we deployed microservices for gateway, partner and catalog. Notice how they are connected as `gateway -> partner -> catalog`. At the moment, we only have `v1` versions of the services. In later labs we'll add more versions of the services.
 
+. Select the *Namespace* drop-down list and choose *developer-istio-tutorial*
+* This narrows down the scope to only services in our *developer-istio-tutorial*
 
 
 == View Animations in the Service Graph
