@@ -96,6 +96,7 @@ public class GatewayController {
 . Exit vi
 
 . Since we are using Java there is a no-code approach that simply requires a few lines added to your Maven POM file and setting some environment variables. These lines are in the `pom.xml` file. This will trigger the injection of the Jaeger Tracer Resolver.
+* POM file location: `~/lab/rhte-msa-service-mesh/gateway/java/springboot/pom.xml`
 +
 ----
         <dependency>
@@ -210,7 +211,7 @@ With the proper tracing in place, Istio’s out-of-the-box experience allows us 
 echo $JAEGER_URL
 ----
 
-* If the Grafana URL is not set, you can use the following command
+* If the Jaeger URL is not set, you can use the following command
 +
 ----
 export JAEGER_URL=http://$(oc get route tracing -n istio-system -o template --template='{{.spec.host}}')
