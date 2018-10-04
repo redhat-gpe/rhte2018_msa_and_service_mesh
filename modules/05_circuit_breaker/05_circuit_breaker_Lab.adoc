@@ -41,7 +41,7 @@ scripts/clean.sh $OCP_TUTORIAL_PROJECT
 
 In this section, you will induce timeout for the catalog service as part of Istio Service Mesh. With timeout set the service mesh will return failure if it does not get response within *N* seconds.
 
-. Edit the file the CatalogVerticle:
+. In **Terminal #1**, edit the file the CatalogVerticle:
 +
 ----
 cd ~/lab/rhte-msa-and-service-mesh/catalog/java/vertx
@@ -170,7 +170,7 @@ sys 0m0.006s
 === Clean up
 Let's now clean up the timeout istio rule and revert back to the non-delayed catalog-v2.
 
-. Move to Terminal #1,
+. Move to *Terminal #1*,
 .. Edit the file the `CatalogVerticle.java`:
 +
 ----
@@ -213,7 +213,7 @@ Pool ejection or outlier detection is a resilience strategy that takes place whe
 First, you need to insure you have a destinationrule and virtualservice in place to send traffic to the services. 
 
 . Configure the rules to split the traffic 50/50.
-.. In Terminal #1, enter the following commands:
+.. In *Terminal #1*, enter the following commands:
 +
 ----
 cd ~/lab/rhte-msa-and-service-mesh/
@@ -248,13 +248,13 @@ catalog-v2-7764964564-hrjq5   2/2       Running   0          56s
 . View the Kiali web console.
 * You will notice that *double* the number of requests are sent to `v2` than for `v1`:
 
-. Move back to Terminal #2 and view the logs
+. Move back to *Terminal #2* and view the logs
 * Within version v2, you will also see that some requests are handled by one pod and some requests are handled by the other pod.
 
 === Test behavior with failing instance and without pool ejection
 
 . Get the name of the pods for catalog v2
-.. In Terminal #1, enter the following command:
+.. In *Terminal #1*, enter the following command:
 +
 ----
 oc get pods -l app=catalog,version=v2
@@ -292,7 +292,7 @@ exit
 ----
 * This is a special endpoint that will make our application always return `503` errors.
 
-. Now move back to Terminal #2
+. Now move back to *Terminal #2*
 * You should see:
 +
 ----
@@ -360,13 +360,13 @@ spec:
 ** This definition sets up the `outlierDetection`. It configures upstream hosts to be scanned every 5 seconds (`interval`), such that any host that fails 1 consecutive times (`consecutiveErrors`) with 5XX error code will be ejected for 15 seconds (`baseEjectionTime`).
 
 . Now let’s add the pool ejection behavior:
-.. In Terminal #1, enter the following command:
+.. In *Terminal #1*, enter the following command:
 +
 ----
 oc replace -f istiofiles/destination-rule-catalog_cb_policy_pool_ejection.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-* In Terminal #2, you should see: 
+* In *Terminal #2*, you should see: 
 +
 ----
 gateway => partner => catalog v2 from '7764964564-hrjq5': 4
@@ -426,13 +426,13 @@ spec:
 ** This definition sets up the retry configuration (`retries`). It will perform 3 attempts and uses 4 second per try timeout.
 
 . Add a retry configuration
-.. In Terminal #1, enter the following command:
+.. In *Terminal #1*, enter the following command:
 +
 ----
 oc replace -f istiofiles/virtual-service-catalog-v1_and_v2_retry.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. In Terminal #2, you should see:
+. In *Terminal #2*, you should see:
 +
 ----
 gateway => partner => catalog v1 from '6b576ffcf8-g6b48': 256
@@ -467,7 +467,7 @@ oc scale deployment catalog-v2 --replicas=1
 scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
 
-. In Terminal #2, stop the running script.
+. In *Terminal #2*, stop the running script.
 
 == Congratulations!
 
