@@ -175,7 +175,7 @@ through then. On this page, you can see how the services interact with each
 other. You can zoom in/out on this page.
 
 image::images/kiali-service-graph.png[]
-
++
 NOTE: Earlier we deployed microservices for gateway, partner and catalog. Notice how they are connected as `gateway -> partner -> catalog`. At the moment, we only have `v1` versions of the services. In later labs we'll add more versions of the services.
 
 . Select the *Namespace* drop-down list and choose *developer-istio-tutorial*
