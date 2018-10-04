@@ -547,10 +547,9 @@ gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 174
 . In *Terminal #1*, remove the route rules before moving on:
 +
 ----
-scripts/clean.sh $OCP_TUTORIAL_PROJECT
+~/lab/rhte-msa-and-service-mesh/scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
 
-. In *Terminal #2*, stop the running script.
 
 == Congratulations!
 
