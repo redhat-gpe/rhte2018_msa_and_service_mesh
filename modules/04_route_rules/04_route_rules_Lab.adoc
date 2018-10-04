@@ -119,11 +119,11 @@ ssh lab-user@bastion.${OCP_REGION}.rhte.opentlc.com
 ----
 * When prompted for password, enter: `r3dh4t1!`
 
-* We will refer to this new terminal as Terminal #2.
+* We will refer to this new terminal as *Terminal #2*.
 
 == Test the Gateway service
 
-. Move to your new terminal, Terminal #2
+. Move to your new terminal, *Terminal #2*
 . Now let's send some requests to the gateway service
 +
 ----
@@ -180,7 +180,7 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 7
 
 == Observe Service Mesh Traffic with Kiali
 
-. Move to your original terminal windows (Terminal #1)
+. Move to your original terminal windows (*Terminal #1*)
 
 . Display the `KIALI_URL`
 +
@@ -217,7 +217,7 @@ available pods behind a single Service.
 
 Now let's see how traffic is routed if we add multiple pods for a given service version.
 
-. Move back to Terminal #1 and scale up the number of pods for the `catalog-v2` pod:
+. Move back to *Terminal #1* and scale up the number of pods for the `catalog-v2` pod:
 +
 ----
 oc scale --replicas=2 deployment/catalog-v2
@@ -249,7 +249,7 @@ catalog-v2-7764964564-d8qwp   2/2       Running   0          49s
 +
 image::images/v1-and-v2-2pods.png[width="70%"]
 
-. Move back to Terminal #1 and scale back to a single pod for the `catalog-v2` deployment:
+. Move back to *Terminal #1* and scale back to a single pod for the `catalog-v2` deployment:
 +
 ----
 oc scale --replicas=1 deployment/catalog-v2
@@ -299,7 +299,7 @@ spec:
 
 . Route all traffic to `v2` using the configuration file.
 
-.. Move back to Terminal #1 and enter the following commands:
+.. Move back to *Terminal #1* and enter the following commands:
 +
 ----
 cd ~/lab/rhte-msa-and-service-mesh
@@ -344,7 +344,7 @@ spec:
 
 * Now let's move everyone to catalog service `v1`.
 
-. In Terminal #1, enter the following commands:
+. In *Terminal #1*, enter the following commands:
 +
 ----
 oc replace -f istiofiles/virtual-service-catalog-v1.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
@@ -402,7 +402,7 @@ spec:
 
 . Create the virtualservice that will send 70% of requests to v1 and 30% to v2.
 
-.. In Terminal #1, enter the following command:
+.. In *Terminal #1*, enter the following command:
 +
 ----
 oc create -f istiofiles/virtual-service-catalog-v1_and_v2_70_30.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
@@ -508,17 +508,17 @@ spec:
 
 . Set Safari users to use `catalog:v2`
 
-.. In Terminal #1, enter the following command:
+.. In *Terminal #1*, enter the following command:
 +
 ----
 oc replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n $OCP_TUTORIAL_PROJECT --as=system:admin
 ----
 
-. Move to Terminal #2 where your script is running.
+. Move to *Terminal #2* where your script is running.
 
 . Press CTRL+C to stop the script
 
-. In Terminal #2, test the app using a Safari user agent.
+. In *Terminal #2*, test the app using a Safari user agent.
 +
 ----
 curl -A Safari $GATEWAY_URL
@@ -544,13 +544,13 @@ gateway => partner => catalog v1 from '57bcbf87dc-7zpmm': 174
 
 == Clean Up
 
-. In Terminal #1, remove the route rules before moving on:
+. In *Terminal #1*, remove the route rules before moving on:
 +
 ----
 scripts/clean.sh $OCP_TUTORIAL_PROJECT
 ----
 
-. In Terminal #2, stop the running script.
+. In *Terminal #2*, stop the running script.
 
 == Congratulations!
 
