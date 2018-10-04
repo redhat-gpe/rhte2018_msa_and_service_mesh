@@ -516,7 +516,7 @@ oc replace -f istiofiles/virtual-service-safari-catalog-v2.yml -n $OCP_TUTORIAL_
 
 . Move to *Terminal #2* where your script is running.
 
-. Press CTRL+C to stop the script
+.. Press CTRL+C to stop the script
 
 . In *Terminal #2*, test the app using a Safari user agent.
 +
