@@ -181,8 +181,6 @@ image::images/kiali-service-graph.png[]
 
 NOTE: Earlier we deployed microservices for gateway, partner and catalog. Notice how they are connected as `gateway -> partner -> catalog`. At the moment, we only have `v1` versions of the services. In later labs we'll add more versions of the services.
 
-
-
 == View Animations in the Service Graph
 
 . In the *Graph* screen, select the *Display* drop-down list
