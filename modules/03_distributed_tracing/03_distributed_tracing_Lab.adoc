@@ -57,7 +57,7 @@ vi com/redhat/developer/demos/gateway/GatewayController.java
 ----
 
 NOTE: Don't make any changes to this code. We are only reviewing the code.
-
++
 . The following Java code, using Spring Boot, gives an example of adding an OpenTracer to your application.
 +
 ----
