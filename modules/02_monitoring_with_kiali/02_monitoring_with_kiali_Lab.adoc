@@ -173,7 +173,7 @@ scripts/run-all.sh
 * This page shows a graph with all the microservices, connected by the requests going
 through then. On this page, you can see how the services interact with each
 other. You can zoom in/out on this page.
-
++
 image::images/kiali-service-graph.png[]
 
 . Select the *Namespace* drop-down list and choose *developer-istio-tutorial*
