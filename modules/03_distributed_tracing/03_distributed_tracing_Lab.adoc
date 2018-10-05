@@ -96,7 +96,7 @@ public class GatewayController {
 . Exit vi
 
 . Since we are using Java there is a no-code approach that simply requires a few lines added to your Maven POM file and setting some environment variables. These lines are in the `pom.xml` file. This will trigger the injection of the Jaeger Tracer Resolver.
-* POM file location: `~/lab/rhte-msa-service-mesh/gateway/java/springboot/pom.xml`
+* POM file location: `~/lab/rhte-msa-and-service-mesh/gateway/java/springboot/pom.xml`
 +
 ----
         <dependency>
@@ -107,7 +107,7 @@ public class GatewayController {
 ----
 
 . In the Docker build configuration file (Dockerfile), the environment variables are set. 
-* Docker file location: `~/lab/rhte-msa-service-mesh/gateway/java/springboot/Docker`
+* Docker file location: `~/lab/rhte-msa-and-service-mesh/gateway/java/springboot/Docker`
 +
 ----
 FROM fabric8/java-jboss-openjdk8-jdk:1.3.1
