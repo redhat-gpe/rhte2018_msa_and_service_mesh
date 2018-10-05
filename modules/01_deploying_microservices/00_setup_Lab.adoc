@@ -152,24 +152,6 @@ oc delete all --all -n developer-coolstore-gateway
 oc delete project developer-coolstore-gateway
 -----
 
-== View OpenShift Web Console
-
-. Log into OpenShift Web Console
-.. Many OpenShift related tasks found in this lab can be completed in the Web Console (as an alternative to using the `oc` utility.
-.. To access the OCP web console, point to your browser to the output of the following:
-+
------
-echo -en "\n\nhttps://$OCP_DOMAIN:8443\n\n"
------
-+
-NOTE: If your web browser prompts about `connection privacy / security`, select `Advanced` and continue.
-+
-.. Authenticate using the values of `developer` and `r3dh4t1!`
-
-* You should see:
-+
-image::images/00_openshift-web-console-projects.png[OpenShift Web Projects]
-
 == Congratulations!
 
 In this lab you successfully completed the intial set up.
