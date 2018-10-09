@@ -53,10 +53,8 @@ To implement tracing, the application needs to create a collection of â€œSpansâ€
 ----
 cd ~/lab/rhte-msa-and-service-mesh/gateway/java/springboot/src/main/java
 
-vi com/redhat/developer/demos/gateway/GatewayController.java
+more com/redhat/developer/demos/gateway/GatewayController.java
 ----
-+
-NOTE: Don't make any changes to this code. We are only reviewing the code.
 
 . The following Java code, using Spring Boot, gives an example of adding an OpenTracer to your application.
 +
@@ -93,9 +91,7 @@ public class GatewayController {
      }
 ----
 
-. Exit vi
-
-. Since we are using Java there is a no-code approach that simply requires a few lines added to your Maven POM file and setting some environment variables. These lines are in the `pom.xml` file. This will trigger the injection of the Jaeger Tracer Resolver.
+. Since we are using Java there is a no-code approach that simply requires a few lines added to your Maven POM file and setting some environment variables. These lines are in the `pom.xml` file. When Spring sees the Jaegor JAR files on the classpath, Spring will inject the Jaeger Tracer Resolver.
 * POM file location: `~/lab/rhte-msa-and-service-mesh/gateway/java/springboot/pom.xml`
 +
 ----
