@@ -182,3 +182,31 @@ systemctl status oc-cluster.service
 -----
 systemctl restart oc-cluster.service
 -----
+
+=== Optional:  Lab Environment Provisioning
+
+This section is offered to those that are interested in setting up an environment to support this lab using their own resources.
+
+==== RHPDS
+
+Lab environments will soon be available in _Red Hat Partner Demo System_ (RHPDS).
+
+More information about this will provided here within the month (Oct. 2018)
+
+==== Ansible Roles
+
+The lab environment can be provisioned via the following ansible roles:
+
+. *ocp-workload-istio-community*
++
+The link:https://github.com/sborenst/ansible_agnostic_deployer/tree/development/ansible/roles/ocp-workload-istio-community[ocp-workload-istio-community] ansible role will layer Istio on a a pre-existing OCP 3.10 environment.
++
+This role should be executed on an OCP environment dedicated to a student (ie:  using oc cluster up ).
+This role is applied to the same OCP environment utilized by the _ocp-workload-rhte-mw-msa-mesh_ role.
+
+. *ocp-workload-rhte-mw-msa-mesh*
++
+The link:https://github.com/sborenst/ansible_agnostic_deployer/tree/development/ansible/roles/ocp-workload-rhte-mw-msa-mesh[ocp-workload-rhte-mw-msa-mesh] ansible role will provision supporting lab assets (ie: the catalog service).
++
+This role should be executed on an OCP environment dedicated to a student (ie:  using oc cluster up ).
+This role is applied to the same OCP environment utilized by the _ocp-workload-istio-community_ role.
