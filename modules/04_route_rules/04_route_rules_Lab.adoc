@@ -413,7 +413,7 @@ oc create -f istiofiles/virtual-service-catalog-v1_and_v2_70_30.yml -n $OCP_TUTO
 . View the Kiali web console. Over time you will see approximately 70% going to `v1`. You should see approximately 30% going to `v2`. This process can be continued (and automated), slowly migrating
 traffic over to the new version as it proves its worth in production over time.
 +
-NOTE: You will not see the EXACT percentage of requests. This is just an approximation.
+NOTE: It will take a while for traffic to stabilize.
 +
 image::images/v1-70-and-v2-30.png[width="70%"]
 
