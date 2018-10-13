@@ -62,7 +62,7 @@ more com/redhat/developer/demos/gateway/GatewayController.java
 @RestController
 public class GatewayController {
 
-	...
+    ...
 
     @Autowired
     private Tracer tracer;
