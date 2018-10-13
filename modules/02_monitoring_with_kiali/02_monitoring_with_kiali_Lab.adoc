@@ -229,7 +229,10 @@ image::images/kiali-workloads.png[]
 The Istio configuration view allow you to browse and validate Istio configuration. The view also provides advanced filtering on navigation through Istio objects. Kiali provides inline config validation for networking objects such as VirtualServices and DestinationRules.
 
 . On the left hand panel, click the *Istio Config* link.
-* On this page, you can see all currently running config rules, such as Virtual Services, Route Rules,
+
+. Clear the filter for *developer-istio-tutorial*
+
+. On this page, you can see all currently running config rules, such as Virtual Services, Route Rules,
 Routes, Circuit Breakers, Fault Injection and so on.
 
 image::images/kiali-istio-config.png[]
