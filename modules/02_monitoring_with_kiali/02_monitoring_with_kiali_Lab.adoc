@@ -230,7 +230,7 @@ The Istio configuration view allow you to browse and validate Istio configuratio
 
 . On the left hand panel, click the *Istio Config* link.
 
-. Clear the filter for *developer-istio-tutorial*
+. Clear the namespace filter for *developer-istio-tutorial*
 
 . On this page, you can see all currently running config rules, such as Virtual Services, Route Rules,
 Routes, Circuit Breakers, Fault Injection and so on.
