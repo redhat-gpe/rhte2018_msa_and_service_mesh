@@ -36,7 +36,7 @@ NOTE: [blue]#This section is only applicable if your desire is to utilize a lab 
 . Begin by navigating to the _Cloud Forms_ environment for Red Hat Partner Demo System at:   https://rhpds.redhat.com
 . Authenticate using your _OPENTLC_ credentials (ie:  johndoe-redhat.com )
 . Navigate to the following catalog:  `Services -> Catalog -> All Services -> Red Hat Tech Exchange 2018`
-. Select the following catalog item: `3scale API Mgmt & Service Mesh`
+. Select the following catalog item: `MSA & Service Mesh using Istio`
 +
 image::images/rhpds_catalog.png[]
 . Click the `Order` button and in the following page, click the checkbox to confirm that you understand and know your runtime and expiration dates.
@@ -49,7 +49,7 @@ NOTE: [blue]#This section is applicable if you are an existing student of either
 . Begin by navigating to the _Cloud Forms_ environment for both OPEN and RHSE at:   https://labs.opentlc.com
 . Authenticate using your _OPENTLC_ credentials (ie:  johndoe-redhat.com )
 . Navigate to the following catalog:  `Services -> Catalog -> Catalog Items -> OPENTLC Middleware Solutions Labs`
-. Select the following catalog item: `3scale API Mgmt & Service Mesh`
+. Select the following catalog item: `MSA & Service Mesh using Istio`
 +
 image::images/catalog_item.png[]
 . Click `Order` at the top of the next page
