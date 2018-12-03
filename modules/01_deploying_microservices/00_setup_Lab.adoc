@@ -59,6 +59,7 @@ image::images/catalog_item.png[]
 .. *Region*: select the region you currently reside in
 .. Click `Submit` at the top of the page
 
+////
 === Access Course VM via `GUID Grabber`
 
 This section of the lab explains how to access the Red Hat Tech Exchange _GuidGrabber_ in order to obtain a GUID.
@@ -87,6 +88,7 @@ If you fail to do this, you will be locked into the GUID from the previous lab.
 +
 [NOTE]
 Clicking *Reset Workstation* will not stop or delete the lab environment.
+////
 
 === Confirmation Emails
 
@@ -205,6 +207,7 @@ Proceed to the next lab: link:01_deploying_microservices_Lab.html[*01 - Deployin
 
 == Appendix
 
+////
 === Administrative Access
 
 NOTE: This is for information only. You do not need to follow these steps.
@@ -227,6 +230,7 @@ systemctl status oc-cluster.service
 -----
 systemctl restart oc-cluster.service
 -----
+////
 
 === Optional:  Lab Environment Provisioning
 
