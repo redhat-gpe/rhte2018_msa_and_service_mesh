@@ -13,19 +13,53 @@
 
 :numbered:
 
-== Overview
+== Course Virtual Machine
 
 This first lab orients you with the course lab assets provided to you.
 
 
-Your lab environment consists of the following:
+Your lab environment consists of a single remote virtual machine that is:
 
-. *Remote Virtual Machine*
-+
 ** Accessible via the ssh protocol.
-** It is pre-installed with _OpenShift Container Platform_ and _Istio_.
+** Pre-installed with _OpenShift Container Platform_ and _Istio_.
 
-== Access Course VM via `GUID Grabber`
+=== Order VM
+This section guides you through the procedure to order the course virtual machine.
+
+There are three options for doing so. [red]#Execute only one of the options below:#
+
+
+==== Access VM via RHPDS
+
+NOTE: [blue]#This section is only applicable if your desire is to utilize a lab environment in Red Hat's _Partner Demo System_ (RHPDS)#.
+
+. Begin by navigating to the _Cloud Forms_ environment for Red Hat Partner Demo System at:   https://rhpds.redhat.com
+. Authenticate using your _OPENTLC_ credentials (ie:  johndoe-redhat.com )
+. Navigate to the following catalog:  `Services -> Catalog -> All Services -> Red Hat Tech Exchange 2018`
+. Select the following catalog item: `MSA & Service Mesh using Istio`
++
+image::images/rhpds_catalog.png[]
+. Click the `Order` button and in the following page, click the checkbox to confirm that you understand and know your runtime and expiration dates.
+. Clcik `Submit`
+
+==== Access VM via OPENTLC or RHSE
+
+NOTE: [blue]#This section is applicable if you are an existing student of either Red Hat's _Open Partner Enablement Network (OPEN)_ or Skills Exchange (RHSE) programs.#
+
+. Begin by navigating to the _Cloud Forms_ environment for both OPEN and RHSE at:   https://labs.opentlc.com
+. Authenticate using your _OPENTLC_ credentials (ie:  johndoe-redhat.com )
+. Navigate to the following catalog:  `Services -> Catalog -> Catalog Items -> OPENTLC Middleware Solutions Labs`
+. Select the following catalog item: `MSA & Service Mesh using Istio`
++
+image::images/catalog_item.png[]
+. Click `Order` at the top of the next page
+
+. In the subsequent order form, select the following:
+.. *OpenShift Container Platform version:* `3.10.34`
+.. *Region*: select the region you currently reside in
+.. Click `Submit` at the top of the page
+
+=== Access Course VM via `GUID Grabber`
 
 This section of the lab explains how to access the Red Hat Tech Exchange _GuidGrabber_ in order to obtain a GUID.
 This GUID will be used to access the lab environment.
@@ -54,7 +88,18 @@ If you fail to do this, you will be locked into the GUID from the previous lab.
 [NOTE]
 Clicking *Reset Workstation* will not stop or delete the lab environment.
 
+=== Confirmation Emails
 
+. Upon ordering your VM, you will receive several emails confirming your order.
+These emails are sent to the email associated with your OPENTLC account.
++
+The most important email is the last one which indicates completion of the provisioning of your lab environment.
+This email arrive approximately 30 minutes from the time the lab was ordered.
+[blue]#Please save this email#.
+
+. SSH access to your VM
+.. The confirmation email will provide exact details as to how to ssh into your remote lab environment.
+.. Execute the steps outlined in the email to gain access to your lab environment.
 
 == Environment Variables
 
@@ -109,7 +154,7 @@ Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: User:     dev
 Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: Password: <any value>
 Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: To login as administrator:
 Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: oc login -u system:admin
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com systemd[1]: Started OpenShift oc cluster up Service.   
+Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com systemd[1]: Started OpenShift oc cluster up Service.
 -----
 
 . Using the `oc` utility, log into OpenShift
@@ -142,7 +187,7 @@ Your OCP user has been provided with _view_ and _edit_ access to the central _is
 
 The OpenShift environment currently has other project that we are not using. We'll remove them now.
 
-. Clean up other projects. 
+. Clean up other projects.
 +
 -----
 oc delete all --all -n developer-coolstore-catalog
