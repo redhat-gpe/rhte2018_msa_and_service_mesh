@@ -51,15 +51,15 @@ export GRAFANA_URL=http://$(oc get route grafana -n istio-system -o template --t
 +
 ----
 # This command installs Kiali's configmaps
-curl https://raw.githubusercontent.com/gpe-mw-training/kiali/tree/v0.6/deploy/openshift/kiali-configmap.yaml | \
+curl https://raw.githubusercontent.com/gpe-mw-training/kiali/v0.6/deploy/openshift/kiali-configmap.yaml | \
    VERSION_LABEL=master envsubst | oc create -n istio-system -f - --as=system:admin
 
 # This command installs Kiali's secrets
-curl https://raw.githubusercontent.com/gpe-mw-training/kiali/tree/v0.6/deploy/openshift/kiali-secrets.yaml | \
+curl https://raw.githubusercontent.com/gpe-mw-training/kiali/v0.6/deploy/openshift/kiali-secrets.yaml | \
    VERSION_LABEL=master envsubst | oc create -n istio-system -f - --as=system:admin
 
 # And this command installs the Kiali service
-curl https://raw.githubusercontent.com/gpe-mw-training/kiali/tree/v0.6/deploy/openshift/kiali.yaml | \
+curl https://raw.githubusercontent.com/gpe-mw-training/kiali/v0.6/deploy/openshift/kiali.yaml | \
    IMAGE_NAME=kiali/kiali \
    IMAGE_VERSION=latest \
    NAMESPACE=istio-system \
