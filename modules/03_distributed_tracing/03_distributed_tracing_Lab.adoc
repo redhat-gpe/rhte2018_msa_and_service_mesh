@@ -48,7 +48,7 @@ The Jaeger sidecar runs the Jaeger agent, which acts as a proxy to the Jaeger co
 
 To implement tracing, the application needs to create a collection of “Spans”. Those “Spans” will be exported to Jaeger, so it can create the visualization of the tracing. A “Span” marks, among other data, an operation name, a start timestamp, a finish timestamp. The propagation of the “Span” is done by forwarding Jaeger specific HTTP Request Headers from inbound requests to outbound requests. Depending on your development language and/or your approach, this may require a small modification to your source code. 
 
-. Using a text editor, view the code for the `GatewayController.java`
+. View the code for the `GatewayController.java`
 +
 ----
 cd ~/lab/rhte-msa-and-service-mesh/gateway/java/springboot/src/main/java
