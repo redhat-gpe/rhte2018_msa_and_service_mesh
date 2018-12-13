@@ -154,7 +154,7 @@ gateway => partner => catalog v2 from '7764964564-hj8xl': 1
 
 * By default you get round-robin load-balancing when there is more than one Pod behind a Service
 
-. Send severals to the `gateway` service. 
+. Send requests to the `gateway` service. 
 +
 ----
 ~/lab/rhte-msa-and-service-mesh/scripts/run-all.sh
