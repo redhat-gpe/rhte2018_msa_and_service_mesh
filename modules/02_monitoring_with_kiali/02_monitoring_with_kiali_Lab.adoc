@@ -138,14 +138,6 @@ image::images/kiali-login.png[]
 * Username: *admin*
 * Password: *admin*
 
-== Overview Page
-
-. After you login, you should see the Overview page:
-
-* It shows the OpenShift namespaces / projects that are currently being monitored. 
-
-image::images/kiali-overview.png[]
-
 == Generating Sample Data
 
 To show the capabilities of Kiali, we need to generate some sample data. For this, we can use our `gateway` application that we deployed earlier.
