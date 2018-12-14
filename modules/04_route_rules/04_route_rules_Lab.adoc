@@ -110,13 +110,7 @@ source ~/.bashrc
 
 . Open a *new* terminal window on your computer. 
 
-.. ssh into your VM with the following command:
-+
-----
-export OCP_REGION=<<YOUR-GUID-GRABBER-NUMBER>>
-
-ssh lab-user@bastion.${OCP_REGION}.rhte.opentlc.com
-----
+. ssh into your VM using the same ssh command from your welcome email.
 * When prompted for password, enter: `r3dh4t1!`
 
 * We will refer to this new terminal as *Terminal #2*.
