@@ -113,7 +113,7 @@ Once you've ssh'd into your remote terminal window, you'll want to set up enviro
 #  Using the above variables, copy & paste the following in the same terminal #
 
 echo "export LAB_CODE=a1001" >> ~/.bashrc
-echo "export OCP_USERNAME=developer" >> ~/.bashrc
+echo "export OCP_USERNAME=user1" >> ~/.bashrc
 echo "export OCP_PASSWD=r3dh4t1\!" >> ~/.bashrc
 echo "export OCP_REGION=`echo $HOSTNAME | cut -d'.' -f2`" >> ~/.bashrc
 echo "export OCP_DOMAIN=clientvm.\$OCP_REGION.rhte.opentlc.com" >> ~/.bashrc
