@@ -192,11 +192,11 @@ The OpenShift environment currently has other project that we are not using. We'
 . Clean up other projects.
 +
 -----
-oc delete all --all -n developer-coolstore-catalog
-oc delete project developer-coolstore-catalog
+oc delete all --all -n user1-coolstore-catalog
+oc delete project user1-coolstore-catalog
 
-oc delete all --all -n developer-coolstore-gateway
-oc delete project developer-coolstore-gateway
+oc delete all --all -n user1-coolstore-gateway
+oc delete project user1-coolstore-gateway
 -----
 
 == Congratulations!
