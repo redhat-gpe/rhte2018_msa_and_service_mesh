@@ -238,9 +238,7 @@ This section is offered to those that are interested in setting up an environmen
 
 ==== RHPDS
 
-Lab environments will soon be available in _Red Hat Partner Demo System_ (RHPDS).
-
-More information about this will provided here within the month (Oct. 2018)
+Lab environments are available in _Red Hat Partner Demo System_ (RHPDS).
 
 ==== Ansible Roles
 
