@@ -92,16 +92,87 @@ Clicking *Reset Workstation* will not stop or delete the lab environment.
 
 === Confirmation Emails
 
-. Upon ordering your VM, you will receive several emails confirming your order.
-These emails are sent to the email associated with your OPENTLC account.
-+
-The most important email is the last one which indicates completion of the provisioning of your lab environment.
-This email arrive approximately 30 minutes from the time the lab was ordered.
-[blue]#Please save this email#.
+Upon ordering the lab environment, you will receive the following two emails:
 
-. SSH access to your VM
-.. The confirmation email will provide exact details as to how to ssh into your remote lab environment.
-.. Execute the steps outlined in the email to gain access to your lab environment.
+. *Your lab environment is building*
+.. Save this email.
+.. This email Includes details of the three VMs that make up your lab application similar to the following:
++
+image::images/aio_first_email.png[]
+
+.. Make note of the 4 digit GUID (aka: REGION CODE)
++
+* Whenever you see "GUID" or "$GUID" in a command, make sure to replace it with your GUID.
+
+.. Make note of the URL of the `workstation` VM.
++
+You will use this when ssh'ing to your application.
+
+.. Make note of the URL of the `master` VM.
++
+You will use this when accessing the OCP Web Console.
+
+** The OpenShift master URL varies based on the region where you are located, and may vary from the example shown above.
+** For the duration of the course, you navigate to this OpenShift Container Platform master node.
+
+. *VM ready for authentication*
++
+Once you receive this second email, you can then ssh into the `workstation` VM of your Ravello application.
+
+=== SSH Access and `oc` utility
+
+SSH access to the remote lab environment provides you with the OpenShift `oc` utility.
+
+. ssh access to the Ravello application is provided using the following convention:
++ 
+-----
+$ ssh <opentlc-userId>@<workstation URL as listed in 1st confirmation email>
+-----
+
+
+. Authenticate into OpenShift using `oc` utility
++ 
+-----
+$ oc login https://master00.example.com -u user1 -p r3dh4t1!
+-----
+
+
+. OCP cluster admin access
+.. Cluster admin access to the your OpenShift environment is provided but is not required for this course.
+.. If you need OpenShift cluster-admin access, execute the following: 
++
+-----
+$ sudo -i
+# oc whoami
+
+system:admin
+-----
++
+[blue]#Make sure to exit out of the root shell after every use#
+
+=== OCP Web Console
+
+. Point your browser to the following URL:
++
+-----
+$ https://<master node URL as listed in 1st confirmation email>
+-----
+
+. Authenticate using the following user credentials
+.. Username:    user1
+.. Password:    r3dh4t1!
+=== OCP Web Console
+
+. Point your browser to the following URL:
++
+-----
+$ https://<master node URL as listed in 1st confirmation email>
+-----
+
+. Authenticate using the following user credentials
+.. Username:    user1
+.. Password:    r3dh4t1!
+
 
 == Environment Variables
 
@@ -125,46 +196,6 @@ source ~/.bashrc
 
 == OpenShift Container Platform
 
-Your lab environment is built on Red Hat's OpenShift Container Platform.
-
-Access to your OCP resources can be gained via both the `oc` utility as well as the OCP web console.
-
-. Verify that OCP has started:
-+
------
-sudo systemctl status oc-cluster
------
-
-* You should see
-+
------
- oc-cluster.service - OpenShift oc cluster up Service
-   Loaded: loaded (/usr/lib/systemd/system/oc-cluster.service; enabled; vendor preset: disabled)
-   Active: active (exited) since Thu 2018-09-06 02:04:56 UTC; 2 days ago
-  Process: 21090 ExecStart=/bin/oc cluster up --base-dir=/var/lib/openshift --public-hostname=clientvm.7b13.rhte.opentlc.com --routing-suffix=apps.clientvm.7b13.rhte.opentlc.com --loglevel=1 (code=exited, status=0/SUCCESS)
- Main PID: 21090 (code=exited, status=0/SUCCESS)
-    Tasks: 0
-   Memory: 0B
-   CGroup: /system.slice/oc-cluster.service
-
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: Server Information ...
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: OpenShift server started.
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: The server is accessible via web console at:
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: https://clientvm.eee0.rhte.opentlc.com:8443
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: You are logged in as:
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: User:     developer
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: Password: <any value>
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: To login as administrator:
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com occlusterup[21080]: oc login -u system:admin
-Sep 10 10:10:10 clientvm.eee0.rhte.opentlc.com systemd[1]: Started OpenShift oc cluster up Service.
------
-
-. Using the `oc` utility, log into OpenShift
-+
------
-oc login https://$HOSTNAME:8443 -u $OCP_USERNAME -p $OCP_PASSWD
------
-
 . View existing projects:
 +
 -----
@@ -178,7 +209,6 @@ NAME                          DISPLAY NAME                  STATUS
 developer-coolstore-catalog   developer-coolstore-catalog   Active
 developer-coolstore-gateway   developer-coolstore-gateway   Active
 istio-system                                                Active
-myproject                     My Project                    Active
 -----
 
 * *istio-system*
@@ -192,10 +222,8 @@ The OpenShift environment currently has other project that we are not using. We'
 . Clean up other projects.
 +
 -----
-oc delete all --all -n developer-coolstore-catalog
 oc delete project developer-coolstore-catalog
 
-oc delete all --all -n developer-coolstore-gateway
 oc delete project developer-coolstore-gateway
 -----
 
