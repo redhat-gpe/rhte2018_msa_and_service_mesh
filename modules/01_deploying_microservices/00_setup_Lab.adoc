@@ -264,12 +264,6 @@ systemctl restart oc-cluster.service
 
 This section is offered to those that are interested in setting up an environment to support this lab using their own resources.
 
-==== RHPDS
-
-Lab environments will soon be available in _Red Hat Partner Demo System_ (RHPDS).
-
-More information about this will provided here within the month (Oct. 2018)
-
 ==== Ansible Roles
 
 The lab environment can be provisioned via the following ansible roles:
