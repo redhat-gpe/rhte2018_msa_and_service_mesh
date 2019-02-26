@@ -205,10 +205,10 @@ oc get projects
 * You should see:
 +
 -----
-NAME                          DISPLAY NAME                  STATUS
-developer-coolstore-catalog   developer-coolstore-catalog   Active
-developer-coolstore-gateway   developer-coolstore-gateway   Active
-istio-system                                                Active
+NAME                      DISPLAY NAME              STATUS
+istio-system                                        Active
+user1-coolstore-catalog   user1-coolstore-catalog   Active
+user1-coolstore-gateway   user1-coolstore-gateway   Active
 -----
 
 * *istio-system*
@@ -222,9 +222,9 @@ The OpenShift environment currently has other project that we are not using. We'
 . Clean up other projects.
 +
 -----
-oc delete project developer-coolstore-catalog
+oc delete project user1-coolstore-catalog
 
-oc delete project developer-coolstore-gateway
+oc delete project user1-coolstore-gateway
 -----
 
 == Congratulations!
