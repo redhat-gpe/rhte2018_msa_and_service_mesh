@@ -189,6 +189,8 @@ echo "export OCP_PASSWD=r3dh4t1\!" >> ~/.bashrc
 echo "export OCP_REGION=`echo $HOSTNAME | cut -d'.' -f2`" >> ~/.bashrc
 echo "export OCP_DOMAIN=clientvm.\$OCP_REGION.rhte.opentlc.com" >> ~/.bashrc
 echo "export OCP_TUTORIAL_PROJECT=\$OCP_USERNAME-istio-tutorial" >> ~/.bashrc
+echo "export MAVEN_HOME=/usr/local/apache-maven-3.5.4" >> ~/.bashrc
+echo "export PATH=$PATH:$MAVEN_HOME/bin" >> ~/.bashrc
 
 source ~/.bashrc
 
@@ -207,25 +209,13 @@ oc get projects
 -----
 NAME                      DISPLAY NAME              STATUS
 istio-system                                        Active
-user1-coolstore-catalog   user1-coolstore-catalog   Active
-user1-coolstore-gateway   user1-coolstore-gateway   Active
+user1-istio-tutorial   user1-istio-tutorial   Active
 -----
 
 * *istio-system*
 +
 Your OCP user has been provided with _view_ and _edit_ access to the central _istio-system_ namespace with all _control plane_ Istio functionality.
 
-== Clean up
-
-The OpenShift environment currently has other project that we are not using. We'll remove them now.
-
-. Clean up other projects.
-+
------
-oc delete project user1-coolstore-catalog
-
-oc delete project user1-coolstore-gateway
------
 
 == Congratulations!
 
