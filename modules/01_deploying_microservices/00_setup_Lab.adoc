@@ -168,9 +168,10 @@ $ https://<master node URL as listed in 1st confirmation email>
 Once you've ssh'd into your remote terminal window, you'll want to set up environment variables.
 
 . In your terminal, download istio utilities
-
-curl -L https://github.com/istio/istio/releases/download/1.0.6/istio-1.0.6-linux.tar.gz | tar -xz
-
++
+-----
+$ curl -L https://github.com/istio/istio/releases/download/1.0.6/istio-1.0.6-linux.tar.gz | tar -xz
+-----
 
 . Set up environment variables. Execute the following commands:
 -----
