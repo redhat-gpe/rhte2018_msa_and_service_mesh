@@ -50,6 +50,8 @@ image::images/app-architecture.png[width="60%"]
 
 === OpenShift access
 
+. Open a terminal window 
+
 . Switch to your tutorial project
 +
 ----
@@ -60,7 +62,7 @@ oc project $OCP_TUTORIAL_PROJECT
 
 Start by cloning the tutorial source files.
 
-. Open a terminal window and enter the following commands:
+. Enter the following commands:
 +
 ----
 mkdir ~/lab && cd "$_"
