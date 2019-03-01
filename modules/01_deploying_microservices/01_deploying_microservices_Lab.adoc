@@ -50,16 +50,10 @@ image::images/app-architecture.png[width="60%"]
 
 === OpenShift access
 
-. Create a new tutorial project
+. Switch to your tutorial project
 +
 ----
-oc new-project $OCP_TUTORIAL_PROJECT
-----
-
-. Set up permissions for the project
-+
-----
-sudo oc adm policy add-scc-to-user privileged -z default -n $OCP_TUTORIAL_PROJECT --as=system:admin
+oc project $OCP_TUTORIAL_PROJECT
 ----
 
 == Clone Source Code
