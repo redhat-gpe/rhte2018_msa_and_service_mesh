@@ -48,7 +48,7 @@ There are three microservices in this lab. Here is the application architecture:
 
 image::images/app-architecture.png[width="60%"]
 
-=== OpenShift access
+== OpenShift access
 
 . Open a terminal window 
 
