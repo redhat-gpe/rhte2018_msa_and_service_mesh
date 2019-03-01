@@ -167,8 +167,12 @@ $ https://<master node URL as listed in 1st confirmation email>
 
 Once you've ssh'd into your remote terminal window, you'll want to set up environment variables.
 
-. In your terminal, execute the following commands:
+. In your terminal, download istio utilities
 
+curl -L https://github.com/istio/istio/releases/download/1.0.6/istio-1.0.6-linux.tar.gz | tar -xz
+
+
+. Set up environment variables. Execute the following commands:
 -----
 #  Using the above variables, copy & paste the following in the same terminal #
 
@@ -180,6 +184,7 @@ echo "export OCP_DOMAIN=clientvm.\$OCP_REGION.rhte.opentlc.com" >> ~/.bashrc
 echo "export OCP_TUTORIAL_PROJECT=\$OCP_USERNAME-istio-tutorial" >> ~/.bashrc
 echo "export MAVEN_HOME=/usr/local/apache-maven-3.5.4" >> ~/.bashrc
 echo "export PATH=$PATH:/usr/local/apache-maven-3.5.4/bin" >> ~/.bashrc
+echo "export PATH=$PATH:~/istio-1.0.6/bin" >> ~/.bashrc
 
 source ~/.bashrc
 
