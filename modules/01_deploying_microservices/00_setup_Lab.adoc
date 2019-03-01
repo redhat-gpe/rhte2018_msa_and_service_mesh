@@ -162,16 +162,6 @@ $ https://<master node URL as listed in 1st confirmation email>
 .. Username:    user1
 .. Password:    r3dh4t1!
 
-. Point your browser to the following URL:
-+
------
-$ https://<master node URL as listed in 1st confirmation email>
------
-
-. Authenticate using the following user credentials
-.. Username:    user1
-.. Password:    r3dh4t1!
-
 
 == Environment Variables
 
