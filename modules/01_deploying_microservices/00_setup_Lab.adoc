@@ -198,7 +198,7 @@ oc get projects
 -----
 NAME                      DISPLAY NAME              STATUS
 istio-system                                        Active
-user1-istio-tutorial   user1-istio-tutorial   Active
+user1-istio-tutorial   user1-istio-tutorial	    Active
 -----
 
 * *istio-system*
