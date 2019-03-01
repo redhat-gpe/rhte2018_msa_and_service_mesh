@@ -148,7 +148,7 @@ $ sudo -i
 system:admin
 -----
 +
-[blue]#Make sure to exit out of the root shell after every use#
+* Make sure to exit out of the root shell after every use.
 
 === OCP Web Console
 
