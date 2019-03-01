@@ -110,7 +110,7 @@ mvn clean package
 +
 
 
-In the next step we will created Docker images for our service. We make use of Podman to create the Docker images. Podman manage pods, containers, and container images. Podman is theoretically a drop-in replacement for the `docker` command-line tool. Simply put: `alias docker=podman`. For more details on Podman, see the website: https://podman.io.
+. In the next step we will created Docker images for our service. We make use of Podman to create the Docker images. Podman manage pods, containers, and container images. Podman is theoretically a drop-in replacement for the `docker` command-line tool. Simply put: `alias docker=podman`. For more details on Podman, see the website: https://podman.io.
 
 
 . Create the docker image for the `catalog` service. Also, verify the image is in the local docker repository.
